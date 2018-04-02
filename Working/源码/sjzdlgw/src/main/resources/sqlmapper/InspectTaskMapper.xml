@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.InspectTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.InspectTask" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TaskNum" property="taskNum" jdbcType="DECIMAL" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeID" property="task_EmployeeID" jdbcType="VARCHAR" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="TaskDescription" property="taskDescription" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="WorkUserList" property="workUserList" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="StartDateTime" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="CompleteDateTime" property="completeDateTime" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="InspectTaskPageResultMap" type="com.hbdl.web.sys.controller.page.InspectTaskPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TaskNum" property="taskNum" jdbcType="DECIMAL" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+    <result column="TeamTypeName" property="teamTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="UserName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="TASK_EMPLOYEEID" property="task_EmployeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeName" property="task_EmployeeName" jdbcType="VARCHAR" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="TaskStatusTypeName" property="taskStatusTypeName" jdbcType="VARCHAR" />
+    <result column="TaskName" property="taskName" jdbcType="VARCHAR" />
+    <result column="TaskDescription" property="taskDescription" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="WorkUserList" property="workUserList" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="StartDateTime" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="CompleteDateTime" property="completeDateTime" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="DatePageMap" type="com.hbdl.web.sys.controller.page.DatePage">
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="Month" property="month" jdbcType="VARCHAR" />
+    <result column="Day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectInspectTaskPagePage" parameterType="com.hbdl.web.sys.controller.page.InspectTaskPage" resultMap="InspectTaskPageResultMap">
+  SELECT TaskNum,TeamTypeID,EmployeeID,UserName,TASK_EMPLOYEEID,TaskStatusTypeID
+   ,TaskStatusTypeName,TaskName,TaskDescription,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo
+   FROM v_InspectTask
+    <trim prefix="where" prefixOverrides="and">
+      <if test="taskStatusTypeIDList!=null">
+        <foreach collection="taskStatusTypeIDList" item="id" open="and TaskStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="taskNum!=null">
+        TaskNum=#{taskNum}
+      </if>
+      <if test="teamTypeID!=null">
+       AND TeamTypeID=#{teamTypeID}
+      </if>
+      <if test="employeeID!=null">
+        EmployeeID=#{employeeID}
+      </if>
+      <if test="task_EmployeeID!=null">
+        TASK_EMPLOYEEID=#{task_EmployeeID}
+      </if>
+      <choose>
+        <when test="planDateMin!=null and planDateMin!='' and planDateMax!=null and planDateMax!=''">
+          and PlanDate >= #{planDateMin} and PlanDate   &lt;= #{planDateMax}
+        </when>
+        <when test="planDateMin!=null and planDateMin!=''">
+          and PlanDate   >= #{planDateMin}
+        </when>
+        <when test="planDateMax!=null and planDateMax!=''">
+          and PlanDate &lt;= #{planDateMax}
+        </when>
+      </choose>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+  <select id="selectInspectTaskPagePageById" parameterType="java.math.BigDecimal" resultMap="InspectTaskPageResultMap">
+    SELECT TaskNum,TeamTypeID,EmployeeID,UserName,TASK_EMPLOYEEID,TaskStatusTypeID
+    ,TaskStatusTypeName,TaskName,TaskDescription,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo
+    FROM v_InspectTask
+    WHERE TaskNum=#{taskName}
+  </select>
+  <select id="selectDatePageFromInspectTaskPage" resultMap="DatePageMap" parameterType="java.math.BigDecimal">
+    SELECT DISTINCT to_char(PlanDate,'yyyy') AS Year FROM InspectTask it
+    where it.TeamTypeID=#{teamTypeID}
+    ORDER BY Year DESC
+  </select>
+  <select id="selectInspectTaskPageByDate" parameterType="com.hbdl.web.sys.controller.page.InspectTaskPage" resultMap="InspectTaskPageResultMap">
+    SELECT TaskNum,TeamTypeID,EmployeeID,UserName,TASK_EMPLOYEEID,TaskStatusTypeID
+    ,TaskStatusTypeName,TaskName,TaskDescription,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo
+    FROM v_InspectTask
+    <trim prefix="where" prefixOverrides="and">
+    <if test="yearList!=null">
+      <foreach collection="yearList" item="id" open="and to_char(PlanDate,'yyyy') in(" separator="," close=")">
+        #{id}
+      </foreach>
+    </if>
+      <if test="monthList!=null">
+        <foreach collection="monthList" item="id" open="and to_char(PlanDate,'MM') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="dayList!=null">
+        <foreach collection="dayList" item="id" open="and to_char(PlanDate,'dd') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="taskStatusTypeIDList!=null">
+        <foreach collection="taskStatusTypeIDList" item="id" open="and TaskStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="taskNum!=null">
+        AND TaskNum=#{taskNum}
+      </if>
+      <if test="teamTypeID!=null">
+        AND TeamTypeID=#{teamTypeID}
+      </if>
+      <if test="employeeID!=null">
+        AND EmployeeID=#{employeeID}
+      </if>
+      <if test="task_EmployeeID!=null">
+        AND TASK_EMPLOYEEID=#{task_EmployeeID}
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+    <select id="selectInspectTaskPageByWorkUsersAndDate" parameterType="com.hbdl.web.sys.api.Page.OfflineRequest" resultMap="InspectTaskPageResultMap">
+      SELECT IT.TaskNum,IT.TeamTypeID,IT.EmployeeID,IT.TASK_EMPLOYEEID,IT.TaskStatusTypeID,IT.UserName AS Task_EmployeeName,
+      IT.TaskStatusTypeName,IT.TaskName,IT.TaskDescription,IT.PlanDate,IT.WorkUserList,IT.WorkBillsCode,IT.StartDateTime,IT.CompleteDateTime,IT.Memo
+      FROM v_InspectTask it
+      LEFT OUTER JOIN Employee emp ON emp.Account=#{account}
+        <trim prefix="where" prefixOverrides="and">
+                ( emp.UserName=IT.WORKUSERLIST or IT.WORKUSERLIST like emp.UserName||',%' or IT.WORKUSERLIST like '%,'||emp.UserName or IT.WORKUSERLIST like '%,'||emp.UserName||',%' or IT.UserName=emp.UserName )
+
+            <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+                AND (IT.PlanDate BETWEEN to_date(#{startDate}, 'yyyy-MM-dd') and to_date(#{endDate}, 'yyyy-MM-dd'))
+            </if>
+        </trim>
+        and it.TaskStatusTypeID=2
+    </select>
+
+  <select id="downloadInspectTask" parameterType="hashmap" resultType="com.hbdl.web.sys.api.Page.InspectTaskPage">
+  select it.TaskNum,em.Account,it.TaskName,it.PlanDate,it.WorkBillsCode,it.TeamTypeID,it.TaskDescription
+  from InspectTask it LEFT JOIN Employee em on it.Task_EmployeeID=em.EmployeeID
+  where it.TaskStatusTypeID=2
+  <if test="Task_EmployeeID!=null and Task_EmployeeID!=''">
+    and  it.Task_EmployeeID=#{Task_EmployeeID}
+  </if>
+  <if test="TeamTypeIDs!=null">
+    and it.TeamTypeID in
+    <foreach item="TeamType" collection="TeamTypeIDs" open="(" separator="," close=")">
+      #{TeamType}
+    </foreach>
+  </if>
+    <if test="bdate!=null and edate!=null">
+      and it.PlanDate BETWEEN #{bdate} AND #{edate}
+    </if>
+    order BY it.TeamTypeID
+  </select>
+</mapper>

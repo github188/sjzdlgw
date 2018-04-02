@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.auth.mapper.RoleFunctionsMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.auth.model.RoleFunctions" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RoleFunctionID" property="roleFunctionID" jdbcType="DECIMAL" />
+    <result column="RoleNum" property="roleNum" jdbcType="DECIMAL" />
+    <result column="ApplicationModuleID" property="applicationModuleID" jdbcType="DECIMAL" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TunnelStuffTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TunnelArchivesFile" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ArchivesFileNum" property="archivesFileNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="AcceptRecordNum" property="acceptRecordNum" jdbcType="DECIMAL" />
+    <result column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="ArchivesFileTypeID" property="archivesFileTypeID" jdbcType="DECIMAL" />
+    <result column="ArchivesFileName" property="archivesFileName" jdbcType="VARCHAR" />
+    <result column="ArchivesFilePath" property="archivesFilePath" jdbcType="VARCHAR" />
+    <result column="ArchivesFileUpDate" property="archivesFileUpDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+
+</mapper>

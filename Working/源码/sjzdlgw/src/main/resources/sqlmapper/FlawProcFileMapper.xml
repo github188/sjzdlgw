@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FlawProcFileMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FlawProcFile" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FileNum" property="fileNum" jdbcType="DECIMAL" />
+    <result column="FlawProcObj" property="flawProcObj" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="ProcAdjunctFile" property="procAdjunctFile" jdbcType="VARCHAR" />
+    <result column="FilePath" property="filePath" jdbcType="VARCHAR" />
+    <result column="UpdateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="FileMemo" property="fileMemo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="PageResultMap" type="com.hbdl.web.sys.controller.page.FlawProcFilePage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FileNum" property="fileNum" jdbcType="DECIMAL" />
+    <result column="FlawProcObj" property="flawProcObj" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="UserName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="ProcAdjunctFile" property="procAdjunctFile" jdbcType="VARCHAR" />
+    <result column="FilePath" property="filePath" jdbcType="VARCHAR" />
+    <result column="UpdateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="FileMemo" property="fileMemo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectPageByFlawProcObj" parameterType="java.math.BigDecimal" resultMap="PageResultMap">
+    SELECT FileNum,FlawProcObj,EmployeeID,UserName,ProcAdjunctFile,FilePath,UpdateDate,FileMemo
+    FROM v_FlawProcFile
+    WHERE FlawProcObj=#{flawProcObj}
+  </select>
+</mapper>

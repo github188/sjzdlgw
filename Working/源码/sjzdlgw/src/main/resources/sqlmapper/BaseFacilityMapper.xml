@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.BaseFacilityMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.BaseFacility" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="AreaNum" property="areaNum" jdbcType="DECIMAL" />
+    <result column="Lon" property="lon" jdbcType="FLOAT" />
+    <result column="Lat" property="lat" jdbcType="FLOAT" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="Angle" property="angle" jdbcType="FLOAT" />
+    <result column="Heading" property="heading" jdbcType="FLOAT" />
+    <result column="Range" property="range" jdbcType="FLOAT" />
+    <result column="ViewLon" property="viewLon" jdbcType="FLOAT" />
+    <result column="ViewLat" property="viewLat" jdbcType="FLOAT" />
+    <result column="ViewHeight" property="viewHeight" jdbcType="FLOAT" />
+    <result column="ViewAngle" property="viewAngle" jdbcType="FLOAT" />
+    <result column="ViewHeading" property="viewHeading" jdbcType="FLOAT" />
+    <result column="ViewRange" property="viewRange" jdbcType="FLOAT" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="BaseFacilityDescription" property="baseFacilityDescription" jdbcType="VARCHAR" />
+    <result column="GraphID" property="graphID" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="GeomSubstationResultMap" type="com.hbdl.web.sys.map.GeomSubstation">
+    <id column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="GeomStr" property="geomStr" jdbcType="VARCHAR" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectGeomSubstation" resultMap="GeomSubstationResultMap" parameterType="java.lang.String">
+    SELECT BaseFacilityNum,GeomStr,BaseFacilityName,AssetCode FROM v_Geom_Substation
+    <trim prefix="where" prefixOverrides="and">
+      <if test="_parameter!=null and _parameter!=''">
+        SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY(#{sqlExtent,jdbcType=VARCHAR},4326)) = 'TRUE'
+      </if>
+    </trim>
+  </select>
+</mapper>

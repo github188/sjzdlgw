@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PowerLevelTunnelColorMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PowerLevelTunnelColor" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LevelTunnelNum" property="levelTunnelNum" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" jdbcType="DECIMAL" />
+    <result column="LevelTunnelName" property="levelTunnelName" jdbcType="VARCHAR" />
+    <result column="ShowColor" property="showColor" jdbcType="VARCHAR" />
+    <result column="LineWidth" property="lineWidth" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="PowerLevelTunnelColorPageResultMap" type="com.hbdl.web.sys.controller.page.PowerLevelTunnelColorPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LevelTunnelNum" property="levelTunnelNum" jdbcType="DECIMAL" />
+    <!--<result column="LevelTunnelName" property="levelTunnelName" jdbcType="VARCHAR" />-->
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="VoltageLevelName" property="voltageLevelName" jdbcType="VARCHAR" />
+    <result column="VoltageValue" property="voltageValue" jdbcType="DECIMAL" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" jdbcType="DECIMAL" />
+    <result column="TunnelStructureTypeName" property="tunnelStructureTypeName" jdbcType="VARCHAR" />
+    <result column="ShowColor" property="showColor" jdbcType="VARCHAR" />
+    <result column="LineWidth" property="lineWidth" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="selectPowerLevelTunnelColorPage" resultMap="PowerLevelTunnelColorPageResultMap" parameterType="com.hbdl.web.sys.controller.page.PowerLevelTunnelColorPage">
+    SELECT LevelTunnelNum,VoltageLevelID,VoltageLevelName,VoltageValue,TunnelStructureTypeID,TunnelStructureTypeName,ShowColor,LineWidth
+    FROM v_PowerLevelTunnelColor
+    <trim prefix="where" prefixOverrides="and">
+      <if test="voltageValue!=null and voltageValue!=''">
+        <![CDATA[ VoltageValue <= #{voltageValue,jdbcType=DECIMAL} ]]>
+      </if>
+    </trim>
+    ORDER BY VoltageValue,TunnelStructureTypeID ASC
+  </select>
+
+  <select id="selectGisDataForPowerLevelTunnelColor" resultMap="PowerLevelTunnelColorPageResultMap" parameterType="com.hbdl.web.sys.controller.page.PowerLevelTunnelColorPage">
+    with GisDataTunnelSection  as (select VoltageLevelID,TunnelStructureTypeID from v_Geom_TunnelSection group by VoltageLevelID,TunnelStructureTypeID order by VoltageLevelID)
+    select vpltc.LevelTunnelNum,vpltc.VoltageLevelID,vpltc.VoltageLevelName,vpltc.VoltageValue,vpltc.TunnelStructureTypeID,vpltc.TunnelStructureTypeName,vpltc.ShowColor,vpltc.LineWidth from v_PowerLevelTunnelColor vpltc right join GisDataTunnelSection gds on gds.VoltageLevelID=vpltc.VoltageLevelID and gds.TunnelStructureTypeID=vpltc.TunnelStructureTypeID
+    ORDER BY VoltageValue,TunnelStructureTypeID ASC
+  </select>
+</mapper>

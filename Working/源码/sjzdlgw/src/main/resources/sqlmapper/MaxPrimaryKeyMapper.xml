@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbdl.web.sys.mapper.MaxPrimaryKeyMapper">
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.MaxPrimaryKey">
+    <id column="TabName" jdbcType="VARCHAR" property="tabName" />
+    <result column="MaxVal" jdbcType="DECIMAL" property="maxVal" />
+  </resultMap>
+
+  <select id="selectMaxIdVal" parameterType="string" resultType="java.math.BigDecimal">
+       SELECT MaxVal FROM MaxPrimaryKey WHERE TabName=#{TabName}
+  </select>
+
+  <select id="selectMaxIdValForTableName" parameterType="java.util.HashMap" resultType="java.math.BigDecimal">
+      SELECT max(${Id}) FROM ${TabName}
+  </select>
+
+  <select id="selectMaxIdValWithoutLock" parameterType="string" resultType="java.math.BigDecimal">
+    SELECT MaxVal FROM MaxPrimaryKey WHERE TabName=#{TabName}
+  </select>
+
+  <update id="updateMaxIdval" parameterType="com.hbdl.web.sys.model.MaxPrimaryKey">
+    UPDATE MaxPrimaryKey SET MaxVal=#{maxVal} WHERE TabName=#{tabName}
+  </update>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.BusinessProcessTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.BusinessProcessTemplate" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TemplateID" property="templateID" jdbcType="DECIMAL" />
+    <result column="RoleNum" property="roleNum" jdbcType="DECIMAL" />
+    <result column="BusinessName" property="businessName" jdbcType="VARCHAR" />
+    <result column="BusinessCode" property="businessCode" jdbcType="VARCHAR" />
+    <result column="NodeA" property="nodeA" jdbcType="DECIMAL" />
+    <result column="NodeB" property="nodeB" jdbcType="DECIMAL" />
+    <result column="NodeC" property="nodeC" jdbcType="DECIMAL" />
+    <result column="NodeD" property="nodeD" jdbcType="DECIMAL" />
+    <result column="NodeE" property="nodeE" jdbcType="DECIMAL" />
+  </resultMap>
+</mapper>

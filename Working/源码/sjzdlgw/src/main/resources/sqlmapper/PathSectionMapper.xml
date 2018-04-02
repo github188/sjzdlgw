@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PathSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PathSection" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="PathSectionNum" property="pathSectionNum" jdbcType="DECIMAL" />
+    <result column="CablePathNum" property="cablePathNum" jdbcType="DECIMAL" />
+    <result column="SafeEarthTypeID" property="safeEarthTypeID" jdbcType="DECIMAL" />
+    <result column="InstallTypeID" property="installTypeID" jdbcType="DECIMAL" />
+    <result column="ParentSectionNum" property="parentSectionNum" jdbcType="DECIMAL" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="Begin_AssetNum" property="begin_AssetNum" jdbcType="DECIMAL" />
+    <result column="End_AssetNum" property="end_AssetNum" jdbcType="DECIMAL" />
+    <result column="PathSectionCode" property="pathSectionCode" jdbcType="VARCHAR" />
+    <result column="PathSectionName" property="pathSectionName" jdbcType="VARCHAR" />
+    <result column="PlaceInfo" property="placeInfo" jdbcType="VARCHAR" />
+    <result column="PlaceInfo2" property="placeInfo2" jdbcType="VARCHAR" />
+    <result column="LoopCount" property="loopCount" jdbcType="DECIMAL" />
+    <result column="LineCount" property="lineCount" jdbcType="DECIMAL" />
+    <result column="LoopLenght" property="loopLenght" jdbcType="FLOAT" />
+    <result column="IsExpEarthLine" property="isExpEarthLine" jdbcType="DECIMAL" />
+    <result column="EarthConnectorType" property="earthConnectorType" jdbcType="VARCHAR" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="PathSectionIndexMap" type="com.hbdl.web.sys.controller.page.PathSectionPage" >
+    <id column="PathSectionNum" property="pathSectionNum" jdbcType="DECIMAL" />
+    <result column="CablePathNum" property="cablePathNum" jdbcType="DECIMAL" />
+    <result column="SafeEarthTypeID" property="safeEarthTypeID" jdbcType="DECIMAL" />
+    <result column="InstallTypeID" property="installTypeID" jdbcType="DECIMAL" />
+    <result column="PathSectionCode" property="pathSectionCode" jdbcType="VARCHAR" />
+    <result column="PathSectionName" property="pathSectionName" jdbcType="VARCHAR" />
+    <result column="PlaceInfo" property="placeInfo" jdbcType="VARCHAR" />
+    <result column="PlaceInfo2" property="placeInfo2" jdbcType="VARCHAR" />
+    <result column="LoopCount" property="loopCount" jdbcType="DECIMAL" />
+    <result column="LineCount" property="lineCount" jdbcType="DECIMAL" />
+    <result column="LoopLenght" property="loopLenght" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="TotalLength" property="totalLength" jdbcType="DECIMAL" />
+    <result column="AttachmentStatusTypeID" property="attachmentStatusTypeID" jdbcType="DECIMAL" />
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL" />
+    <result column="AreaNum" property="areaNum" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="CablePathCode" property="cablePathCode" jdbcType="VARCHAR" />
+    <result column="CablePathName" property="cablePathName" jdbcType="VARCHAR" />
+    <result column="SafeEarthTypeName" property="safeEarthTypeName" jdbcType="VARCHAR" />
+    <result column="InstallTypeName" property="installTypeName" jdbcType="VARCHAR" />
+    <result column="ManholeKindTypeID" property="manholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="Begin_AssetNum" property="begin_AssetNum" jdbcType="DECIMAL" />
+    <result column="Begin_ManholeKindTypeID" property="begin_ManholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="Begin_AssetCode" property="begin_AssetCode" jdbcType="VARCHAR" />
+    <result column="Begin_OperationCode" property="begin_OperationCode" jdbcType="VARCHAR" />
+    <result column="Begin_AssetName" property="begin_AssetName" jdbcType="VARCHAR" />
+    <result column="End_AssetNum" property="end_AssetNum" jdbcType="DECIMAL" />
+    <result column="End_ManholeKindTypeID" property="end_ManholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="End_AssetCode" property="end_AssetCode" jdbcType="VARCHAR" />
+    <result column="End_OperationCode" property="end_OperationCode" jdbcType="VARCHAR" />
+    <result column="End_AssetName" property="end_AssetName" jdbcType="VARCHAR" />
+    <result column="ManholeTypeID" property="manholeTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="End_ManholeTypeID" property="end_ManholeTypeID" jdbcType="DECIMAL" />
+    <result column="End_ManholeKindTypeName" property="end_ManholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="AttachmentStatusTypeName" property="attachmentStatusTypeName" jdbcType="VARCHAR" />
+    <result column="MinRunDate" property="runDate" jdbcType="TIMESTAMP" />
+    <result column="ModelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+    <result column="IsExpEarthLine" property="isExpEarthLine" jdbcType="DECIMAL" />
+    <result column="EarthConnectorType" property="earthConnectorType" jdbcType="VARCHAR" />
+
+    <result column="EarthBoxCount" property="earthBoxCount" jdbcType="DECIMAL" />
+    <result column="NoumenonCount" property="noumenonCount" jdbcType="DECIMAL" />
+    <result column="ConnectorCount" property="connectorCount" jdbcType="DECIMAL" />
+    <result column="TerminationCount" property="terminationCount" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="getPathSectionLayRet" type="com.hbdl.web.sys.api.retMapperClass.PathSectionPageLay">
+    <id column="pathSectionNum" property="pathSectionNum" jdbcType="DECIMAL" />
+    <result column="pathSectionCode" property="pathSectionCode" jdbcType="VARCHAR" />
+    <result column="pathSectionName" property="pathSectionName" jdbcType="VARCHAR" />
+    <result column="placeInfo" property="placeInfo" jdbcType="VARCHAR" />
+    <result column="placeInfo2" property="placeInfo2" jdbcType="VARCHAR" />
+    <result column="beginAssetName" property="beginAssetName" jdbcType="VARCHAR" />
+    <result column="endAssetName" property="endAssetName" jdbcType="VARCHAR" />
+    <result column="endAssetNum" property="endAssetNum" jdbcType="DECIMAL" />
+    <result column="loopCount" property="loopCount" jdbcType="DECIMAL" />
+    <result column="lineCount" property="lineCount" jdbcType="DECIMAL" />
+    <result column="loopLenght" property="loopLenght" jdbcType="FLOAT" />
+  </resultMap>
+  <select id="selectPathSectionLayRet" parameterType="com.hbdl.web.sys.api.retMapperClass.GetPathSectionParam" resultMap="getPathSectionLayRet">
+    select VC.pathSectionNum,VC.pathSectionCode,vc.pathSectionName,VC.placeInfo,vc.placeInfo2,vc.begin_AssetNum as beginAssetNum,m.ASSETNAME as beginAssetName,
+    VC.END_ASSETNUM as endAssetNum,vc.END_ASSETNAME as endAssetName,VC.loopCount,VC.lineCount,VC.loopLenght
+    from V_PathSection vc
+    left join Manhole m on m.ASSETNUM=VC.BEGIN_ASSETNUM
+    <trim prefix="where" prefixOverrides="and">
+      <if test="pathTypeID!=null">
+        vc.pathTypeID = #{pathTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="voltageLevelID!=null">
+        and vc.voltageLevelID=#{voltageLevelID,jdbcType=DECIMAL}
+      </if>
+      <if test="cablePathName!=null and cablePathName!=''">
+        and vc.cablePathName like '%'||#{cablePathName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="CablePathCode!=null and CablePathCode!=''">
+        and vc.CablePathCode like '%'||#{CablePathCode,jdbcType=VARCHAR}||'%'
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+
+  <select id="selectPathSectionPage" parameterType="com.hbdl.web.sys.controller.page.PathSectionPage" resultMap="PathSectionIndexMap">
+   WITH tmpRunDate(PathSectionNum, MinRunDate) as(SELECT ps.PathSectionNum, MIN(pl.RunDate) AS MinRunDate FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum GROUP BY ps.PathSectionNum),
+      tmpEarthBox(PathSectionNum, EarthBoxCount) as(SELECT ps.PathSectionNum, COUNT(leb.LoopBoxNum) AS EarthBoxCount FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum INNER JOIN LoopEarthBox leb ON leb.LoopNum = pl.LoopNum GROUP BY ps.PathSectionNum),
+      tmpNoumenon(PathSectionNum, NoumenonCount) as(SELECT ps.PathSectionNum, COUNT(aoc.RecordNum) AS NoumenonCount FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum INNER JOIN PathCable pc ON pc.LoopNum = pl.LoopNum INNER JOIN AttachmentOfCable aoc ON aoc.CableNum = pc.CableNum WHERE aoc.Cab_AttachmentNum = 1 GROUP BY ps.PathSectionNum),
+      tmpConnector(PathSectionNum, ConnectorCount) as(SELECT ps.PathSectionNum, COUNT(aoc.RecordNum) AS ConnectorCount FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum INNER JOIN PathCable pc ON pc.LoopNum = pl.LoopNum INNER JOIN AttachmentOfCable aoc ON aoc.CableNum = pc.CableNum WHERE aoc.Cab_AttachmentNum = 2 GROUP BY ps.PathSectionNum),
+      tmpTermination(PathSectionNum, TerminationCount) AS (SELECT ps.PathSectionNum, COUNT(aoc.RecordNum) AS TerminationCount FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum INNER JOIN PathCable pc ON pc.LoopNum = pl.LoopNum INNER JOIN AttachmentOfCable aoc ON aoc.CableNum = pc.CableNum WHERE aoc.Cab_AttachmentNum = 3 GROUP BY ps.PathSectionNum),
+      tmpModelType(seqnum, PathSectionNum, ModelTypeName, PathTypeID) AS (SELECT ROW_NUMBER() OVER (PARTITION BY ps.PathSectionNum ORDER BY ps.PathSectionNum) AS seqnum, ps.PathSectionNum, amt.ModelTypeName, amt.PathTypeID FROM PathSection ps INNER JOIN PowerLoop pl ON pl.PathSectionNum = ps.PathSectionNum INNER JOIN PathCable pc ON pc.LoopNum = pl.LoopNum INNER JOIN AttachmentModelType amt ON amt.ModelTypeNum = pc.ModelTypeNum <if test="pathTypeID!=null">WHERE amt.PathTypeID=#{pathTypeID}</if>),
+      tmpTopModelType(PathSectionNum, ModelTypeName, PathTypeID) AS (SELECT PathSectionNum, ModelTypeName, PathTypeID FROM tmpModelType WHERE seqnum = 1)
+
+   SELECT distinct ps.PathSectionNum, ps.CablePathNum, ps.SafeEarthTypeID, ps.InstallTypeID, ps.begin_AssetNum, ps.end_AssetNum, ps.PathSectionCode, ps.PathSectionName, ps.PlaceInfo, ps.PlaceInfo2, ps.LoopCount, ps.LineCount, ps.LoopLenght, ps.TotalLength, ps.Memo, ps.PathTypeID, ps.AreaNum, ps.VoltageLevelID, ps.CablePathCode, ps.CablePathName, ps.SafeEarthTypeName, ps.InstallTypeName, ps.ManholeKindTypeID, ps.AssetCode, ps.AssetName, ps.OperationCode, ps.End_ManholeKindTypeID, ps.End_AssetName, ps.End_AssetCode,
+           ps.End_OperationCode, ps.ManholeTypeID, ps.ManholeKindTypeName, ps.End_ManholeTypeID, ps.End_ManholeKindTypeName, ps.BaseFacilityNum, ps.BaseFacilityName, ps.AttachmentStatusTypeID, ps.AttachmentStatusTypeName, rd.MinRunDate, mt.ModelTypeName, ps.IsExpEarthLine, ps.EarthConnectorType, COALESCE(eb.EarthBoxCount, 0) AS EarthBoxCount, COALESCE(n.NoumenonCount, 0) AS NoumenonCount,COALESCE(c.ConnectorCount, 0) AS ConnectorCount, COALESCE(t.TerminationCount, 0) AS  TerminationCount
+    FROM v_PathSection ps LEFT OUTER JOIN tmpRunDate rd ON rd.PathSectionNum = ps.PathSectionNum
+       LEFT OUTER JOIN tmpEarthBox eb ON eb.PathSectionNum = ps.PathSectionNum
+       LEFT OUTER JOIN tmpNoumenon n ON n.PathSectionNum = ps.PathSectionNum
+       LEFT OUTER JOIN tmpConnector c ON c.PathSectionNum = ps.PathSectionNum
+       LEFT OUTER JOIN tmpTermination t ON t.PathSectionNum = ps.PathSectionNum
+       LEFT OUTER JOIN tmpTopModelType mt ON mt.PathSectionNum = ps.PathSectionNum
+    <trim prefix="where" prefixOverrides="and">
+      <if test="pathSectionNum!=null">
+        ps.pathSectionNum = #{pathSectionNum,jdbcType=DECIMAL}
+      </if>
+      <if test="cablePathNum!=null">
+        ps.CablePathNum = #{cablePathNum,jdbcType=DECIMAL}
+      </if>
+      <if test="baseFacilityNum!=null">
+        ps.BaseFacilityNum = #{baseFacilityNum,jdbcType=DECIMAL}
+      </if>
+      <if test="pathSectionCode!=null and pathSectionCode!=''">
+        and ps.PathSectionCode like '%'||#{pathSectionCode,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="pathSectionName!=null and pathSectionName!=''">
+        and ps.PathSectionName like '%'||#{pathSectionName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="pathTypeID!=null and pathTypeID!=''">
+        and ps.PathTypeID like '%'||#{pathTypeID,jdbcType=DECIMAL}||'%'
+      </if>
+      <if test="attachmentStatusTypeIDs!=null">
+        <foreach collection="attachmentStatusTypeIDs" item="id" open="and ps.AttachmentStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="InstallTypeIDs!=null">
+        <foreach collection="InstallTypeIDs" item="id" open="and ps.InstallTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="safeEarthTypeIDs!=null">
+        <foreach collection="safeEarthTypeIDs" item="id" open="and ps.SafeEarthTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+</mapper>

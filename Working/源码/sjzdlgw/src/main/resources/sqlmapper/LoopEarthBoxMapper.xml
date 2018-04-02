@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.LoopEarthBoxMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.LoopEarthBox" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LoopBoxNum" property="loopBoxNum" jdbcType="DECIMAL" />
+    <result column="LoopNum" property="loopNum" jdbcType="DECIMAL" />
+    <result column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="Place" property="place" jdbcType="VARCHAR" />
+    <result column="Distance" property="distance" jdbcType="FLOAT" />
+    <result column="InstallDate" property="installDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="LoopEarthBoxPageMap" type="com.hbdl.web.sys.controller.LoopEarthBoxPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LoopBoxNum" property="loopBoxNum" jdbcType="DECIMAL" />
+    <result column="LoopNum" property="loopNum" jdbcType="DECIMAL" />
+    <result column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="LedgerNum" property="ledgerNum" jdbcType="DECIMAL" />
+    <result column="Place" property="place" jdbcType="VARCHAR" />
+    <result column="Distance" property="distance" jdbcType="FLOAT" />
+    <result column="InstallDate" property="installDate" jdbcType="TIMESTAMP" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByLoopEarthBoxPage" parameterType="com.hbdl.web.sys.controller.LoopEarthBoxPage" resultMap="LoopEarthBoxPageMap">
+    WITH tmpCableAttachmentTypeName(AttachmentNum, AssetCode, LedgerNum, AttachmentTypeName, AttachmentTypeID) AS (SELECT cb.AttachmentNum, cb.AssetCode, cb.Num, cat.attachmentTypeName, cat.AttachmentTypeID FROM CableAttachmentType cat INNER JOIN CableAttachment cb ON cb.attachmentTypeID = cat.attachmentTypeID)
+    SELECT DISTINCT leb.LoopBoxNum, leb.LoopNum, leb.AttachmentNum, leb.Place, ca.AssetCode, ca.LedgerNum, leb.Distance, leb.InstallDate FROM LoopEarthBox leb LEFT OUTER JOIN tmpCableAttachmentTypeName ca ON ca.AttachmentNum = leb.AttachmentNum
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="loopBoxNum!=null">
+        leb.LoopBoxNum = #{loopBoxNum,jdbcType=DECIMAL}
+      </if>
+      <if test="loopNum!=null">
+        leb.LoopNum = #{loopNum,jdbcType=DECIMAL}
+      </if>
+      <if test="attachmentNum!=null">
+        leb.AttachmentNum = #{attachmentNum,jdbcType=DECIMAL}
+      </if>
+      <if test="place!=null">
+        leb.Place = #{place,jdbcType=VARCHAR}
+      </if>
+      <if test="assetCode!=null">
+        ca.AssetCode = #{assetCode,jdbcType=VARCHAR}
+      </if>
+      <if test="orderStr!=null and orderStr!=''">
+        ORDER BY ${orderStr}
+      </if>
+    </trim>
+  </select>
+  <select id="selectByLoopEarthBoxPageByPathSection" parameterType="com.hbdl.web.sys.controller.LoopEarthBoxPage" resultMap="LoopEarthBoxPageMap">
+    SELECT DISTINCT leb.LoopBoxNum, leb.LoopNum, leb.AttachmentNum, leb.Place, ca.AssetCode, ca.Num, leb.Distance, leb.InstallDate FROM LoopEarthBox leb
+    LEFT OUTER JOIN CableAttachment ca ON LEB.ATTACHMENTNUM=CA.ATTACHMENTNUM
+    LEFT OUTER JOIN POWERLOOP PL ON PL.LOOPNUM=LEB.LoopNum
+    LEFT OUTER JOIN PathSection ps ON ps.PathSectionNum=PL.PathSectionNum
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="pathSectionNumList!=null">
+        <foreach collection="pathSectionNumList" item="id" open="and ps.PathSectionNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+</mapper>

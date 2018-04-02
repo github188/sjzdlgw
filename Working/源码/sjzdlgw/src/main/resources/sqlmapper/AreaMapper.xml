@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.AreaMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Area" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AreaNum" property="areaNum" jdbcType="DECIMAL" />
+    <result column="AreaTypeID" property="areaTypeID" jdbcType="DECIMAL" />
+    <result column="AreaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="AreaDescription" property="areaDescription" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectAraaForLedger" resultMap="BaseResultMap">
+    with BaseFacilityArea as (select AreaNum from BaseFacility group by AreaNum having AreaNum is not null)
+    select a.AreaNum,AreaName from Area a right join BaseFacilityArea bfa on bfa.AreaNum=a.AreaNum
+  </select>
+</mapper>

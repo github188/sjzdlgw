@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.CableSectionArrtMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.CableSectionArrt" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AttrNum" property="attrNum" jdbcType="DECIMAL" />
+    <result column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="BeginPlace" property="beginPlace" jdbcType="VARCHAR" />
+    <result column="EndPlace" property="endPlace" jdbcType="VARCHAR" />
+    <result column="CurrentCapacity" property="currentCapacity" jdbcType="FLOAT" />
+    <result column="Length" property="length" jdbcType="FLOAT" />
+    <result column="IsHaveEarthLine" property="isHaveEarthLine" jdbcType="DECIMAL" />
+    <result column="EarthConnectorType" property="earthConnectorType" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

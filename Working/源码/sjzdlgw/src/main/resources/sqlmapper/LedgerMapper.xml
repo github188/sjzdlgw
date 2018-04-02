@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.LedgerMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Ledger" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="Monitor_CompanyNum" property="monitor_CompanyNum" jdbcType="DECIMAL" />
+    <result column="AssetBorderTypeID" property="assetBorderTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" jdbcType="DECIMAL" />
+    <result column="Bulid_CompanyNum" property="bulid_CompanyNum" jdbcType="DECIMAL" />
+    <result column="ArchivesCode" property="archivesCode" jdbcType="VARCHAR" />
+    <result column="ArchivesName" property="archivesName" jdbcType="VARCHAR" />
+    <result column="MonitorCompany" property="monitorCompany" jdbcType="VARCHAR" />
+    <result column="BuildCompany" property="buildCompany" jdbcType="VARCHAR" />
+    <result column="BluePrintCode" property="bluePrintCode" jdbcType="VARCHAR" />
+    <result column="ArchivesPlace" property="archivesPlace" jdbcType="VARCHAR" />
+    <result column="BluePrintPlace" property="bluePrintPlace" jdbcType="VARCHAR" />
+    <result column="DrawerCode" property="drawerCode" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="Specification" property="specification" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="CompleteDate" property="completeDate" jdbcType="TIMESTAMP" />
+    <result column="IsRush" property="isRush" jdbcType="DECIMAL" />
+    <result column="ArchivesTime" property="archivesTime" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+	<result column="ArchivesType" property="archivesType" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="LedgerPageResultMap" type="com.hbdl.web.sys.controller.page.LedgerPage">
+    <id column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" />
+    <result column="AcceptStatusTypeName" property="acceptStatusTypeName" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" />
+    <result column="BaseFacilityName" property="baseFacilityName" />
+    <result column="ArchivesName" property="archivesName" />
+    <result column="DrawerCode" property="drawerCode" />
+    <result column="Address" property="address" />
+    <result column="Specification" property="specification" />
+    <result column="BuildCompany" property="buildCompany" />
+    <result column="MonitorCompany" property="monitorCompany" />
+    <result column="AssetBorderTypeID" property="assetBorderTypeID" />
+    <result column="AssetBorderTypeName" property="assetBorderTypeName" />
+    <result column="CompleteDate" property="completeDate" />
+    <result column="EmployeeID" property="employeeID" />
+    <result column="RecordUserName" property="recordUserName" />
+    <result column="ArchivesTime" property="archivesTime" />
+    <result column="ArchivesCode" property="archivesCode"/>
+	  <result column="ArchivesType" property="archivesType"/>
+  </resultMap>
+
+	<resultMap id="DatePageMap" type="com.hbdl.web.sys.controller.page.DatePage">
+		<result column="Year" property="year" jdbcType="VARCHAR" />
+		<result column="Month" property="month" jdbcType="VARCHAR" />
+		<result column="Day" property="day" jdbcType="VARCHAR" />
+	</resultMap>
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByLegerTypePage" id="LedgerByLegerTypePageResultMap">
+  	<!-- <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" /> -->
+    <id column="TunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByVoltageLevelPage" id="LedgerByVoltageLevelPageResultMap">
+  	<id column="voltageLevelID" property="voltageLevelID" />
+    <result column="voltageLevelName" property="voltageLevelName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  <!-- 按电压等级的子查询 -->
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByVoltageLevelSubPage" id="LedgerByVoltageLevelSubResultMap">
+  	<id column="voltageLevelID" property="voltageLevelID" />
+    <result column="voltageLevelName" property="voltageLevelName" />
+    <result column="TunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByBaseFacilityPage" id="LedgerByBaseFacilityPageResultMap">
+  	<id column="BaseFacilityNum" property="baseFacilityNum" />
+    <result column="BaseFacilityName" property="baseFacilityName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByBaseFacilitySubPage" id="LedgerByBaseFacilitySubPageResultMap">
+  	<id column="BaseFacilityNum" property="baseFacilityNum" />
+    <result column="BaseFacilityName" property="baseFacilityName" />
+    <result column="tunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+  <resultMap type="com.hbdl.web.sys.controller.page.LedgerByAreaPage" id="LedgerByAreaPageResultMap">
+  	<id column="typeId" property="typeId" />
+    <result column="typeName" property="area" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+   <resultMap type="com.hbdl.web.sys.controller.page.LedgerByAreaSubPage" id="LedgerByAreaSubPageResultMap">
+  	<id column="typeId" property="typeId" />
+    <result column="typeName" property="area" />
+    <result column="TunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="length" property="length" />
+    <result column="realLength" property="realLength" />
+  </resultMap>
+  
+   <select id="selectLegerByArea" resultMap="LedgerByAreaPageResultMap">
+	WITH tmpTunnelSection (AssetNum, totallength) AS (
+	SELECT
+		ts.AssetNum,
+		SUM (COALESCE(ts.LENGTH, 0)) AS totallength
+	FROM
+		TunnelSection  ts
+	GROUP BY
+		ts.AssetNum
+),
+ tmpAreaTunnel (AssetNum) AS (
+	SELECT DISTINCT
+		(AssetNum)
+	FROM
+		v_Geom_TunnelSection
+	WHERE
+		SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY(
+			'POLYGON((114.544808505456 38.1337203014678, 114.534310915164 38.123343131623, 114.527264288707 38.1167977425401, 114.526302572828 38.1150634383121, 114.524367216255 38.0988940569982, 114.52420181806 38.0973249560635, 114.524086238598 38.0964984985788, 114.524094209596 38.0963385379861, 114.523669753986 38.0952156675, 114.523576094767 38.0947906659299, 114.518857264324 38.0865347946413, 114.514835896151 38.0796003343162, 114.513181914196 38.0765713012464, 114.511790975155 38.0743343480247, 114.511581736474 38.0741994384198, 114.509280110984 38.071810242216, 114.508742068661 38.0712188139026, 114.506125588775 38.0671759517211, 114.506133559772 38.0671837960628, 114.505360373027 38.066024393244, 114.503843890778 38.0636568952419, 114.503815992287 38.0635423622494, 114.501006215714 38.0591523187262, 114.501159657413 38.0569211091764, 114.501223425392 38.0546490340503, 114.501418714828 38.0499242100146, 114.501625960759 38.0435826433849, 114.501789366205 38.0383360373656, 114.501885018174 38.0345801594335, 114.502217807314 38.026603184751, 114.502349328771 38.022427562435, 114.502580487694 38.0158261402365, 114.501802282057 38.0150410484549, 114.498662823919 38.0119245118938, 114.498530204719 38.0117430818802, 114.498277263737 38.0112436245811, 114.497833344909 38.0106700036925, 114.496820928999 38.0096601091858, 114.496955116191 38.0073166455973, 114.50161224157 38.0043517316938, 114.501302054958 38.0038722989759, 114.501922428182 37.9902212524205, 114.50173750924 37.9898075446801, 114.501893096085 37.9830044144588, 114.501791195385 37.9829058033024, 114.501832951275 37.981730373932, 114.49676855832 37.9812178808324, 114.504156048911 37.9485762530579, 114.514814279791 37.8985161611669, 114.308077937369 37.9976698958411, 114.31716589493 38.1945603709569, 114.50694383225 38.2147242635591, 114.544364833975 38.1340351892608, 114.544808505456 38.1337203014678))',
+			4326 ))='TRUE'
+		
+),
+		tmpTunnel (typeid, typename, AssetNum) AS (
+			SELECT
+				1 AS typeid,
+				'桥西' AS typename,
+				AssetNum
+			FROM
+				tmpAreaTunnel
+			UNION ALL
+				SELECT
+					2 AS typeid,
+					'桥东' AS typename,
+					AssetNum
+				FROM
+					PowerTunnel  pt
+				WHERE
+					NOT EXISTS (
+						SELECT
+							tmp.AssetNum
+						FROM
+							tmpAreaTunnel  tmp
+						WHERE
+							tmp.AssetNum = pt.AssetNum
+					)
+		) SELECT
+			typeid,
+			typename AS area,
+			ROUND (
+				SUM (
+					COALESCE (pt.TunnelLength, 0)
+				) / 1000.0,
+				2
+			) AS length,
+			ROUND (
+				SUM (tts.totallength) / 1000.0,
+				2
+			) AS realLength
+		FROM
+			v_PowerTunnel  pt
+		INNER JOIN tmpTunnel  tmp ON tmp.AssetNum = pt.AssetNum
+		LEFT JOIN tmpTunnelSection  tts ON tts.AssetNum = pt.AssetNum
+		GROUP BY
+			tmp.typeid,
+			tmp.typename
+		  	
+  </select> 
+  <!-- 区域子查询 -->
+  <select id="selectLegerByAreaSub" resultMap="LedgerByAreaSubPageResultMap">
+  WITH tmpTunnelSection (AssetNum, totallength) AS (
+	SELECT
+		TunnelSection.AssetNum,
+		SUM (COALESCE(TunnelSection.LENGTH, 0)) AS totallength
+	FROM
+		TunnelSection 
+	GROUP BY
+		TunnelSection.AssetNum
+),
+ tmpAreaTunnel (AssetNum) AS (
+	SELECT DISTINCT
+		(AssetNum)
+	FROM
+		v_Geom_TunnelSection
+		WHERE
+		SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY(
+			'POLYGON((114.544808505456 38.1337203014678, 114.534310915164 38.123343131623, 114.527264288707 38.1167977425401, 114.526302572828 38.1150634383121, 114.524367216255 38.0988940569982, 114.52420181806 38.0973249560635, 114.524086238598 38.0964984985788, 114.524094209596 38.0963385379861, 114.523669753986 38.0952156675, 114.523576094767 38.0947906659299, 114.518857264324 38.0865347946413, 114.514835896151 38.0796003343162, 114.513181914196 38.0765713012464, 114.511790975155 38.0743343480247, 114.511581736474 38.0741994384198, 114.509280110984 38.071810242216, 114.508742068661 38.0712188139026, 114.506125588775 38.0671759517211, 114.506133559772 38.0671837960628, 114.505360373027 38.066024393244, 114.503843890778 38.0636568952419, 114.503815992287 38.0635423622494, 114.501006215714 38.0591523187262, 114.501159657413 38.0569211091764, 114.501223425392 38.0546490340503, 114.501418714828 38.0499242100146, 114.501625960759 38.0435826433849, 114.501789366205 38.0383360373656, 114.501885018174 38.0345801594335, 114.502217807314 38.026603184751, 114.502349328771 38.022427562435, 114.502580487694 38.0158261402365, 114.501802282057 38.0150410484549, 114.498662823919 38.0119245118938, 114.498530204719 38.0117430818802, 114.498277263737 38.0112436245811, 114.497833344909 38.0106700036925, 114.496820928999 38.0096601091858, 114.496955116191 38.0073166455973, 114.50161224157 38.0043517316938, 114.501302054958 38.0038722989759, 114.501922428182 37.9902212524205, 114.50173750924 37.9898075446801, 114.501893096085 37.9830044144588, 114.501791195385 37.9829058033024, 114.501832951275 37.981730373932, 114.49676855832 37.9812178808324, 114.504156048911 37.9485762530579, 114.514814279791 37.8985161611669, 114.308077937369 37.9976698958411, 114.31716589493 38.1945603709569, 114.50694383225 38.2147242635591, 114.544364833975 38.1340351892608, 114.544808505456 38.1337203014678))',
+			4326 ))='TRUE'
+),
+		tmpTunnel (typeid, typename, AssetNum) AS (
+			SELECT
+				1 AS typeid,
+				'桥西' AS typename,
+				AssetNum
+			FROM
+				tmpAreaTunnel
+			UNION ALL
+				SELECT
+					2 AS typeid,
+					'桥东' AS typename,
+					AssetNum
+				FROM
+					PowerTunneL
+				WHERE
+					NOT EXISTS (
+						SELECT
+							tmpAreaTunnel.AssetNum
+						FROM
+							tmpAreaTunnel 
+						WHERE
+							tmpAreaTunnel.AssetNum = PowerTunnel.AssetNum
+					)
+		) SELECT
+			typeid,
+			typename AS typename,
+			v_PowerTunnel.TunnelStructureTypeName AS TunnelStructureTypeName,
+			ROUND (
+				SUM (
+					COALESCE (v_PowerTunnel.TunnelLength, 0)
+				) / 1000.0,
+				2
+			) AS length,
+			ROUND (
+				SUM (tmpTunnelSection.totallength) / 1000.0,
+				2
+			) AS realLength
+		FROM
+			v_PowerTunnel 
+		INNER JOIN tmpTunnel  ON tmpTunnel.AssetNum = v_PowerTunnel.AssetNum
+		LEFT JOIN tmpTunnelSection  ON tmpTunnelSection.AssetNum = v_PowerTunnel.AssetNum
+		GROUP BY
+			tmpTunnel.typeid,
+			tmpTunnel.typename,
+			v_PowerTunnel.TunnelStructureTypeName
+  </select>
+ <select id="selectLegerByBaseFacility" resultMap="LedgerByBaseFacilityPageResultMap">
+	 WITH tmpTunnelSection (AssetNum, totallength) AS (
+	SELECT
+		TunnelSection.AssetNum,
+		SUM (COALESCE(TunnelSection.LENGTH, 0)) AS totallength
+	FROM
+		TunnelSection 
+	GROUP BY
+		TunnelSection.AssetNum
+) SELECT
+	v_PowerTunnel.BaseFacilityNum,
+	v_PowerTunnel.BaseFacilityName AS BaseFacilityName,
+	ROUND (
+		SUM (
+			COALESCE (v_PowerTunnel.TunnelLength, 0)
+		) / 1000.0,
+		2
+	) AS length,
+	ROUND (
+		SUM (tmpTunnelSection.totallength) / 1000.0,
+		2
+	) AS realLength
+FROM
+	v_PowerTunnel 
+LEFT JOIN tmpTunnelSection  ON tmpTunnelSection.AssetNum = v_PowerTunnel.AssetNum
+WHERE
+	COALESCE (v_PowerTunnel.BaseFacilityNum, - 1) > 0
+GROUP BY
+	v_PowerTunnel.BaseFacilityNum,
+	v_PowerTunnel.BaseFacilityName
+		  	
+  </select> 
+  <!-- 变电站子查询 -->
+   <select id="selectLegerByBaseFacilitySub" resultMap="LedgerByBaseFacilitySubPageResultMap">
+		WITH tmpTunnelSection (AssetNum, totallength) AS (
+		SELECT
+			ts.AssetNum,
+			SUM (COALESCE(ts.LENGTH, 0)) AS totallength
+		FROM
+			TunnelSection ts
+		GROUP BY
+			ts.AssetNum
+	) SELECT
+		pt.BaseFacilityNum,
+		pt.BaseFacilityName AS BaseFacilityName,
+		pt.TunnelStructureTypeName AS tunnelStructureTypeName ,
+		ROUND (
+			SUM (
+				COALESCE (pt.TunnelLength, 0)
+			) / 1000.0,
+			2
+		) AS length,
+		ROUND (
+			SUM (tts.totallength) / 1000.0,
+			2
+		) AS realLength
+	FROM
+		v_PowerTunnel  pt
+	LEFT JOIN tmpTunnelSection  tts ON tts.AssetNum = pt.AssetNum
+	WHERE
+		COALESCE (pt.BaseFacilityNum, - 1) > 0
+	GROUP BY
+		pt.BaseFacilityNum,
+		pt.BaseFacilityName,
+		pt.TunnelStructureTypeName
+		  	
+  </select> 
+<select id="selectLegerByVoltageLevel" resultMap="LedgerByVoltageLevelPageResultMap">
+	 WITH tmpTunnelSection (AssetNum, totallength) AS (
+		SELECT
+			TunnelSection.AssetNum,
+			SUM (
+				COALESCE (TunnelSection.LENGTH, 0)
+			) AS totallength
+		FROM
+			TunnelSection
+		GROUP BY
+			TunnelSection.AssetNum
+	) 
+	SELECT
+		v_PowerTunnel.VoltageLevelID AS voltageLevelID,
+		v_PowerTunnel.VoltageLevelName AS voltageLevelName,
+		ROUND (
+			SUM (
+				COALESCE (v_PowerTunnel.TunnelLength, 0)
+			) / 1000.0,
+			2
+		) AS length,
+		ROUND (
+			SUM (tmpTunnelSection.totallength) / 1000.0,
+			2
+		) AS realLength
+	FROM
+		v_PowerTunnel 
+	LEFT JOIN tmpTunnelSection ON tmpTunnelSection.AssetNum = v_PowerTunnel.AssetNum
+	GROUP BY
+		v_PowerTunnel.VoltageLevelID,
+		v_PowerTunnel.VoltageLevelName
+		  	
+  </select>
+  <!-- 电压等级子查询 -->
+  <select id="selectLegerByVoltageLevelSub" resultMap="LedgerByVoltageLevelSubResultMap">
+	  WITH tmpTunnelSection (AssetNum, totallength) AS (
+		SELECT
+			ts.AssetNum,
+			SUM (COALESCE(ts.LENGTH, 0)) AS totallength
+		FROM
+			TunnelSection ts
+		GROUP BY
+			ts.AssetNum
+	) SELECT
+		pt.VoltageLevelID,
+		pt.VoltageLevelName AS voltageLevelName,
+		pt.TunnelStructureTypeName AS TunnelStructureTypeName,
+		ROUND (
+			SUM (
+				COALESCE (pt.TunnelLength, 0)
+			) / 1000.0,
+			2
+		) AS length,
+		ROUND (
+			SUM (tts.totallength) / 1000.0,
+			2
+		) AS realLength
+	FROM
+		v_PowerTunnel  pt
+	LEFT JOIN tmpTunnelSection  tts ON tts.AssetNum = pt.AssetNum
+	GROUP BY
+		pt.VoltageLevelID,
+		pt.VoltageLevelName,
+		pt.TunnelStructureTypeName
+	ORDER BY pt.VoltageLevelID
+  </select>
+  
+  <select id="selectLegerByLegerType" resultMap="LedgerByLegerTypePageResultMap">
+		  	WITH tmpTunnelSection (AssetNum, totallength) AS (
+			SELECT
+				TunnelSection.AssetNum,
+				SUM (COALESCE(TunnelSection.LENGTH, 0)) AS totallength
+			FROM
+				TunnelSection
+			GROUP BY
+				TunnelSection.AssetNum
+		) 
+		SELECT
+			v_PowerTunnel.TunnelStructureTypeName AS tunnelStructureTypeName,
+			ROUND (
+				SUM (
+					COALESCE (v_PowerTunnel.TunnelLength, 0)
+				) / 1000.0,
+				2
+			) AS length,
+			ROUND (
+				SUM (tmpTunnelSection.totallength) / 1000.0,
+				2
+			) AS realLength
+		FROM
+			v_PowerTunnel 
+		LEFT JOIN tmpTunnelSection  ON tmpTunnelSection.AssetNum = v_PowerTunnel.AssetNum
+		GROUP BY
+			v_PowerTunnel.TunnelStructureTypeName
+		  	
+  </select>
+
+  <select id="selectLedgerPage" parameterType="com.hbdl.web.sys.controller.page.LedgerPage" resultMap="LedgerPageResultMap">
+    SELECT ArchivesNum,ArchivesCode,AcceptStatusTypeID,AcceptStatusTypeName,BaseFacilityNum,BaseFacilityName,ArchivesName,DrawerCode
+     ,Address,Specification,BuildCompany,MonitorCompany,AssetBorderTypeID,AssetBorderTypeName
+       ,CompleteDate,EmployeeID,RecordUserName,ArchivesTime,ArchivesType FROM v_TunnelLedger
+
+    <trim prefix="where" prefixOverrides="and">
+      <if test="baseFacilityNumList!=null">
+        <foreach collection="baseFacilityNumList" item="id" open="and BaseFacilityNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="archivesNum!=null">
+        and ArchivesNum=#{archivesNum}
+      </if>
+      <if test="acceptStatusTypeList!=null">
+        <foreach collection="acceptStatusTypeList" item="id" open="and AcceptStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+		<if test="acceptStatusTypeID!=null">
+			and AcceptStatusTypeID=#{acceptStatusTypeID}
+		</if>
+      <if test="archivesName!=null and archivesName!=''">
+        and ArchivesName like '%'||#{archivesName}||'%'
+      </if>
+		<if test="archivesType!=null">
+			and ArchivesType=#{archivesType}
+		</if>
+
+		<if test="drawerCode!=null and drawerCode!=''">
+        and DrawerCode like '%'||#{drawerCode}||'%'
+      </if>
+      <if test="drawerCode!=null and drawerCode!=''">
+        and DrawerCode like '%'||#{drawerCode}||'%'
+      </if>
+      <if test="archivesCode!=null and archivesCode!=''">
+        and ArchivesCode like '%'||#{archivesCode}||'%'
+      </if>
+
+      <if test="baseFacilityNum!=null">
+		and BaseFacilityNum=#{baseFacilityNum}
+	</if>
+      <choose>
+        <when test="completeDateMin!=null and completeDateMin!='' and completeDateMax!=null and completeDateMax!=''">
+          and CompleteDate >= #{completeDateMin} and CompleteDate   &lt;= #{completeDateMax}
+        </when>
+        <when test="completeDateMin!=null and completeDateMin!=''">
+          and CompleteDate   >= #{completeDateMin}
+        </when>
+        <when test="completeDateMax!=null and completeDateMax!=''">
+          and CompleteDate &lt;= #{completeDateMax}
+        </when>
+        <otherwise>
+
+        </otherwise>
+      </choose>
+
+
+    </trim>
+
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+
+
+  <select id="countBetweenDates" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT count(*) FROM Ledger
+    WHERE ArchivesTime>=#{start} and ArchivesTime&lt;#{end}
+  </select>
+
+  <select id="countByBaseFacility" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT count(*) FROM Ledger
+    WHERE baseFacilityNum=#{baseFacilityNum}
+  </select>
+  <select id="selectLedgerStatisticsPage" parameterType="com.hbdl.web.sys.controller.page.LedgerStatisticsPage" resultMap="LedgerPageResultMap">
+  SELECT ArchivesCode,ArchivesNum,AcceptStatusTypeID,AcceptStatusTypeName,BaseFacilityNum,BaseFacilityName,ArchivesName,DrawerCode
+     ,Address,Specification,BuildCompany,MonitorCompany,AssetBorderTypeID,AssetBorderTypeName
+       ,CompleteDate,EmployeeID,RecordUserName,ArchivesTime FROM v_TunnelLedger
+   </select>
+
+  <delete id="deleteByArchivesNums" parameterType="java.util.Set">
+    DELETE FROM  Ledger
+    WHERE
+      ArchivesNum IN
+    <foreach collection="idSet" index="index" item="listItem" open="("
+             separator="," close=")">
+      <if test="listItem!=null">
+        #{listItem}
+      </if>
+    </foreach>
+  </delete>
+	<select id="selectFromDatePage" resultMap="DatePageMap" parameterType="java.math.BigDecimal">
+		SELECT DISTINCT to_char(CompleteDate,'yyyy') AS Year FROM Ledger le
+		where le.AcceptStatusTypeID=#{acceptStatusTypeID}
+		ORDER BY Year DESC
+	</select>
+	<select id="selectLedgerPageByDate" parameterType="com.hbdl.web.sys.controller.page.LedgerPage" resultMap="LedgerPageResultMap">
+		SELECT ArchivesNum,ArchivesCode,AcceptStatusTypeID,AcceptStatusTypeName,BaseFacilityNum,BaseFacilityName,ArchivesName,DrawerCode
+		,Address,Specification,BuildCompany,MonitorCompany,AssetBorderTypeID,AssetBorderTypeName
+		,CompleteDate,EmployeeID,RecordUserName,ArchivesTime FROM v_TunnelLedger
+		<trim prefix="where" prefixOverrides="and">
+			<if test="yearList!=null">
+				<foreach collection="yearList" item="id" open="and to_char(CompleteDate,'yyyy') in(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+			<if test="monthList!=null">
+				<foreach collection="monthList" item="id" open="and to_char(CompleteDate,'MM') in(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+			<if test="dayList!=null">
+				<foreach collection="dayList" item="id" open="and to_char(CompleteDate,'dd') in(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+			<if test="baseFacilityNumList!=null">
+				<foreach collection="baseFacilityNumList" item="id" open="and BaseFacilityNum in(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+			<if test="acceptStatusTypeList!=null">
+				<foreach collection="acceptStatusTypeList" item="id" open="and AcceptStatusTypeID in(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+			<if test="acceptStatusTypeID!=null">
+				and AcceptStatusTypeID=#{acceptStatusTypeID}
+			</if>
+			<if test="archivesName!=null and archivesName!=''">
+				and ArchivesName like '%'||#{archivesName}||'%'
+			</if>
+			<if test="drawerCode!=null and drawerCode!=''">
+				and DrawerCode like '%'||#{drawerCode}||'%'
+			</if>
+			<if test="drawerCode!=null and drawerCode!=''">
+				and DrawerCode like '%'||#{drawerCode}||'%'
+			</if>
+			<if test="archivesCode!=null and archivesCode!=''">
+				and ArchivesCode like '%'||#{archivesCode}||'%'
+			</if>
+			<if test="baseFacilityNum!=null">
+				and BaseFacilityNum=#{baseFacilityNum}
+			</if>
+		</trim>
+		<if test="orderStr!=null and orderStr!=''">
+			ORDER BY ${orderStr}
+		</if>
+	</select>
+    <select id="selectDrawerCode" resultType="java.lang.Long">
+		 select DRAWERCODE from LEDGER ld LEFT JOIN BaseFacility bf  on LD.BASEFACILITYNUM = BF.BASEFACILITYNUM where ld.ArchivesNum = #{cyear}
+	</select>
+
+</mapper>

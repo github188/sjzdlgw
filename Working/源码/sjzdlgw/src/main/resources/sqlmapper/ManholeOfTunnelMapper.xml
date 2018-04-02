@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ManholeOfTunnelMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.ManholeOfTunnel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="BuildOfTunnelNum" property="buildOfTunnelNum" jdbcType="DECIMAL" />
+    <result column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="Man_AssetNum" property="man_AssetNum" jdbcType="DECIMAL" />
+    <result column="IsEndpoint" property="isEndpoint" jdbcType="DECIMAL" />
+    <result column="OrderNum" property="orderNum" jdbcType="DECIMAL" />
+  </resultMap>
+    <!--
+    查询最大序号
+    -->
+  <select id="selectOfOrderNumByPowerTunnelNum" parameterType="decimal" resultType="decimal">
+    SELECT max(OrderNum) FROM ManholeOfTunnel WHERE AssetNum=#{_parameter}
+  </select>
+
+</mapper>

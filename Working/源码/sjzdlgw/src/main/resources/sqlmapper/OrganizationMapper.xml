@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.OrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Organization" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OrganizationNum" property="organizationNum"  />
+    <result column="ParentID" property="parentID"  />
+    <result column="TeamTypeID" property="teamTypeID"  />
+    <result column="OrganizationName" property="organizationName"  />
+    <result column="Description" property="description"  />
+    <result column="Visible" property="visible"  />
+  </resultMap>
+
+  <resultMap id="PageResultMap" type="com.hbdl.web.sys.controller.page.OrganizationPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="OrganizationNum" property="organizationNum" jdbcType="DECIMAL" />
+    <result column="ParentID" property="parentID" jdbcType="DECIMAL" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+    <result column="OrganizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="Visible" property="visible" jdbcType="DECIMAL" />
+    <result column="TeamTypeName" property="teamTypeName" jdbcType="VARCHAR" />
+    <result column="ParentName" property="parentName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="selectPageByPage" parameterType="com.hbdl.web.sys.controller.page.OrganizationPage" resultMap="PageResultMap">
+    SELECT OrganizationNum,ParentID,TeamTypeID,OrganizationName,Description,Visible
+    ,TeamTypeName,ParentName
+    FROM v_Organization
+    <trim prefix="where" prefixOverrides="and">
+      <if test="organizationNumList!=null">
+        <foreach collection="organizationNumList" item="id" open="and OrganizationNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="parentID!=null and parentID!=''">
+        and ParentID =#{parentID}
+      </if>
+      <if test="visible!=null and visible!=''">
+        and Visible =#{visible}
+      </if>
+      <if test="teamTypeID!=null and teamTypeID!=''">
+        and teamTypeID =#{teamTypeID}
+      </if>
+    </trim>
+
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+  <select id="selectParentOrganization" resultMap="PageResultMap">
+    SELECT DISTINCT ot.OrganizationNum,ot.ParentID,ot.TeamTypeID,ot.OrganizationName,ot.Description,ot.Visible,ot.TeamTypeName,ot.ParentName
+    FROM v_Organization ot
+    LEFT OUTER JOIN v_Organization ott ON ott.ParentID=ot.OrganizationNum
+    WHERE ott.ParentID=ot.OrganizationNum
+    ORDER BY ot.OrganizationNum ASC
+  </select>
+
+  <select id="selectRootNode" resultMap="BaseResultMap">
+    SELECT * from ORGANIZATION  o WHERE o.PARENTID is NULL and o.VISIBLE=1
+  </select>
+</mapper>

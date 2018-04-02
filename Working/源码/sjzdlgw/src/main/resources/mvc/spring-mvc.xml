@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+	    http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="false">
+	<!--显示view-->
+	<mvc:view-controller path="/" view-name="login"/>
+	<!--<mvc:view-controller path="/sidebar_map" view-name="sidebar_map"/>-->
+	<mvc:view-controller path="/sidebar_guangwang" view-name="sidebar_guangwang"/>
+	<mvc:view-controller path="/sidebar_shudian" view-name="sidebar_shudian"/>
+	<mvc:view-controller path="/sidebar_peidian" view-name="sidebar_peidian"/>
+	<mvc:view-controller path="/sidebar_zhongduanguanli" view-name="sidebar_zhongduanguanli"/>
+	<mvc:view-controller path="/sidebar_jueceguanli" view-name="sidebar_jueceguanli"/>
+	<mvc:view-controller path="/sidebar_xitong" view-name="sidebar_xitong"/>
+	<mvc:view-controller path="/sidebar_bangzhu" view-name="sidebar_bangzhu"/>
+	<mvc:view-controller path="/map" view-name="map"/>
+	<mvc:view-controller path="/api/business/mapForApp" view-name="mapForApp"/>
+
+	<!-- 加载配置 -->
+	<context:property-placeholder  ignore-unresolvable="true" location="classpath:resources.properties"/>
+
+	<!-- 只扫描Controller 注解 -->
+	<context:component-scan base-package="com.hbdl" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+
+	<!-- 开启controller层aspect注解支持 -->
+	<aop:aspectj-autoproxy expose-proxy="true"/>
+	  
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			 <!-- StringHttpMessageConverter编码为UTF-8，防止乱码 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+                <property name = "supportedMediaTypes">
+                    <list>
+                        <bean class="org.springframework.http.MediaType">
+                            <constructor-arg index="0" value="text"/>
+                            <constructor-arg index="1" value="plain"/>
+                            <constructor-arg index="2" value="UTF-8"/>
+                        </bean>
+                        <bean class="org.springframework.http.MediaType">
+                            <constructor-arg index="0" value="*"/>
+                            <constructor-arg index="1" value="*"/>
+                            <constructor-arg index="2" value="UTF-8"/>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+                    <list>
+                        <!--解决IE JSON提示下载的问题-->
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <array>
+                        <!--NULL过滤-->
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+						<value>WriteDateUseDateFormat</value>
+						<value>WriteNullListAsEmpty</value>
+                        <!-- 
+                        <value>QuoteFieldNames</value>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+                        <value>WriteNullListAsEmpty</value>
+                        <value>WriteNullNumberAsZero</value>
+                        <value>WriteNullBooleanAsFalse</value>
+                         -->
+
+                        <!--浏览器兼容  中文序列号处理 -->
+                        <!--<value>BrowserCompatible</value>-->
+                        
+                        <!--斜杠处理-->
+                        <!-- <value>WriteSlashAsSpecial</value> -->
+                    </array>
+                </property>
+			</bean>
+
+            <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+                <!--
+            <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="serializerFeature">  
+			       <list>
+						<value>WriteMapNullValue</value>
+						<value>WriteNullStringAsEmpty</value>
+					</list>
+   				</property> 
+                <property name="serializerFeature">
+                	这个地方加上这个功能吧，能自己配置一些东西，比如时间的格式化，null输出""等等
+				 	QuoteFieldNames			输出key时是否使用双引号,默认为true
+				    WriteMapNullValue		是否输出值为null的字段,默认为false
+				    WriteNullNumberAsZero	数值字段如果为null,输出为0,而非null
+				    WriteNullListAsEmpty	List字段如果为null,输出为[],而非null
+				    WriteNullStringAsEmpty	字符类型字段如果为null,输出为"",而非null
+				    WriteNullBooleanAsFalse	Boolean字段如果为null,输出为false,而非null 
+				    </property>
+            </bean>
+				  -->
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!--资源文件刷新时间,单位秒
+		<property name="cacheSeconds" value="-1" />
+		<property name="useCodeAsDefaultMessage" value="true"/>
+		30-->
+		<property name="basenames">
+			<list>
+				<value>i18n.code</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--<mvc:view-controller path="/" view-name="redirect:/"/>-->
+	<!-- 定义跳转的文件的前后缀 -->  
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="contentType" value="text/html" />
+        <property name="prefix" value="/WEB-INF/jsp/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>
+
+	<!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler />
+	<!-- 静态资源映射 -->
+    <mvc:resources mapping="/static/**" location="/static/" />
+    
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 
+			<mvc:mapping path="/**"/>
+			 -->
+			<mvc:mapping path="/**"/>
+			<!--<mvc:exclude-mapping path="/**"/>-->
+			<mvc:exclude-mapping path="/" />
+			<mvc:exclude-mapping path="/static/**" />
+			<mvc:exclude-mapping path="/login" />
+            <mvc:exclude-mapping path="/logout" />
+			<!--<mvc:exclude-mapping path="/map" />-->
+			<!--<mvc:exclude-mapping path="/register/**" />-->
+			<!--<mvc:exclude-mapping path="/ErrorHandler" />-->
+			<bean class="com.hbdl.common.interceptor.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- 
+	 -->
+	
+	<!-- 控制器异常处理 -->
+	<!-- 
+	<bean id="exceptionResolver"
+		class="com.hbdl.common.exception.CustomSimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">error/error.html</prop>
+			</props>
+		</property>
+	</bean> 
+	-->
+
+	<!-- 全局异常配置 start -->
+<!-- 	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">error/error</prop>
+				<prop key="java.lang.Throwable">error/error</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="error/error">500</prop>
+				<prop key="error/404">404</prop>
+			</props>
+		</property>
+		设置日志输出级别，不定义则默认不输出警告等错误日志信息
+		<property name="warnLogCategory" value="WARN"></property>
+		默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置
+		<property name="defaultErrorView" value="error/error"></property>
+		默认HTTP状态码
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
+	全局异常配置 end  -->
+
+	<!-- 文件上传配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" /> <!-- 默认编码 (ISO-8859-1) -->
+		<property name="maxInMemorySize" value="10240" /> <!-- 最大内存大小 (10240) -->
+		<property name="maxUploadSize" value="-1" /> <!-- 最大文件大小，-1为无限止(-1) -->
+	</bean>
+
+</beans>

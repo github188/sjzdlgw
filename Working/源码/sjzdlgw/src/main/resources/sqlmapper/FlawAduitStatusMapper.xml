@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FlawAduitStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FlawAduitStatus" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FlawAduitStatusID" property="flawAduitStatusID" jdbcType="DECIMAL" />
+    <result column="FlawAduitStatusName" property="flawAduitStatusName" jdbcType="VARCHAR" />
+    <result column="ShowColor" property="showColor" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

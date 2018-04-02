@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ManholeKindTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.ManholeKindType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ManholeKindTypeID" property="manholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeTypeID" property="manholeTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="Prefix" property="prefix" jdbcType="VARCHAR" />
+    <result column="LayerIcon" property="layerIcon" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectGisDataForManholeKindType" resultMap="BaseResultMap">
+    SELECT ManholeKindTypeID,ManholeTypeID,ManholeKindTypeName FROM ManholeKindType WHERE ManholeKindTypeID in (SELECT ManholeKindTypeID FROM v_Geom_Manhole GROUP BY ManholeKindTypeID) order by ManholeKindTypeID desc
+  </select>
+</mapper>

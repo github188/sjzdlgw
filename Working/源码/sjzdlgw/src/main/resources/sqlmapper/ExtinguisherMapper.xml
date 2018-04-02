@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ExtinguisherMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Extinguisher" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Monitor_CompanyNum" property="monitor_CompanyNum" jdbcType="DECIMAL" />
+    <result column="ExtinguisherTypeID" property="extinguisherTypeID" jdbcType="DECIMAL" />
+    <result column="Bulid_CompanyNum" property="bulid_CompanyNum" jdbcType="DECIMAL" />
+    <result column="Tunnel_AssetNum" property="tunnel_AssetNum" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="GraphID" property="graphID" jdbcType="DECIMAL" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="CompletedDate" property="completedDate" jdbcType="TIMESTAMP" />
+    <result column="OperationDate" property="operationDate" jdbcType="TIMESTAMP" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+    <result column="Longitude" property="longitude" jdbcType="FLOAT" />
+    <result column="Latitude" property="latitude" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="ExtinguisherInfo" property="extinguisherInfo" jdbcType="VARCHAR" />
+    <result column="Quantity" property="number" jdbcType="DECIMAL" />
+    <result column="UpGradeTime" property="upGradeTime" jdbcType="TIMESTAMP" />
+    <result column="ValidityYear" property="validityYear" jdbcType="FLOAT" />
+    <result column="DownTime" property="downTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ExtinguisherPageResultMap" type="com.hbdl.web.sys.controller.page.ExtinguisherPage">
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result  column="ArchivesCode" property="archivesCode"/>
+    <result  column="AssetName" property="assetName"/>
+    <result  column="ExtinguisherTypeID" property="extinguisherTypeID"/>
+    <result  column="ExtinguisherTypeName" property="extinguisherTypeName"/>
+    <result  column="Quantity" property="quantity"/>
+    <result  column="UpGradeTime" property="upGradeTime"/>
+    <result  column="ValidityYear" property="validityYear"/>
+    <result  column="DownTime" property="downTime"/>
+    <result  column="ExtinguisherInfo" property="extinguisherInfo"/>
+    <result  column="Longitude" property="longitude"/>
+    <result  column="Latitude" property="latitude"/>
+    <result  column="EmployeeID" property="employeeID"/>
+    <result  column="EmployeeName" property="employeeName"/>
+    <result  column="Tunnel_AssetNum" property="tunnel_AssetNum"/>
+    <result  column="TunnelAssetCode" property="tunnelAssetCode"/>
+    <result column="AssetCode" property="assetCode"/>
+    <result column="ArchivesNum" property="archivesNum"/>
+    <result column="Memo" property="memo"/>
+    <result column="PositionDescription" property="positionDescription"/>
+  </resultMap>
+
+  <select id="selectExtinguisherPage" parameterType="com.hbdl.web.sys.controller.page.ExtinguisherPage" resultMap="ExtinguisherPageResultMap">
+    SELECT AssetNum,ArchivesCode,AssetName,ExtinguisherTypeID,ExtinguisherTypeName,UpGradeTime,ValidityYear,DownTime
+    ,ExtinguisherInfo,Longitude,Latitude,EmployeeID,EmployeeName,Tunnel_AssetNum,TunnelAssetCode,AssetCode,Quantity
+    FROM v_Extinguisher
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+  <select id="selectExtinguisherPageById" parameterType="java.math.BigDecimal" resultMap="ExtinguisherPageResultMap">
+     SELECT AssetNum,ArchivesCode,AssetName,ExtinguisherTypeID,ExtinguisherTypeName,UpGradeTime,ValidityYear,DownTime
+    ,ExtinguisherInfo,Longitude,Latitude,EmployeeID,EmployeeName,Tunnel_AssetNum,TunnelAssetCode,AssetCode,Quantity
+    FROM v_Extinguisher
+    WHERE AssetNum=#{assetNum}
+  </select>
+</mapper>

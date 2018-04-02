@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PathArchivesFileMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PathArchivesFile" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ArchivesFileNum" property="archivesFileNum" jdbcType="DECIMAL" />
+    <result column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="ArchivesFileTypeID" property="archivesFileTypeID" jdbcType="DECIMAL" />
+    <result column="AcceptRecordNum" property="acceptRecordNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="ArchivesFileName" property="archivesFileName" jdbcType="VARCHAR" />
+    <result column="ArchivesFilePath" property="archivesFilePath" jdbcType="VARCHAR" />
+    <result column="ArchivesFileUpDate" property="archivesFileUpDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="PathArichiveFieMap" type="com.hbdl.web.sys.controller.page.PathArchivesFilePage">
+    <id column="ArchivesFileNum"  property="archivesFileNum" jdbcType="DECIMAL"/>
+    <result column="ARCHIVESFILETYPENAME" property="arichiveFileTypeName" jdbcType="VARCHAR"/>
+    <result column="ARCHIVESFILENAME" property="arichveFileName" jdbcType="VARCHAR"/>
+    <result column="userName" property="userName" jdbcType="VARCHAR"/>
+    <result column="ARCHIVESFILEUPDATE" property="arichiveFileDate" jdbcType="VARCHAR"/>
+    <result column="ARCHIVESFILEPATH" property="archileFilePath" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectPathrichTypes" parameterType="java.math.BigDecimal" resultMap="PathArichiveFieMap">
+    SELECT
+WASPTMS.PATHARCHIVESFILE.ARCHIVESFILENAME,
+WASPTMS.PATHARCHIVESFILE.ArchivesFileNum,
+WASPTMS.PATHARCHIVESFILE.ARCHIVESFILEPATH,
+WASPTMS.PATHARCHIVESFILE.ARCHIVESFILEUPDATE,
+WASPTMS.PATHARCHIVESFILETYPE.ARCHIVESFILETYPENAME,
+WASPTMS.EMPLOYEE.USERNAME
+FROM
+WASPTMS.PATHARCHIVESFILE
+INNER JOIN WASPTMS.PATHARCHIVESFILETYPE ON WASPTMS.PATHARCHIVESFILE.ARCHIVESFILETYPEID = WASPTMS.PATHARCHIVESFILETYPE.ARCHIVESFILETYPEID
+INNER JOIN WASPTMS.CABLEDEVICELEDGER ON WASPTMS.PATHARCHIVESFILE.NUM = WASPTMS.CABLEDEVICELEDGER.NUM
+INNER JOIN WASPTMS.EMPLOYEE ON WASPTMS.PATHARCHIVESFILE.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID AND WASPTMS.CABLEDEVICELEDGER.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID
+  WHERE CABLEDEVICELEDGER.NUM=#{num}
+  </select>
+  <select id="selectPageByAcceptRecordNum" parameterType="java.math.BigDecimal" resultMap="PathArichiveFieMap">
+    SELECT
+    WASPTMS.PATHARCHIVESFILE.ARCHIVESFILENAME,
+    WASPTMS.PATHARCHIVESFILE.ArchivesFileNum,
+    WASPTMS.PATHARCHIVESFILE.ARCHIVESFILEPATH,
+    WASPTMS.PATHARCHIVESFILE.ARCHIVESFILEUPDATE,
+    WASPTMS.PATHARCHIVESFILETYPE.ARCHIVESFILETYPENAME,
+    WASPTMS.EMPLOYEE.USERNAME
+    FROM
+    WASPTMS.PATHARCHIVESFILE
+    INNER JOIN WASPTMS.PATHARCHIVESFILETYPE ON WASPTMS.PATHARCHIVESFILE.ARCHIVESFILETYPEID = WASPTMS.PATHARCHIVESFILETYPE.ARCHIVESFILETYPEID
+    INNER JOIN WASPTMS.CABLEDEVICELEDGER ON WASPTMS.PATHARCHIVESFILE.NUM = WASPTMS.CABLEDEVICELEDGER.NUM
+    INNER JOIN WASPTMS.PathAduitRecord ON WASPTMS.PATHARCHIVESFILE.NUM = WASPTMS.PathAduitRecord.NUM
+    INNER JOIN WASPTMS.EMPLOYEE ON WASPTMS.PATHARCHIVESFILE.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID AND WASPTMS.CABLEDEVICELEDGER.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID
+    WHERE PathAduitRecord.AcceptRecordNum=#{acceptRecordNum}
+  </select>
+</mapper>

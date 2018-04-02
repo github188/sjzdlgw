@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.InspectObjFlawMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.InspectObjFlaw" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="TaskNum" property="taskNum" jdbcType="DECIMAL" />
+    <result column="FlawTypeID" property="flawTypeID" jdbcType="DECIMAL" />
+    <result column="FlawSourceTypeID" property="flawSourceTypeID" jdbcType="DECIMAL" />
+    <result column="FlawLevelTypeID" property="flawLevelTypeID" jdbcType="DECIMAL" />
+    <result column="FlawAduitStatusID" property="flawAduitStatusID" jdbcType="DECIMAL" />
+    <result column="ObjTypeEnum" property="objTypeEnum" jdbcType="DECIMAL" />
+    <result column="ObjTableNum" property="objTableNum" jdbcType="DECIMAL" />
+    <result column="ObjCode" property="objCode" jdbcType="VARCHAR" />
+    <result column="IsFlaw" property="isFlaw" jdbcType="DECIMAL" />
+    <result column="FlawDescription" property="flawDescription" jdbcType="VARCHAR" />
+    <result column="FlawDate" property="flawDate" jdbcType="TIMESTAMP" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="InspectObjFlawResultMap" type="com.hbdl.web.sys.controller.page.InspectObjFlawPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="TaskNum" property="taskNum" jdbcType="DECIMAL" />
+    <result column="FlawTypeID" property="flawTypeID" jdbcType="DECIMAL" />
+    <result column="FlawSourceTypeID" property="flawSourceTypeID" jdbcType="DECIMAL" />
+    <result column="FlawLevelTypeID" property="flawLevelTypeID" jdbcType="DECIMAL" />
+    <result column="FlawAduitStatusID" property="flawAduitStatusID" jdbcType="DECIMAL" />
+    <result column="ObjTypeEnum" property="objTypeEnum" jdbcType="DECIMAL" />
+    <result column="ObjTableNum" property="objTableNum" jdbcType="DECIMAL" />
+    <result column="ObjCode" property="objCode" jdbcType="VARCHAR" />
+    <result column="IsFlaw" property="isFlaw" jdbcType="DECIMAL" />
+    <result column="FlawDescription" property="flawDescription" jdbcType="VARCHAR" />
+    <result column="FlawDate" property="flawDate" jdbcType="TIMESTAMP" />
+    <result column="FlawTypeName" property="flawTypeName"/>
+    <result column="FlawSourceName" property="flawSourceName"/>
+    <result column="FlawLevelTypeName" property="flawLevelTypeName"/>
+    <result column="FlawAduitStatusName" property="flawAduitStatusName"/>
+    <result column="ObjTypeEnumName" property="objTypeEnumName"/>
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <select id="selectInspectObjPage" parameterType="com.hbdl.web.sys.controller.page.InspectObjFlawPage" resultMap="InspectObjFlawResultMap">
+    SELECT
+    ObjFlawNum,TaskNum,FlawTypeID,FlawSourceTypeID,FlawLevelTypeID,FlawAduitStatusID,ObjTypeEnum,ObjTableNum,ObjCode
+    ,IsFlaw,FlawDescription,FlawDate,FlawTypeName,FlawSourceName,FlawLevelTypeName,FlawAduitStatusName,
+    ObjTypeEnumName,TeamTypeID
+    FROM v_InspectObjFlaw
+    <trim prefix="where" prefixOverrides="and">
+      <if test="flawAduitStatusIDList!=null">
+        <foreach collection="flawAduitStatusIDList" item="id" open="and FlawAduitStatusID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="objFlawNumList!=null">
+        <foreach collection="objFlawNumList" item="id" open="and ObjFlawNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="teamTypeID!=null">
+        AND TeamTypeID=#{teamTypeID}
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+  <select id="selectInspectObjPageById" parameterType="java.math.BigDecimal" resultMap="InspectObjFlawResultMap">
+      SELECT
+    ObjFlawNum,TaskNum,FlawTypeID,FlawSourceTypeID,FlawLevelTypeID,FlawAduitStatusID,ObjTypeEnum,ObjTableNum,ObjCode
+    ,IsFlaw,FlawDescription,FlawDate,FlawTypeName,FlawSourceName,FlawLevelTypeName,FlawAduitStatusName,
+    ObjTypeEnumName,TeamTypeID
+    FROM v_InspectObjFlaw
+    WHERE ObjFlawNum=#{ObjFlawNum}
+  </select>
+
+
+  <delete id="deleteObjsByTaskNum" parameterType="java.math.BigDecimal" >
+    DELETE FROM InspectObjFlaw WHERE TaskNum=#{taskNum}
+  </delete>
+
+
+  <select id="selectPageByTaskNum" parameterType="java.math.BigDecimal" resultMap="InspectObjFlawResultMap">
+     SELECT
+    ObjFlawNum,TaskNum,FlawTypeID,FlawSourceTypeID,FlawLevelTypeID,FlawAduitStatusID,ObjTypeEnum,ObjTableNum,ObjCode
+    ,IsFlaw,FlawDescription,FlawDate,FlawTypeName,FlawSourceName,FlawLevelTypeName,FlawAduitStatusName,
+    ObjTypeEnumName,TeamTypeID
+    FROM v_InspectObjFlaw
+    WHERE TaskNum=#{taskNum}
+  </select>
+
+  <update id="updateInspectObjStatus" parameterType="java.util.Map">
+    UPDATE InspectObjFlaw
+    SET FlawAduitStatusID=#{status}
+    WHERE
+    <if test="idList!=null">
+      <foreach collection="idList" item="id" open=" ObjFlawNum in(" separator="," close=")">
+        #{id}
+      </foreach>
+    </if>
+  </update>
+
+  <select id="downloadInspectObjFlaw" resultType="com.hbdl.web.sys.api.Page.InspectObjFlawPage">
+    select iof.ObjFlawNum,iof.TaskNum,fst.FlawSourceName,mkt.ManholeKindTypeName as objTypeEnumName,iof.ObjTableNum,iof.ObjCode
+    FROM InspectObjFlaw iof LEFT JOIN FlawSourceType fst on iof.FlawSourceTypeID=fst.FlawSourceTypeID LEFT JOIN ManholeKindType mkt on iof.ObjTypeEnum=mkt.ManholeKindTypeID
+    WHERE iof.FlawAduitStatusID =1
+    <if test="list!=null">
+     <foreach collection="list" item="taskNum" open="and iof.TaskNum in(" separator="," close=")">
+       #{taskNum}
+     </foreach>
+    </if>
+  </select>
+
+  <update id="uploadInspectObjFlawForBatch">
+    <foreach collection="inspectObjFlawList" item="item" index="index" open="begin" close=";end;" separator=";">
+      UPDATE InspectObjFlaw set FlawTypeID=#{flawTypeID},FlawLevelTypeID=#{flawLevelTypeID},FlawDescription=#{flawDescription},FlawDate=#{flawDate},IsFlaw=1
+      WHERE ObjFlawNum=#{objFlawNum}
+    </foreach>
+  </update>
+</mapper>

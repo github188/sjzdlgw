@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.auth.mapper.AccessFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.auth.model.AccessFunction" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ApplicationModuleID" property="applicationModuleID" jdbcType="DECIMAL" />
+    <result column="ParentModuleID" property="parentModuleID" jdbcType="DECIMAL" />
+    <result column="ApplicationModuleName" property="applicationModuleName" jdbcType="VARCHAR" />
+    <result column="ApplicationCode" property="applicationCode" jdbcType="VARCHAR" />
+    <result column="ApplicationLevel" property="applicationLevel" jdbcType="VARCHAR" />
+    <result column="FunctionSeq" property="functionSeq" jdbcType="VARCHAR" />
+    <result column="FunctionType" property="functionType" jdbcType="VARCHAR" />
+    <result column="Context" property="context" jdbcType="VARCHAR" />
+    <result column="IsDisplay" property="isDisplay" jdbcType="DECIMAL" />
+    <result column="FunctionPath" property="functionPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectNotHaveAccessFunctionByEmployeeID" parameterType="String" resultMap="BaseResultMap">
+  		(select af.ApplicationModuleID,af.FunctionPath,af.ApplicationModuleName
+		from AccessFunction af)
+		MINUS
+		(select af.ApplicationModuleID,af.FunctionPath,af.ApplicationModuleName
+		from AccessFunction af
+		left join RoleFunctions rf on af.ApplicationModuleID=rf.ApplicationModuleID
+		left join Roles r on r.RoleNum=rf.RoleNum
+		left join UserRoles ur on ur.RoleNum=r.RoleNum
+		left join Employee e on e.EmployeeID=ur.EmployeeID
+		where e.EmployeeID=#{id,jdbcType=VARCHAR}
+		)
+  </select>
+  
+	<select id="selectManholePageForBranchBox" parameterType="map" resultType="com.hbdl.web.auth.model.AccessFunctionDTO">
+		SELECT
+		   f.APPLICATIONMODULEID APPLICATIONMODULEID,
+		   f.APPLICATIONMODULENAME APPLICATIONMODULENAME,
+		   f.PARENTMODULEID PARENTMODULEID,
+		   f.APPLICATIONCODE APPLICATIONCODE,
+		   rf.ROLENUM ROLENUM,
+		    CASE
+		        WHEN rf.ROLEFUNCTIONID!=0
+		        THEN '1'
+		        ELSE '0'
+		    END isChecked
+		FROM
+		    ACCESSFUNCTION f
+		LEFT JOIN
+		    ROLEFUNCTIONS rf
+		ON
+		    f.APPLICATIONMODULEID=rf.APPLICATIONMODULEID
+		AND rf.ROLENUM=#{roleNum}
+		WHERE
+		    f.ISDISPLAY ='1'
+		ORDER BY
+		    f.APPLICATIONLEVEL,
+		    f.FUNCTIONSEQ
+	</select>
+   
+</mapper>

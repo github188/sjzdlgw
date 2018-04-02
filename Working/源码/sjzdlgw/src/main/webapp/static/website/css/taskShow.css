@@ -1,0 +1,82 @@
+table.a-jd {
+  margin-left:20px;
+}
+/*table.a-jd td {
+    height:30px;
+    padding-right:20px;
+}*/
+table.a-jd td div {
+  width:14px;height:25px;
+  margin-left: 10px;
+  margin-right: 10px;
+  float:left;
+  margin-top: 34px;
+  background:url(../images/hui_type.png) no-repeat;
+}
+table.a-jd td.a-jg div{
+  background:url(../images/right_type.png) no-repeat;
+}
+table.a-jd td a {
+  float:left;
+  font-size:16px;
+  display:block;
+  width:89px;
+  height:89px;
+  line-height:89px;
+  text-align:center;
+  color:#8B8989;
+  background:url(../images/now_type.png) no-repeat;
+  text-decoration: none;
+  cursor:default;
+}
+table.a-jd td.a-jg a {
+  color:#ffffff;
+  cursor:pointer;
+  background:url(../images/over_type.png) no-repeat;
+}
+.a-title {
+  height:35px;
+  margin-top: 25px;
+}
+.a-title div {
+  float:left;
+  color:#006F6B;
+
+}
+.a-title div.a-left {
+  width:16px;height:21px;
+  margin-left:10px;
+  background:url(../images/a_file.png) no-repeat;
+}
+.a-title div.a-right {
+  margin-top:5px;
+  margin-left:5px;
+  font-weight:bold;
+  font-size:14px;
+}
+table.a-success-table {
+  table-layout: fixed;
+  width:600px;
+}
+table.a-success-table td {
+  height:40px;
+  color:#959595;
+}
+.a-success-icon {
+  width:67px;height:67px;
+  background:url(../images/success_type.png) no-repeat;
+  margin-left:auto;
+  margin-right:auto;
+}
+table.a-success-table .w-label {
+  width:80px;
+  text-align: right;
+
+}
+.a-submit{
+  background:#00716B;border:0px;height:30px;color:#fff;font-size:16px;
+  margin-right:10px;cursor: pointer;
+}
+.a-close {
+  background:#B5B5B5;border:0px;width:65px;height:30px;color:#fff;font-size:16px;cursor: pointer;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.BranchBoxMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.BranchBox" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="BranchBoxNum" property="branchBoxNum" jdbcType="DECIMAL" />
+    <result column="ModelNum" property="modelNum" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="IsLoadSwitch" property="isLoadSwitch" jdbcType="DECIMAL" />
+    <result column="IsLockDevice" property="isLockDevice" jdbcType="DECIMAL" />
+    <result column="IsOnMonitor" property="isOnMonitor" jdbcType="DECIMAL" />
+    <result column="IsDrop" property="isDrop" jdbcType="DECIMAL" />
+    <result column="RunDate" property="runDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

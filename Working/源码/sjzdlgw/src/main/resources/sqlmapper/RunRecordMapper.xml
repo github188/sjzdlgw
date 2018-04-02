@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.RunRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.RunRecord" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RecordNum" property="recordNum" jdbcType="DECIMAL" />
+    <result column="AttachmentStatusTypeID" property="attachmentStatusTypeID" jdbcType="DECIMAL" />
+    <result column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="RecordDate" property="recordDate" jdbcType="TIMESTAMP" />
+    <result column="Reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

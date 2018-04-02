@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PowerTunnelMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PowerTunnel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="Monitor_CompanyNum" property="monitor_CompanyNum" jdbcType="DECIMAL" />
+    <result column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="TunnelStuffTypeID" property="tunnelStuffTypeID" jdbcType="DECIMAL" />
+    <result column="Bulid_CompanyNum" property="bulid_CompanyNum" jdbcType="DECIMAL" />
+    <result column="TunnelShapeTypeID" property="tunnelShapeTypeID" jdbcType="DECIMAL" />
+    <result column="AreaNum" property="areaNum" jdbcType="DECIMAL" />
+    <result column="TrestleTypeInfoID" property="trestleTypeInfoID" jdbcType="DECIMAL" />
+    <result column="OrganizationNum" property="organizationNum" jdbcType="DECIMAL" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="GraphID" property="graphID" jdbcType="DECIMAL" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="CompletedDate" property="completedDate" jdbcType="TIMESTAMP" />
+    <result column="OperationDate" property="operationDate" jdbcType="TIMESTAMP" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+    <result column="Ass_Longitude" property="ass_Longitude" jdbcType="FLOAT" />
+    <result column="Ass_Latitude" property="ass_Latitude" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="TunnelLength" property="tunnelLength" jdbcType="FLOAT" />
+    <result column="TunnelHeight" property="tunnelHeight" jdbcType="FLOAT" />
+    <result column="TunnelWidth" property="tunnelWidth" jdbcType="FLOAT" />
+    <result column="Diameter" property="diameter" jdbcType="FLOAT" />
+    <result column="FrontTopHeight" property="frontTopHeight" jdbcType="FLOAT" />
+    <result column="TailTopHeight" property="tailTopHeight" jdbcType="FLOAT" />
+    <result column="Latitude" property="latitude" jdbcType="FLOAT" />
+    <result column="Longitude" property="longitude" jdbcType="FLOAT" />
+    <result column="TrestleInterval" property="trestleInterval" jdbcType="FLOAT" />
+    <result column="TrestleTypeDescription" property="trestleTypeDescription" jdbcType="VARCHAR" />
+    <result column="StartStopDescription" property="startStopDescription" jdbcType="VARCHAR" />
+    <result column="IsPlan" property="isPlan" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="PowerTunnelPageResultMap" type="com.hbdl.web.sys.controller.page.PowerTunnelPage">
+    <id column="AssetNum" property="assetNum" />
+    <result column="ArchivesNum" property="archivesNum" />
+    <result column="ArchivesCode" property="archivesCode" />
+    <result column="AssetName" property="assetName" />
+    <result column="AssetCode" property="assetCode" />
+    <result column="OperationCode" property="operationCode" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" />
+    <result column="BaseFacilityName" property="baseFacilityName" />
+    <result column="AreaNum" property="areaNum" />
+    <result column="AreaName" property="areaName" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" />
+    <result column="TunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="TrestleTypeInfoID" property="trestleTypeInfoID" />
+    <result column="TrestleTypeInfoName" property="trestleTypeInfoName" />
+    <result column="VoltageLevelID" property="voltageLevelID" />
+    <result column="VoltageLevelName" property="voltageLevelName" />
+    <result column="StartStopDescription" property="startStopDescription" />
+    <result column="PositionDescription" property="positionDescription" />
+    <result column="OperationDate" property="operationDate" />
+    <result column="TunnelStuffTypeID" property="tunnelStuffTypeID" />
+    <result column="TunnelStuffTypeName" property="tunnelStuffTypeName" />
+    <result column="OrganizationNum" property="organizationNum" />
+    <result column="OrganizationName" property="organizationName" />
+    <result column="EmployeeID" property="employeeID" />
+    <result column="EmployeeName" property="employeeName" />
+    <result column="TunnelSize" property="tunnelSize" />
+    <result column="TunnelLength" property="tunnelLength" />
+    <result column="FrontTopHeight" property="frontTopHeight" />
+    <result column="TunnelWidth" property="tunnelWidth" />
+    <result column="TunnelHeight" property="tunnelHeight" />
+    <result column="Diameter" property="diameter" />
+    <result column="CompletedDate" property="completedDate"/>
+    <result column="Memo" property="memo"/>
+    <result column="TrestleTypeDescription" property="trestleTypeDescription"/>
+    <result column="bulid_CompanyNum" property="buildCompany"/>
+    <result column="monitor_CompanyNum" property="monitorCompany"/>
+  </resultMap>
+  
+   <resultMap id="PowerTunnelPageResultMap2" type="com.hbdl.web.sys.controller.page.PowerTunnelPage2">
+    <id column="AssetNum" property="assetNum" />
+    <result column="ArchivesNum" property="archivesNum" />
+    <result column="ArchivesCode" property="archivesCode" />
+    <result column="AssetName" property="assetName" />
+    <result column="AssetCode" property="assetCode" />
+    <result column="OperationCode" property="operationCode" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" />
+    <result column="BaseFacilityName" property="baseFacilityName" />
+    <result column="AreaNum" property="areaNum" />
+    <result column="AreaName" property="areaName" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" />
+    <result column="TunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="TrestleTypeInfoID" property="trestleTypeInfoID" />
+    <result column="TrestleTypeInfoName" property="trestleTypeInfoName" />
+    <result column="VoltageLevelID" property="voltageLevelID" />
+    <result column="VoltageLevelName" property="voltageLevelName" />
+    <result column="StartStopDescription" property="startStopDescription" />
+    <result column="PositionDescription" property="positionDescription" />
+    <result column="OperationDate" property="operationDate" />
+    <result column="TunnelStuffTypeID" property="tunnelStuffTypeID" />
+    <result column="TunnelStuffTypeName" property="tunnelStuffTypeName" />
+    <result column="OrganizationNum" property="organizationNum" />
+    <result column="OrganizationName" property="organizationName" />
+    <result column="EmployeeID" property="employeeID" />
+    <result column="EmployeeName" property="employeeName" />
+    <result column="TunnelSize" property="tunnelSize" />
+    <result column="TunnelLength" property="tunnelLength" />
+    <result column="FrontTopHeight" property="frontTopHeight" />
+    <result column="TunnelWidth" property="tunnelWidth" />
+    <result column="TunnelHeight" property="tunnelHeight" />
+    <result column="Diameter" property="diameter" />
+    <result column="CompletedDate" property="completedDate"/>
+    <result column="Memo" property="memo"/>
+    <result column="TrestleTypeDescription" property="trestleTypeDescription"/>
+    <result column="bulid_CompanyNum" property="buildCompany"/>
+    <result column="monitor_CompanyNum" property="monitorCompany"/>
+  </resultMap>
+
+<resultMap id="LayingOccupationPageResultMap" type="com.hbdl.web.sys.controller.page.LayingOccupationPage">
+    <id column="AssetNum" property="assetNum" />
+    <result column="employeeID" property="employeeID" />
+    <result column="voltageLevelID" property="voltageLevelID" />
+    <result column="archivesNum" property="archivesNum" />
+    <result column="tunnelStuffTypeID" property="tunnelStuffTypeID" />
+    <result column="areaNum" property="areaNum" />
+    <result column="organizationNum" property="organizationNum" />
+    <result column="tunnelStructureTypeID" property="tunnelStructureTypeID" />
+    <result column="assetName" property="assetName" />
+    <result column="assetCode" property="assetCode" />
+    <result column="operationCode" property="operationCode" />
+    <result column="buildDate" property="buildDate" />
+    <result column="completedDate" property="completedDate" />
+    <result column="operationDate" property="operationDate" />
+    <result column="positionDescription" property="positionDescription" />
+    <result column="tunnelLength" property="tunnelLength" />
+    <result column="trestleTypeDescription" property="trestleTypeDescription" />
+    <result column="startStopDescription" property="startStopDescription" />
+    <result column="archivesCode" property="archivesCode" />
+    <result column="archivesName" property="archivesName" />
+    <result column="tunnelSize" property="tunnelSize" />
+    <result column="topHeight" property="topHeight" />
+    <result column="tunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="baseFacilityName" property="baseFacilityName" />
+    <result column="trestleTypeInfoName" property="trestleTypeInfoName" />
+    <result column="tunnelStuffTypeName" property="tunnelStuffTypeName" />
+    <result column="voltageLevelName" property="voltageLevelName" />
+    <result column="areaName" property="areaName" />
+    <result column="organizationName" property="organizationName" />
+    <result column="employeeName" property="employeeName" />
+    <result column="laycount" property="laycount" />
+    <result column="prelaycount" property="prelaycount"/>
+    <result column="totalcount" property="totalcount"/>
+    <result column="restcount" property="restcount"/>
+    <result column="laystatus" property="laystatus"/>
+  </resultMap>
+  
+  <resultMap id="LayingOccupationSubPageResultMap" type="com.hbdl.web.sys.controller.page.LayingOccupationSubPage">
+    <id column="sectionNum" property="sectionNum" />
+    <result column="assetNum" property="assetNum" />
+    <result column="length" property="length" />
+    <result column="orderNum" property="orderNum" />
+    <result column="tunnleTowardTypeID" property="tunnleTowardTypeID" />
+    <result column="topHeight" property="topHeight" />
+    <result column="assetCode" property="assetCode" />
+    <result column="tunnleTowardTypeName" property="tunnleTowardTypeName" />
+    <result column="tunnelStructureTypeID" property="tunnelStructureTypeID" />
+    <result column="tunnelStructureTypeName" property="tunnelStructureTypeName" />
+    <result column="voltageLevelID" property="voltageLevelID" />
+    <result column="voltageLevelName" property="voltageLevelName" />
+    <result column="laycount" property="laycount" />
+    <result column="prelaycount" property="prelaycount"/>
+    <result column="totalcount" property="totalcount"/>
+    <result column="restcount" property="restcount"/>
+    <result column="laystatus" property="laystatus"/>
+  </resultMap>
+  <resultMap id="PowerTunnelLayRetResultMap" type="com.hbdl.web.sys.api.retMapperClass.PowerTunnelLayRet">
+      <id column="assetNum" property="assetNum" jdbcType="DECIMAL"/>
+      <result column="archivesCode" property="archivesCode" jdbcType="VARCHAR" />
+      <result column="assetCode" property="assetCode" jdbcType="VARCHAR" />
+      <result column="operationCode" property="operationCode" jdbcType="VARCHAR" />
+      <result column="baseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+      <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+      <result column="tunnelStructureTypeName" property="tunnelStructureTypeName" jdbcType="VARCHAR" />
+      <result column="voltageLevelName" property="voltageLevelName" jdbcType="VARCHAR" />
+      <result column="startStopDescription" property="startStopDescription" jdbcType="VARCHAR" />
+      <result column="positionDescription" property="positionDescription" jdbcType="VARCHAR" />
+      <result column="frontTopHeight" property="frontTopHeight" jdbcType="FLOAT" />
+      <result column="tunnelWidth" property="tunnelWidth" jdbcType="FLOAT" />
+      <result column="tunnelHeight" property="tunnelHeight" jdbcType="FLOAT" />
+      <result column="tunnelSectionNum" property="tunnelSectionNum" jdbcType="DECIMAL" />
+      <result column="tunnelStructureTypeID" property="tunnelStructureTypeID" jdbcType="DECIMAL" />
+      <result column="tunnelStuffTypeID" property="tunnelStuffTypeID" jdbcType="DECIMAL" />
+      <result column="tunnelStuffTypeName" property="tunnelStuffTypeName" jdbcType="VARCHAR" />
+      <result column="tunnelLength" property="tunnelLength" jdbcType="FLOAT" />
+      <result column="tailTopHeight" property="tailTopHeight" jdbcType="FLOAT" />
+
+  </resultMap>
+    <select id="selectPowerTunnelLayRet" resultMap="PowerTunnelLayRetResultMap">
+    with num as(
+    select count(ts.SectionNum) tunnelSectionNum
+    from v_PowerTunnel vp
+    left join TunnelSection ts on vp.assetNum=ts.assetNum
+    where vp.AssetNum=#{0}
+    )
+    select vp.tunnelStructureTypeID,VP.assetNum,VP.archivesCode,VP.assetCode,VP.operationCode,VP.baseFacilityName,VP.areaName,vp.tunnelStructureTypeName,
+    VP.voltageLevelName,vp.startStopDescription,VP.positionDescription,VP.frontTopHeight,VP.tunnelWidth,VP.tunnelHeight,NUM.TUNNELSECTIONNUM,VP.tunnelStuffTypeID,
+    VP.tunnelStuffTypeName,VP.tunnelLength,VP.tailTopHeight
+    from v_PowerTunnel vp,num
+    where vp.AssetNum=#{0}
+    </select>
+
+       <select id="selectarchivesCodeByPowerTunnel" parameterType="Map" resultType="String">
+            <if test="idNum != null and idNum != -1">
+                select LD.archivesCode  from LEDGER ld where ld.ARCHIVESNUM = #{idNum}
+            </if>
+           <if test="cidnum != null and cidnum != -1">
+              select DISTINCT ld.archivesCode  from LEDGER ld
+               LEFT JOIN  POWERTUNNEL po on  PO.ARCHIVESNUM = ld.ARCHIVESNUM
+               where PO.ASSETNUM= #{cidnum}
+           </if>
+       </select>
+
+
+
+
+  <select id="selectPageById" parameterType="java.math.BigDecimal" resultMap="PowerTunnelPageResultMap">
+     SELECT
+    AssetNum,ArchivesNum,EmployeeID,ArchivesCode,AssetName,AssetCode,OperationCode, BaseFacilityNum,BaseFacilityName,
+    AreaNum ,AreaName,TunnelStructureTypeID,TunnelStructureTypeName,TrestleTypeInfoID,TrestleTypeInfoName,VoltageLevelID ,VoltageLevelName,
+    StartStopDescription,EmployeeName,TunnelSize,TunnelLength,FrontTopHeight,TunnelWidth,TunnelHeight,Diameter
+    ,PositionDescription ,OperationDate,TunnelStuffTypeID,TunnelStuffTypeName ,OrganizationNum,OrganizationName,CompletedDate,Memo
+    ,TrestleTypeDescription,bulid_CompanyNum,monitor_CompanyNum
+    FROM v_PowerTunnel
+    WHERE AssetNum=#{assetNum}
+  </select>
+  
+  <select id="selectPagePowerTunnel2" parameterType="com.hbdl.web.sys.controller.page.PowerTunnelPage2" resultMap="PowerTunnelPageResultMap2">
+    SELECT
+    AssetNum,ArchivesNum,EmployeeID,ArchivesCode,AssetName,AssetCode,OperationCode, BaseFacilityNum,BaseFacilityName,
+    AreaNum,AreaName,TunnelStructureTypeID,TunnelStructureTypeName, TrestleTypeInfoID,  TrestleTypeInfoName,VoltageLevelID ,VoltageLevelName,
+    StartStopDescription,EmployeeName,TunnelSize, TunnelLength, FrontTopHeight, TunnelWidth,TunnelHeight,Diameter
+    ,PositionDescription ,OperationDate, TunnelStuffTypeID,TunnelStuffTypeName,OrganizationNum,OrganizationName
+    FROM v_PowerTunnel
+    </select>
+
+  <select id="selectPagePowerTunnel" parameterType="com.hbdl.web.sys.controller.page.PowerTunnelPage" resultMap="PowerTunnelPageResultMap">
+    SELECT
+    v.AssetNum,v.ArchivesNum,v.EmployeeID,v.ArchivesCode,v.AssetName,v.AssetCode,v.OperationCode, v.BaseFacilityNum,v.BaseFacilityName,
+      v.AreaNum,v.AreaName,v.TunnelStructureTypeID,v.TunnelStructureTypeName, v.TrestleTypeInfoID,  v.TrestleTypeInfoName,v.VoltageLevelID ,v.VoltageLevelName,
+      v.StartStopDescription,v.EmployeeName,v.TunnelSize, v.TunnelLength, v.FrontTopHeight, v.TunnelWidth,v.TunnelHeight,v.Diameter
+    ,v.PositionDescription ,v.OperationDate, v.TunnelStuffTypeID,v.TunnelStuffTypeName,v.OrganizationNum,v.OrganizationName
+    FROM v_PowerTunnel v
+
+    <trim prefix="where" prefixOverrides="and">
+
+      <if test="acceptStatusTypeID!=null">
+          and v.acceptStatusTypeID=#{acceptStatusTypeID}
+      </if>
+        <if test="startStopDescription!=null and startStopDescription!=''">
+            and v.startStopDescription like '%'||#{startStopDescription}||'%'
+        </if>
+
+      <if test="archivesCode!=null and archivesCode!=''">
+        and v.ArchivesCode like '%'||#{archivesCode}||'%'
+      </if>
+      <if test="operationCode!=null and operationCode!=''">
+        and v.OperationCode like '%'||#{operationCode}||'%'
+      </if>
+      <if test="assetCode!=null and assetCode!=''">
+        and v.AssetCode like '%'||#{assetCode}||'%'
+      </if>
+
+      <if test="assetName!=null and assetName!=''">
+        and v.AssetName like '%'||#{assetName}||'%'
+      </if>
+
+        <if test="areaName!=null and areaName!=''">
+            and v.AreaName like '%'||#{areaName}||'%'
+        </if>
+        <if test="tunnelStructureTypeName!=null and tunnelStructureTypeName!=''">
+            and v.TunnelStructureTypeName like '%'||#{tunnelStructureTypeName}||'%'
+        </if>
+
+      <if test="startStopDescription!=null and startStopDescription!=''">
+        and v.StartStopDescription like '%'||#{startStopDescription}||'%'
+      </if>
+
+      <if test="positionDescription!=null and positionDescription!=''">
+        and v.PositionDescription like '%'||#{positionDescription}||'%'
+      </if>
+      <if test="archivesNum!=null">
+        and v.ArchivesNum=#{archivesNum}
+      </if>
+      <if test="assetNum!=null">
+        and v.AssetNum=#{assetNum}
+      </if>
+      <choose>
+        <when test="operationDateMin!=null and operationDateMin!='' and operationDateMax!=null and operationDateMax!=''">
+          and v.OperationDate >= #{operationDateMin} and v.OperationDate   &lt;= #{operationDateMax}
+        </when>
+        <when test="operationDateMin!=null and operationDateMin!=''">
+          and v.OperationDate   >= #{operationDateMin}
+        </when>
+        <when test="operationDateMax!=null and operationDateMax!=''">
+          and v.OperationDate &lt;= #{operationDateMax}
+        </when>
+        <otherwise>
+
+        </otherwise>
+      </choose>
+
+      <if test="baseFacilityNumList!=null">
+        <foreach collection="baseFacilityNumList" item="id" open="and v.BaseFacilityNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="areaList!=null">
+        <foreach collection="areaList" item="id" open="and v.AreaNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="tunnelStructureTypeList!=null">
+        <foreach collection="tunnelStructureTypeList" item="id" open="and v.TunnelStructureTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="voltageLevelList!=null">
+        <foreach collection="voltageLevelList" item="id" open="and v.VoltageLevelID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="tunnelStuffTypeList!=null">
+        <foreach collection="tunnelStuffTypeList" item="id" open="and v.TunnelStuffTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="organizationList!=null">
+        <foreach collection="organizationList" item="id" open="and v.OrganizationNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+    </trim>
+
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY v.${orderStr}
+    </if>
+
+  </select>
+  
+  <select id="selectPageLayingOccupation" parameterType="com.hbdl.web.sys.controller.page.LayingOccupationPage" resultMap="LayingOccupationPageResultMap">
+   WITH tmpLayCountWithTunnel (laycount, AssetNum) AS (
+	SELECT
+		COUNT (LayerCableNum) AS laycount,
+		AssetNum
+	FROM
+		v_CableOfSection
+	GROUP BY
+		AssetNum
+),
+ tmpPreLayCountWithTunnel (prelaycount, AssetNum) AS (
+	SELECT
+		COUNT (LayerCableNum) AS prelaycount,
+		AssetNum
+	FROM
+		v_CableOfSection
+	WHERE
+		COALESCE (IsTempCable, 0) = 1
+	GROUP BY
+		AssetNum
+),
+ tmpTrestleLength (SectionNum, trestlecount) AS (
+	SELECT
+		SectionNum,
+		FLOOR (
+			COALESCE (
+				CAST (
+					TrestleLength AS DECIMAL (5, 2)
+				),
+				0
+			) / CAST (0.1 AS DECIMAL(5, 2))
+		) AS trestlecount
+	FROM
+		TrestleLayer
+),
+ tmpTrestleCountWithTunnel (trestlecount, AssetNum) AS (
+	SELECT
+		SUM (tl.trestlecount) AS trestlecount,
+		ts.AssetNum
+	FROM
+		tmpTrestleLength  tl
+	INNER JOIN TunnelSection ts ON ts.SectionNum = tl.SectionNum
+	GROUP BY
+		ts.AssetNum
+),
+ tmpRowTubeCountWithTunnel (rowtubecount, AssetNum) AS (
+	SELECT
+		COUNT (rt.RowTubeNum) AS rowtubecount,
+		ts.AssetNum
+	FROM
+		RowTube  rt
+	INNER JOIN TrestleLayer  tl ON tl.TrestleLayerNum = rt.TrestleLayerNum
+	INNER JOIN TunnelSection  ts ON ts.SectionNum = tl.SectionNum
+	GROUP BY
+		ts.AssetNum
+) SELECT
+	pt.AssetNum,
+	pt.EmployeeID,
+	pt.VoltageLevelID,
+	pt.ArchivesNum,
+	pt.TunnelStuffTypeID,
+	pt.AreaNum,
+	pt.OrganizationNum,
+	pt.TunnelStructureTypeID,
+	pt.AssetName,
+	pt.AssetCode,
+	pt.OperationCode,
+	pt.BuildDate,
+	pt.CompletedDate,
+	pt.OperationDate,
+	pt.PositionDescription,
+	pt.TunnelLength,
+	pt.TrestleTypeDescription,
+	pt.StartStopDescription,
+	pt.ArchivesCode,
+	pt.ArchivesName,
+	pt.TunnelSize,
+	pt.TopHeight,
+	pt.TunnelStructureTypeName,
+	pt.BaseFacilityName,
+	pt.TrestleTypeInfoName,
+	pt.TunnelStuffTypeName,
+	pt.VoltageLevelName,
+	pt.AreaName,
+	pt.OrganizationName,
+	pt.EmployeeName,
+	A .laycount,
+	COALESCE (c.prelaycount, 0) AS prelaycount,
+	b.trestlecount AS totalcount,
+	(b.trestlecount - A .laycount) AS restcount,
+	(
+		CASE
+		WHEN A .laycount >= b.trestlecount THEN
+			'已满'
+		WHEN (b.trestlecount > A .laycount)
+		AND CEIL (
+			(
+				CAST (
+					(b.trestlecount - A .laycount) AS FLOAT
+				) / CAST (b.trestlecount AS FLOAT)
+			) * 100
+		) &lt;= 5 THEN
+			'预警'
+		ELSE
+			'未满'
+		END
+	) AS laystatus
+FROM
+	v_PowerTunnel  pt
+INNER JOIN tmpLayCountWithTunnel  A ON A .AssetNum = pt.AssetNum
+INNER JOIN tmpTrestleCountWithTunnel  b ON b.AssetNum = pt.AssetNum
+LEFT OUTER JOIN tmpPreLayCountWithTunnel  c ON c.AssetNum = pt.AssetNum
+<!-- WHERE
+	pt.TunnelStructureTypeID IN (1, 2, 3, 4)
+AND VoltageLevelID IN (4) -->
+ <trim prefix="where" prefixOverrides="and">
+	 <if test="tunnelStructureTypeID!=null and tunnelStructureTypeID!=''"> 
+		TunnelStructureTypeID = #{tunnelStructureTypeID} 
+	</if > 
+	<if test="voltageLevelID!=null and voltageLevelID!=''">
+		and VoltageLevelID = #{voltageLevelID} 
+	</if> 
+      </trim>
+UNION ALL
+	SELECT
+		pt.AssetNum,
+		pt.EmployeeID,
+		pt.VoltageLevelID,
+		pt.ArchivesNum,
+		pt.TunnelStuffTypeID,
+		pt.AreaNum,
+		pt.OrganizationNum,
+		pt.TunnelStructureTypeID,
+		pt.AssetName,
+		pt.AssetCode,
+		pt.OperationCode,
+		pt.BuildDate,
+		pt.CompletedDate,
+		pt.OperationDate,
+		pt.PositionDescription,
+		pt.TunnelLength,
+		pt.TrestleTypeDescription,
+		pt.StartStopDescription,
+		pt.ArchivesCode,
+		pt.ArchivesName,
+		pt.TunnelSize,
+		pt.TopHeight,
+		pt.TunnelStructureTypeName,
+		pt.BaseFacilityName,
+		pt.TrestleTypeInfoName,
+		pt.TunnelStuffTypeName,
+		pt.VoltageLevelName,
+		pt.AreaName,
+		pt.OrganizationName,
+		pt.EmployeeName,
+		A .laycount,
+		COALESCE (c.prelaycount, 0) AS prelaycount,
+		b.rowtubecount AS totalcount,
+		(b.rowtubecount - A .laycount) AS restcount,
+		(
+			CASE
+			WHEN A .laycount >= b.rowtubecount THEN
+				'已满'
+			WHEN (b.rowtubecount > A .laycount)
+			AND (b.rowtubecount - A .laycount) &lt;= 2 THEN
+				'预警'
+			ELSE
+				'未满'
+			END
+		) AS laystatus
+	FROM
+		v_PowerTunnel  pt
+	INNER JOIN tmpLayCountWithTunnel  A ON A .AssetNum = pt.AssetNum
+	INNER JOIN tmpRowTubeCountWithTunnel  b ON b.AssetNum = pt.AssetNum
+	LEFT OUTER JOIN tmpPreLayCountWithTunnel  c ON c.AssetNum = pt.AssetNum
+	<!-- WHERE
+		TunnelStructureTypeID IN (5, 6, 7, 8)
+	AND VoltageLevelID IN (4); -->
+	 <trim prefix="where" prefixOverrides="and">
+	 <if test="tunnelStructureTypeID!=null and tunnelStructureTypeID!=''"> 
+		TunnelStructureTypeID = #{tunnelStructureTypeID} 
+	</if > 
+	<if test="voltageLevelID!=null and voltageLevelID!=''">
+		and VoltageLevelID = #{voltageLevelID} 
+	</if> 
+      </trim>
+    </select>
+    
+    <select id="selectPageLayingOccupationSub" parameterType="com.hbdl.web.sys.controller.page.LayingOccupationSubPage" resultMap="LayingOccupationSubPageResultMap">
+  		WITH tmpLayCountWithSection (
+	laycount,
+	AssetNum,
+	SectionNum
+) AS (
+	SELECT
+		COUNT (LayerCableNum) AS laycount,
+		AssetNum,
+		SectionNum
+	FROM
+		v_CableOfSection
+	GROUP BY
+		AssetNum,
+		SectionNum
+),
+ tmpPreLayCountWithSection (
+	prelaycount,
+	AssetNum,
+	SectionNum
+) AS (
+	SELECT
+		COUNT (LayerCableNum) AS prelaycount,
+		AssetNum,
+		SectionNum
+	FROM
+		v_CableOfSection
+	WHERE
+		COALESCE (IsTempCable, 0) = 1
+	GROUP BY
+		AssetNum,
+		SectionNum
+),
+ tmpTrestleLength (SectionNum, trestlecount) AS (
+	SELECT
+		SectionNum,
+		FLOOR (
+			COALESCE (
+				CAST (
+					TrestleLength AS DECIMAL (5, 2)
+				),
+				0
+			) / CAST (0.1 AS DECIMAL(5, 2))
+		) AS trestlecount
+	FROM
+		TrestleLayer
+),
+ tmpTrestleCountWithSection (
+	trestlecount,
+	AssetNum,
+	SectionNum
+) AS (
+	SELECT
+		SUM (tl.trestlecount)  trestlecount,
+		ts.AssetNum,
+		ts.SectionNum
+	FROM
+		tmpTrestleLength  tl
+	INNER JOIN TunnelSection  ts ON ts.SectionNum = tl.SectionNum
+	GROUP BY
+		ts.AssetNum,
+		ts.SectionNum
+),
+ tmpRowTubeCountWithSection (
+	rowtubecount,
+	AssetNum,
+	SectionNum
+) AS (
+	SELECT
+		COUNT (rt.RowTubeNum) AS rowtubecount,
+		ts.AssetNum,
+		ts.SectionNum
+	FROM
+		RowTube  rt
+	INNER JOIN TrestleLayer tl ON tl.TrestleLayerNum = rt.TrestleLayerNum
+	INNER JOIN TunnelSection  ts ON ts.SectionNum = tl.SectionNum
+	GROUP BY
+		ts.AssetNum,
+		ts.SectionNum
+),
+ tmpTunnelLayStatistics (
+	SectionNum,
+	AssetNum ,LENGTH, OrderNum,
+	TunnleTowardTypeID,
+	TopHeight,
+	AssetCode,
+	TunnleTowardTypeName,
+	TunnelStructureTypeID,
+	TunnelStructureTypeName,
+	VoltageLevelID,
+	VoltageLevelName,
+	laycount,
+	prelaycount,
+	totalcount,
+	restcount,
+	laystatus
+) AS (
+	SELECT
+		ts.SectionNum,
+		ts.AssetNum,
+		ts.LENGTH, ts.OrderNum,
+		ts.TunnleTowardTypeID,
+		ts.TopHeight,
+		ts.AssetCode,
+		ts.TunnleTowardTypeName,
+		ts.TunnelStructureTypeID,
+		ts.TunnelStructureTypeName,
+		ts.VoltageLevelID,
+		ts.VoltageLevelName,
+		A .laycount,
+		COALESCE (c.prelaycount, 0) AS prelaycount,
+		b.trestlecount AS totalcount,
+		(b.trestlecount - A .laycount) AS restcount,
+		(
+			CASE
+			WHEN A .laycount >= b.trestlecount THEN
+				'已满'
+			WHEN (b.trestlecount > A .laycount)
+			AND CEIL (
+				(
+					CAST (
+						(b.trestlecount - A .laycount) AS FLOAT
+					) / CAST (b.trestlecount AS FLOAT)
+				) * 100
+			) &lt;= 5 THEN
+				'预警'
+			ELSE
+				'未满'
+			END
+		) AS laystatus
+	FROM
+		v_TunnelSection  ts
+	INNER JOIN tmpLayCountWithSection  A ON A .AssetNum = ts.AssetNum
+	AND A .SectionNum = ts.SectionNum
+	INNER JOIN tmpTrestleCountWithSection  b ON b.AssetNum = ts.AssetNum
+	AND b.SectionNum = ts.SectionNum
+	LEFT OUTER JOIN tmpPreLayCountWithSection  c ON c.AssetNum = ts.AssetNum
+	AND c.SectionNum = ts.SectionNum
+	
+	UNION ALL
+		SELECT
+			ts.SectionNum,
+			ts.AssetNum,
+			ts.LENGTH, ts.OrderNum,
+			ts.TunnleTowardTypeID,
+			ts.TopHeight,
+			ts.AssetCode,
+			ts.TunnleTowardTypeName,
+			ts.TunnelStructureTypeID,
+			ts.TunnelStructureTypeName,
+			ts.VoltageLevelID,
+			ts.VoltageLevelName,
+			A .laycount,
+			COALESCE (c.prelaycount, 0) AS prelaycount,
+			b.rowtubecount AS totalcount,
+			(b.rowtubecount - A .laycount) AS restcount,
+			(
+				CASE
+				WHEN A .laycount >= b.rowtubecount THEN
+					'已满'
+				WHEN (b.rowtubecount > A .laycount)
+				AND (b.rowtubecount - A .laycount) &lt;= 2 THEN
+					'预警'
+				ELSE
+					'未满'
+				END
+			) AS laystatus
+		FROM
+			v_TunnelSection  ts
+		INNER JOIN tmpLayCountWithSection  A ON A .AssetNum = ts.AssetNum
+		AND A .SectionNum = ts.SectionNum
+		INNER JOIN tmpRowTubeCountWithSection  b ON b.AssetNum = ts.AssetNum
+		AND b.SectionNum = ts.SectionNum
+		LEFT OUTER JOIN tmpPreLayCountWithSection  c ON c.AssetNum = ts.AssetNum
+		AND c.SectionNum = ts.SectionNum
+	
+) SELECT
+	SectionNum,
+	AssetNum ,LENGTH, OrderNum,
+	TunnleTowardTypeID,
+	TopHeight,
+	AssetCode,
+	TunnleTowardTypeName,
+	TunnelStructureTypeID,
+	TunnelStructureTypeName,
+	VoltageLevelID,
+	VoltageLevelName,
+	laycount,
+	prelaycount,
+	totalcount,
+	restcount,
+	laystatus
+FROM
+	tmpTunnelLayStatistics
+	 <trim prefix="where" prefixOverrides="and">
+	 <if test="assetCode!=null and assetCode!=''"> 
+		AssetCode = #{assetCode}
+	</if > 
+	<if test="laystatus!=null and laystatus!=''">
+		and laystatus like '%'||#{laystatus}||'%'
+	</if> 
+      </trim>
+<!-- WHERE
+AssetCode = #{assetCode} and laystatus like '%'||#{laystatus}||'%' -->
+ORDER BY
+	AssetCode,
+	OrderNum
+    </select>
+    <select id="selectCompletedDate" resultType="long">
+       select count(*) from PowerTunnel where to_char(CompletedDate,'yyyy')=#{cyear}
+    </select>
+</mapper>

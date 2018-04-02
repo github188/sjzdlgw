@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TunnelArchivesFileMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TunnelArchivesFile" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ArchivesFileNum" property="archivesFileNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="AcceptRecordNum" property="acceptRecordNum" jdbcType="DECIMAL" />
+    <result column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="ArchivesFileTypeID" property="archivesFileTypeID" jdbcType="DECIMAL" />
+    <result column="ArchivesFileName" property="archivesFileName" jdbcType="VARCHAR" />
+    <result column="ArchivesFilePath" property="archivesFilePath" jdbcType="VARCHAR" />
+    <result column="ArchivesFileUpDate" property="archivesFileUpDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="TunnelArchivesFileMap" type="com.hbdl.web.sys.controller.page.TunnelArchivesFilePage">
+    <id column="ArchivesFileNum"  property="archivesFileNum" jdbcType="DECIMAL"/>
+    <result column="ArchivesFileTypeName" property="archivesFileTypeName" jdbcType="VARCHAR"/>
+    <result column="ArchivesFileName" property="archivesFileName" jdbcType="VARCHAR"/>
+    <result column="UserName" property="userName" jdbcType="VARCHAR"/>
+    <result column="ArchivesFileUpDate" property="archivesFileUpDate" jdbcType="VARCHAR"/>
+    <result column="ArchivesFilePath" property="archivesFilePath" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id = "SelectTunnelArchivesFile" parameterType="java.math.BigDecimal" resultMap="TunnelArchivesFileMap">
+    SELECT
+    WASPTMS.TunnelArchivesFile.ArchivesFileName,
+    WASPTMS.TunnelArchivesFile.ArchivesFileNum,
+    WASPTMS.TunnelArchivesFile.ArchivesFilePath,
+    WASPTMS.TunnelArchivesFile.ArchivesFileUpDate,
+    WASPTMS.ArchivesFileType.ArchivesFileTypeName,
+    WASPTMS.Employee.USERNAME
+    FROM
+    WASPTMS.TunnelArchivesFile
+    INNER JOIN WASPTMS.ArchivesFileType ON WASPTMS.TunnelArchivesFile.ArchivesFileTypeID = WASPTMS.ArchivesFileType.ArchivesFileTypeID
+    INNER JOIN WASPTMS.Ledger ON WASPTMS.TunnelArchivesFile.ArchivesNum = WASPTMS.Ledger.ArchivesNum
+    INNER JOIN WASPTMS.EMPLOYEE ON WASPTMS.TunnelArchivesFile.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID AND WASPTMS.Ledger.EMPLOYEEID = WASPTMS.EMPLOYEE.EMPLOYEEID
+    WHERE Ledger.ArchivesNum=#{num}
+  </select>
+  <select id = "selectPageByAcceptRecordNum" parameterType="java.math.BigDecimal" resultMap="TunnelArchivesFileMap">
+    SELECT
+    ArchivesFileName,
+    ArchivesFileNum,
+    ArchivesFilePath,
+    ArchivesFileUpDate,
+    ArchivesFileTypeName,
+    USERNAME
+    FROM
+    v_TunnelArchivesFile t
+    WHERE t.AcceptRecordNum=#{num}
+  </select>
+
+
+</mapper>

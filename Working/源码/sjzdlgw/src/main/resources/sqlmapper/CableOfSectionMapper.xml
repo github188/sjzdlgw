@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.CableOfSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.CableOfSection" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LayerCableNum" property="layerCableNum" jdbcType="DECIMAL" />
+    <result column="TrestleLayerNum" property="trestleLayerNum" jdbcType="DECIMAL" />
+    <result column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="RowTubeNum" property="rowTubeNum" jdbcType="DECIMAL" />
+    <result column="Order" property="order" jdbcType="DECIMAL" />
+    <result column="X" property="x" jdbcType="FLOAT" />
+    <result column="Y" property="y" jdbcType="FLOAT" />
+    <result column="PlaceType" property="placeType" jdbcType="DECIMAL" />
+    <result column="IsTempCable" property="isTempCable" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="cableOfSectionLayRet" type="com.hbdl.web.sys.api.retMapperClass.CableOfSectionLayRet">
+    <id column="LayerCableNum" property="layerCableNum" jdbcType="DECIMAL" />
+    <result column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="OrderNum" property="orderNum" jdbcType="DECIMAL" />
+    <result column="rowTubeNum" property="rowTubeNum" jdbcType="DECIMAL" />
+    <result column="baseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="baseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="loopLenght" property="loopLenght" jdbcType="FLOAT" />
+    <result column="voltageLevelName" property="voltageLevelName" jdbcType="VARCHAR" />
+    <result column="voltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="modelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="modelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+    <result column="loopNum" property="loopNum" jdbcType="DECIMAL" />
+    <result column="loopName" property="loopName" jdbcType="VARCHAR" />
+    <result column="runDate" property="runDate" jdbcType="VARCHAR" />
+    <result column="pathSectionNum" property="pathSectionNum" jdbcType="DECIMAL" />
+    <result column="pathSectionName" property="pathSectionName" jdbcType="VARCHAR" />
+    <result column="pathSectionCode" property="pathSectionCode" jdbcType="VARCHAR" />
+    <result column="runCode" property="runCode" jdbcType="VARCHAR" />
+    <result column="placeType" property="placeType" jdbcType="DECIMAL" />
+    <result column="isTempCable" property="isTempCable" jdbcType="BOOLEAN" />
+    <result column="placeInfo" property="placeInfo" jdbcType="VARCHAR" />
+    <result column="placeInfo2" property="placeInfo2" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <select id="selectCableOfSectionLayRet" resultMap="cableOfSectionLayRet">
+    select cs.placeType,cs.isTempCable,cs.layerCableNum,cs.cableNum,cs.orderNum,cs.rowTubeNum,
+    vp.voltageLevelID,vp.VoltageValue voltageLevelName,vp.modelTypeNum,vp.modelTypeName,vp.loopNum,vp.loopName,vp.runDate,vp.pathSectionNum,vp.pathSectionName,vp.pathSectionCode,vp.runCode,
+    bf.baseFacilityNum,
+    bf.BaseFacilityName,
+    ps.loopLenght,ps.placeInfo,ps.placeInfo2
+    from CableOfSection cs
+    left join v_PathCable vp on vp.cableNum=cs.cableNum
+    left join PathCable pc on cs.CableNum=pc.CableNum
+    left JOIN PowerLoop pl ON pc.LoopNum = pl.LoopNum
+    left join PathSection ps on ps.PathSectionNum=pl.PathSectionNum
+    left join BaseFacility bf on bf.baseFacilityNum=ps.baseFacilityNum
+    where cs.TrestleLayerNum=#{0}
+  </select>
+</mapper>

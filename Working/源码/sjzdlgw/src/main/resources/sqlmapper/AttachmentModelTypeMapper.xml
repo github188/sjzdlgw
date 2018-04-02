@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.AttachmentModelTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.AttachmentModelType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ModelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="AttachmentTypeID" property="attachmentTypeID" jdbcType="DECIMAL" />
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL" />
+    <result column="ModelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="AttachmentModelTypeResultMap" type="com.hbdl.web.sys.controller.page.AttachmentModelTypePage" >
+    <id column="ModelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="AttachmentTypeName" property="attachmentTypeName" jdbcType="VARCHAR" />
+    <result column="PathTypeName" property="pathTypeName" jdbcType="VARCHAR" />
+    <result column="ModelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectAttachmentModelType" resultMap="AttachmentModelTypeResultMap">
+    SELECT amt.ModelTypeNum,cat.AttachmentTypeName,pt.PathTypeName,amt.ModelTypeName
+    FROM AttachmentModelType amt LEFT JOIN PathType pt ON amt.PathTypeID=pt.PathTypeID LEFT JOIN CableAttachmentType cat ON amt.AttachmentTypeID=cat.AttachmentTypeID
+    ORDER BY amt.ModelTypeNum
+  </select>
+</mapper>

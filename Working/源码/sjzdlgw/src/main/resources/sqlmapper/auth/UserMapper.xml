@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbdl.web.auth.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hbdl.web.auth.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="EmployeeID" jdbcType="VARCHAR" property="employeeID" />
+    <result column="OrganizationNum" jdbcType="DECIMAL" property="organizationNum" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="UserName" jdbcType="VARCHAR" property="userName" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="SID" jdbcType="VARCHAR" property="SID" />
+    <result column="Grade" jdbcType="VARCHAR" property="grade" />
+    <result column="MobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="CreateDate" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="IsDisabled" jdbcType="TIMESTAMP" property="isDisabled" />
+    <result column="DisableDate" jdbcType="TIMESTAMP" property="disableDate" />
+  </resultMap>
+  <resultMap id="UserPageResultMap" type="com.hbdl.web.auth.controller.page.UserPage">
+    <id column="EmployeeID" jdbcType="VARCHAR" property="employeeID" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="UserName" jdbcType="VARCHAR" property="userName" />
+    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="MobilePhone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="OrganizationName" jdbcType="VARCHAR" property="organizationName" />
+    <result column="OrganizationNum" jdbcType="VARCHAR" property="organizationNum" />
+    <result column="Grade" jdbcType="DECIMAL" property="grade" />
+  </resultMap>
+  <select id="selectPageForUser" parameterType="com.hbdl.web.auth.controller.page.UserPageSearch" resultMap="UserPageResultMap">
+  SELECT em.OrganizationNum,em.EmployeeID,em.Account,em.UserName,em.Email,em.MobilePhone,em.Address,em.Grade,ro.RoleName,oz.OrganizationName
+  FROM Employee em
+  LEFT JOIN UserRoles ur ON em.EmployeeID=ur.EmployeeID
+  LEFT JOIN Roles ro ON ro.RoleNum=ur.RoleNum
+  LEFT JOIN Organization oz ON oz.OrganizationNum=em.OrganizationNum
+    <trim prefix="where" prefixOverrides="and">
+      <if test="employeeID!=null and employeeID!=''">
+
+        and em.EmployeeID     like '%'||#{employeeID,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="userName!=null and userName!=''">
+        and em.UserName like '%'||#{userName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="mobilePhone!=null and mobilePhone!=''">
+        and em.MobilePhone like '%'||#{mobilePhone,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="roleNum!=null">
+        and ur.RoleNum =#{roleNum,jdbcType=DECIMAL}
+      </if>
+      <if test="organizationNum!=null">
+        and oz.OrganizationNum =#{organizationNum,jdbcType=DECIMAL}
+      </if>
+      <!--<if test="orderStr!=null and orderStr!=''">-->
+        <!--ORDER BY ${orderStr}-->
+      <!--</if>-->
+    </trim>
+  </select>
+
+</mapper>

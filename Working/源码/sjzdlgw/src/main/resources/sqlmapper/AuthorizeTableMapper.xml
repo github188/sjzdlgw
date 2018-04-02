@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.AuthorizeTableMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.AuthorizeTable" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="IP" property="IP" jdbcType="VARCHAR" />
+    <result column="MAC" property="MAC" jdbcType="VARCHAR" />
+    <result column="LastLoginTime" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="AppVer" property="appVer" jdbcType="VARCHAR" />
+    <result column="IsAuthorize" property="isAuthorize" jdbcType="DECIMAL" />
+    <result column="AuthorizeTime" property="authorizeTime" jdbcType="TIMESTAMP" />
+    <result column="AuthorizeFilePath" property="authorizeFilePath" jdbcType="VARCHAR" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

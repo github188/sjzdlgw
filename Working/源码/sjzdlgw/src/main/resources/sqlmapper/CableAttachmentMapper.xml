@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.CableAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.CableAttachment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="CableDeviceTypeID" property="cableDeviceTypeID" jdbcType="DECIMAL" />
+    <result column="ModelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="CableDeviceStyleID" property="cableDeviceStyleID" jdbcType="DECIMAL" />
+    <result column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="FaultIndicatorTypeID" property="faultIndicatorTypeID" jdbcType="DECIMAL" />
+    <result column="SafeBoxTypeID" property="safeBoxTypeID" jdbcType="DECIMAL" />
+    <result column="AttachmentTypeID" property="attachmentTypeID" jdbcType="DECIMAL" />
+    <result column="CompanyNum" property="companyNum" jdbcType="DECIMAL" />
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL" />
+    <result column="AttachmentStatusTypeID" property="attachmentStatusTypeID" jdbcType="DECIMAL" />
+    <result column="Lon" property="lon" jdbcType="FLOAT" />
+    <result column="Lat" property="lat" jdbcType="FLOAT" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="Angle" property="angle" jdbcType="FLOAT" />
+    <result column="Heading" property="heading" jdbcType="FLOAT" />
+    <result column="Range" property="range" jdbcType="FLOAT" />
+    <result column="ViewLon" property="viewLon" jdbcType="FLOAT" />
+    <result column="ViewLat" property="viewLat" jdbcType="FLOAT" />
+    <result column="ViewHeight" property="viewHeight" jdbcType="FLOAT" />
+    <result column="ViewAngle" property="viewAngle" jdbcType="FLOAT" />
+    <result column="ViewHeading" property="viewHeading" jdbcType="FLOAT" />
+    <result column="ViewRange" property="viewRange" jdbcType="FLOAT" />
+    <result column="AttachmentName" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="IsMonitor" property="isMonitor" jdbcType="DECIMAL" />
+    <result column="InstallDate" property="installDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="CableAttachmentResultMap" type="com.hbdl.web.sys.controller.page.CableAttachmentPage">
+    <result column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="AttachmentNum" property="attachmentNum" jdbcType="DECIMAL" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="ModelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+    <result column="CableDeviceStyleName" property="cableDeviceStyleName" jdbcType="VARCHAR" />
+    <result column="AttachmentName" property="place" jdbcType="VARCHAR" />
+    <result column="FaultIndicatorTypeName" property="faultIndicatorTypeName" jdbcType="VARCHAR" />
+    <result column="IsMonitor" property="isMonitor" jdbcType="VARCHAR" />
+    <result column="CompanyName" property="companyName" jdbcType="VARCHAR" />
+    <result column="InstallDate" property="installDate" jdbcType="DATE" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="Lon" property="lonDouble" jdbcType="FLOAT" />
+    <result column="Lat" property="latDouble" jdbcType="FLOAT" />
+    <result column="LedgerCode" property="ledgerCode" jdbcType="VARCHAR" />
+    <result column="SafeBoxTypeName" property="safeBoxTypeName" jdbcType="VARCHAR" />
+    <result column="CableDeviceTypeName" property="cableDeviceTypeName" jdbcType="VARCHAR" />
+    <result column="Length" property="lengthDouble" jdbcType="FLOAT" />
+    <result column="CurrentCapacity" property="currentCapacityDouble" jdbcType="FLOAT" />
+    <result column="BeginPlace" property="beginPlace" jdbcType="VARCHAR" />
+    <result column="EndPlace" property="endPlace" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="selectCableAttachment" parameterType="com.hbdl.web.sys.controller.page.CableAttachmentPage" resultMap="CableAttachmentResultMap">
+    SELECT cs.Length,cs.CurrentCapacity,cs.BeginPlace,cs.EndPlace,ca.SafeBoxTypeName,ca.CableDeviceTypeName,ca.LedgerCode,ca.Lon,ca.Lat,ca.AttachmentNum,ca.Num,ca.AssetCode,ca.ModelTypeName,ca.CableDeviceStyleName,ca.FaultIndicatorTypeName,ca.IsMonitor,ca.CompanyName,ca.InstallDate,ca.Memo,ca.AttachmentName
+    FROM v_CableAttachment ca LEFT JOIN CableSectionArrt cs ON ca.AttachmentNum=cs.AttachmentNum
+    <trim prefix="where" prefixOverrides="and">
+      <if test="attachmentNum!=null">
+        ca.AttachmentNum = #{attachmentNum,jdbcType=DECIMAL}
+      </if>
+      <if test="num!=null">
+        ca.num = #{num,jdbcType=DECIMAL}
+      </if>
+      <if test="pathTypeID!=null">
+        and ca.PathTypeID =#{pathTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="attachmentTypeID!=null">
+        and ca.AttachmentTypeID =#{attachmentTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="assetCode!=null and assetCode!=''">
+        and ca.AssetCode like '%'||#{assetCode,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="place!=null and place!=''">
+        and ca.AttachmentName like '%'||#{place,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="modelTypeNums!=null">
+        <foreach collection="modelTypeNums" item="id" open="and ca.ModelTypeNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="cableDeviceStyleIDs!=null">
+        <foreach collection="cableDeviceStyleIDs" item="id" open="and ca.CableDeviceStyleID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="cableDeviceTypeIDs!=null">
+        <foreach collection="cableDeviceTypeIDs" item="id" open="and ca.CableDeviceTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="companyNums!=null">
+        <foreach collection="companyNums" item="id" open="and ca.CompanyNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="installDateStart!=null">
+
+      </if>
+      <choose>
+        <when test="installDateStart!=null and installDateStart!='' and installDateEnd!=null and installDateEnd!=''">
+          and ca.InstallDate >= to_date(#{installDateStart},'yyyy/mm/dd HH24:MI:SS') and ca.InstallDate   &lt;= to_date(#{installDateEnd},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <when test="installDateStart!=null and installDateStart!=''">
+          and ca.InstallDate   >= to_date(#{installDateStart},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <when test="installDateEnd!=null and installDateEnd!=''">
+          and ca.InstallDate &lt;= to_date(#{installDateEnd},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <otherwise>
+
+        </otherwise>
+      </choose>
+
+      <if test="orderStr!=null and orderStr!=''">
+        ORDER BY ${orderStr}
+      </if>
+    </trim>
+  </select>
+
+</mapper>

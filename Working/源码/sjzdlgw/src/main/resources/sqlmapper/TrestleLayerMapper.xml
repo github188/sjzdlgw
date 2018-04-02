@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TrestleLayerMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TrestleLayer" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TrestleLayerNum" property="trestleLayerNum" jdbcType="DECIMAL" />
+    <result column="TrestlePositionTypeID" property="trestlePositionTypeID" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="TrestleStuffTypeID" property="trestleStuffTypeID" jdbcType="DECIMAL" />
+    <result column="Layer" property="layer" jdbcType="DECIMAL" />
+    <result column="TrestleLength" property="trestleLength" jdbcType="FLOAT" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="TrestleLayerLayRet" type="com.hbdl.web.sys.api.retMapperClass.TrestleLayerLayRet">
+    <id column="TrestleLayerNum" property="trestleLayerNum" jdbcType="DECIMAL" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="VoltageLevelName" property="voltageLevelName" jdbcType="VARCHAR" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="trestleStuffTypeName" property="trestleStuffTypeName" jdbcType="VARCHAR" />
+    <result column="trestleStuffTypeID" property="trestleStuffTypeID" jdbcType="DECIMAL" />
+    <result column="layer" property="layer" jdbcType="DECIMAL" />
+    <result column="trestlePositionTypeName" property="trestlePositionTypeName" jdbcType="VARCHAR" />
+    <result column="trestlePositionTypeID" property="trestlePositionTypeID" jdbcType="DECIMAL" />
+    <result column="TrestleLength" property="trestleLength" jdbcType="FLOAT" />
+  </resultMap>
+  <select id="selectTrestleLayerLay" resultMap="TrestleLayerLayRet">
+    SELECT
+      tl.trestleLayerNum,
+      tl.memo,
+      tl.height,
+      tl. LAYER,
+      tl.voltageLevelID,
+      tl.voltageLevelName,
+      tl.trestleStuffTypeID,
+      tl.trestleStuffTypeName,
+      tl.trestlePositionTypeID,
+      tl.trestlePositionTypeName,
+      tl.trestleLength
+    FROM
+         v_TrestleLayer tl
+    WHERE tl.SectionNum=#{0}
+
+  </select>
+
+  <select id="selectTrestleLayerLay1" resultMap="TrestleLayerLayRet">
+  SELECT tl.*,
+      pc.VoltageLevelName voltageLevelName,
+      tdl.TrestlePositionTypeName trestlePositionTypeName
+    FROM TrestleLayer tl
+    LEFT JOIN PowerCableLevel pc ON tl.VoltageLevelID = pc.VoltageLevelID
+    LEFT JOIN TrestleDirectionType tdl ON tl.TrestlePositionTypeID = tdl.TrestlePositionTypeID
+   WHERE SectionNum = #{sectionNum}
+  </select>
+</mapper>

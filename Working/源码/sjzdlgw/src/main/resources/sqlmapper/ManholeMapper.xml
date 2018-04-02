@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ManholeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Manhole" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="ManholeShapeTypeID" property="manholeShapeTypeID" jdbcType="DECIMAL" />
+    <result column="AreaNum" property="areaNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="CompanyNum" property="companyNum" jdbcType="DECIMAL" />
+    <result column="CoverShapeTypeID" property="coverShapeTypeID" jdbcType="DECIMAL" />
+    <result column="Monitor_CompanyNum" property="monitor_CompanyNum" jdbcType="DECIMAL" />
+    <!--<result column="Emp_EmployeeID" property="task_EmployeeID" jdbcType="VARCHAR" />-->
+      <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="CoverStuffTypeID" property="coverStuffTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeKindTypeID" property="manholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="Bulid_CompanyNum" property="bulid_CompanyNum" jdbcType="DECIMAL" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="ManholeStuffTypeID" property="manholeStuffTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeCoverTypeID" property="manholeCoverTypeID" jdbcType="DECIMAL" />
+    <result column="Tunnel_AssetNum" property="tunnel_AssetNum" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="GraphID" property="graphID" jdbcType="DECIMAL" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="CompletedDate" property="completedDate" jdbcType="TIMESTAMP" />
+    <result column="OperationDate" property="operationDate" jdbcType="TIMESTAMP" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+    <result column="Longitude" property="longitude" jdbcType="FLOAT" />
+    <result column="Latitude" property="latitude" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="Length" property="length" jdbcType="FLOAT" />
+    <result column="Width" property="width" jdbcType="FLOAT" />
+    <result column="Diameter" property="diameter" jdbcType="FLOAT" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="BottomHeight" property="bottomHeight" jdbcType="FLOAT" />
+    <result column="TerraceLayerCount" property="terraceLayerCount" jdbcType="DECIMAL" />
+    <result column="OutLineQuantity" property="outLineQuantity" jdbcType="DECIMAL" />
+    <result column="ManHoleCoverCode" property="manHoleCoverCode" jdbcType="VARCHAR" />
+    <result column="ManHoleCoverSize" property="manHoleCoverSize" jdbcType="VARCHAR" />
+    <result column="ViewLon" property="viewLon" jdbcType="FLOAT" />
+    <result column="ViewLat" property="viewLat" jdbcType="FLOAT" />
+    <result column="ViewHeight" property="viewHeight" jdbcType="FLOAT" />
+    <result column="ViewAngle" property="viewAngle" jdbcType="FLOAT" />
+    <result column="ViewHeading" property="viewHeading" jdbcType="FLOAT" />
+    <result column="ViewRange" property="viewRange" jdbcType="FLOAT" />
+  </resultMap>
+
+  <resultMap id="BranchBoxResultMap" type="com.hbdl.web.sys.controller.ManholePage" >
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+    <result column="Bulid_CompanyNum" property="bulidCompanyNum" jdbcType="DECIMAL" />
+    <result column="Bulid_CompanyNumName" property="bulidCompanyNumName" jdbcType="VARCHAR" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="BranchBoxNum" property="branchBoxNum" jdbcType="DECIMAL" />
+    <result column="ModelNum" property="modelNum" jdbcType="DECIMAL" />
+    <result column="ModelName" property="modelName" jdbcType="VARCHAR" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="VoltageLevelName" property="voltageLevelName" jdbcType="VARCHAR" />
+    <result column="IsLoadSwitch" property="isLoadSwitch" jdbcType="DECIMAL" />
+    <result column="IsLockDevice" property="isLockDevice" jdbcType="DECIMAL" />
+    <result column="IsOnMonitor" property="isOnMonitor" jdbcType="DECIMAL" />
+    <result column="IsDrop" property="isDrop" jdbcType="DECIMAL" />
+    <result column="RunDate" property="runDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="LaborWellResultMap" type="com.hbdl.web.sys.controller.ManholeLaborWellPage" >
+    <id column="AssetNum" property="assetNum"  />
+    <result column="AssetName" property="assetName"  />
+    <result column="AssetCode" property="assetCode" />
+    <result column="OperationCode" property="operationCode"  />
+    <!--<result column="" property="tunnel_AssetNum"/>-->
+    <!--<result column="" property="tunnel_AssetName"/>-->
+    <result column="AreaNum" property="areaNum"/>
+    <result column="AreaName" property="areaName"/>
+    <result column="BaseFacilityNum" property="baseFacilityNum"/>
+    <result column="BaseFacilityName" property="baseFacilityName"/>
+    <!--<result column="" property="companyNum"/>-->
+    <!--<result column="" property="companyName"/>-->
+    <result column="ManholeCoverTypeID" property="manholeCoverTypeID"/>
+    <result column="ManholeCoverTypeName" property="manholeCoverTypeName"/>
+    <result column="ManHoleCoverSize" property="manholeCoverSize"/>
+    <result column="PositionDescription" property="positionDescription"/>
+
+    <result column="TerraceLayerCount" property="terraceLayerCount"  />
+    <result column="Height" property="height"  />
+    <result column="BottomHeight" property="bottomHeight"/>
+    <result column="ManholeStuffTypeID" property="manholeStuffTypeID"  />
+    <result column="ManholeStuffTypeName" property="manholeStuffTypeName"/>
+    <result column="Longitude" property="longitude"/>
+    <result column="Latitude" property="latitude"/>
+    <result column="CoverStuffTypeID" property="coverStuffTypeID"  />
+    <result column="CoverStuffTypeName" property="coverStuffTypeName"/>
+    <result column="CoverShapeTypeID" property="coverShapeTypeID"  />
+    <result column="CoverShapeTypeName" property="coverShapeTypeName"/>
+    <result column="ManholeKindTypeID" property="manholeKindTypeID" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName"/>
+    <result column="EmployeeID" property="employeeID"/>
+    <result column="EmployeeName" property="employeeName"/>
+    <result column="Monitor_CompanyNumName" property="buildCompanyNum"  />
+    <!--<result column="bulid_CompanyNum" property="buildCompanyName"/>-->
+    <result column="monitor_CompanyNum" property="monitorCompanyNum"  />
+    <!--<result column="" property="monitorCompanyName"/>-->
+    <result column="CompletedDate" property="completedDate"  />
+
+
+  </resultMap>
+
+  <resultMap id="ManholeStatisticsByKind" type="com.hbdl.web.sys.controller.page.ManholeSatisticsByKindPage">
+    <id column="ManholeTypeID" property="manholeTypeID" jdbcType="VARCHAR" />
+    <result column="ManholeTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="DECIMAL" />
+  </resultMap>
+   <resultMap id="ManholeStatisticsByKindSub" type="com.hbdl.web.sys.controller.page.ManholeSatisticsByKindSubPage">
+	<id column="ManholeTypeID" property="manholeTypeID" />
+    <result column="ManholeTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="GeomManholeResultMap" type="com.hbdl.web.sys.map.GeomManhole">
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="GeomStr" property="geomStr" jdbcType="VARCHAR" />
+    <result column="Tunnel_AssetNum" property="tunnel_AssetNum" jdbcType="DECIMAL" />
+    <result column="AssetCodeOrName" property="assetCodeOrName" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="ManholeTypeID" property="manholeTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeKindTypeID" property="manholeKindTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ManholeOfTunnelPageResultMap" type="com.hbdl.web.sys.controller.page.ManholeOfTunnelPage">
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="ArchivesCode" property="archivesCode" jdbcType="VARCHAR" />
+    <result column="TunnelAssetCode" property="tunnelAssetCode" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="TunnelAreaName" property="tunnelAreaName" jdbcType="VARCHAR" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="OrganizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="ManholeCoverTypeName" property="manholeCoverTypeName" jdbcType="VARCHAR" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+    <result column="ManholeCoverSize" property="manHoleCoverSize" jdbcType="DECIMAL" />
+   <!-- <result column="ManholeCoverSize" property="manHoleCoverSize" /> -->
+    <result column="TerraceLayerCount" property="terraceLayerCount" jdbcType="DECIMAL" />
+    <result column="Height" property="height" jdbcType="DECIMAL" />
+    <result column="BottomHeight" property="bottomHeight" jdbcType="DECIMAL" />
+    <result column="ManholeStuffTypeName" property="manholeStuffTypeName" jdbcType="VARCHAR" />
+    <result column="Longitude" property="longitude" jdbcType="DECIMAL" />
+    <result column="Latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="CoverStuffTypeName" property="coverStuffTypeName" jdbcType="VARCHAR" />
+    <result column="CoverShapeTypeName" property="coverShapeTypeName" jdbcType="VARCHAR" />
+    <result column="EmployeeName" property="employeeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+    <resultMap id="ManholeOfTunnelPageResultMap1" type="com.hbdl.web.sys.controller.page.ManholeOfTunnelPage2">
+    <id column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="ArchivesCode" property="archivesCode" jdbcType="VARCHAR" />
+    <result column="TunnelAssetCode" property="tunnelAssetCode" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="TunnelAreaName" property="tunnelAreaName" jdbcType="VARCHAR" />
+    <result column="BaseFacilityName" property="baseFacilityName" jdbcType="VARCHAR" />
+    <result column="OrganizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="ManholeCoverTypeName" property="manholeCoverTypeName" jdbcType="VARCHAR" />
+    <result column="ManholeKindTypeName" property="manholeKindTypeName" jdbcType="VARCHAR" />
+    <result column="PositionDescription" property="positionDescription" jdbcType="VARCHAR" />
+   <result column="size1" property="size1" jdbcType="VARCHAR"/>
+    <result column="TerraceLayerCount" property="terraceLayerCount" jdbcType="DECIMAL" />
+    <result column="Height" property="height" jdbcType="DECIMAL" />
+    <result column="BottomHeight" property="bottomHeight" jdbcType="DECIMAL" />
+    <result column="ManholeStuffTypeName" property="manholeStuffTypeName" jdbcType="VARCHAR" />
+    <result column="Longitude" property="longitude" jdbcType="DECIMAL" />
+    <result column="Latitude" property="latitude" jdbcType="DECIMAL" />
+    <result column="CoverStuffTypeName" property="coverStuffTypeName" jdbcType="VARCHAR" />
+    <result column="CoverShapeTypeName" property="coverShapeTypeName" jdbcType="VARCHAR" />
+    <result column="EmployeeName" property="employeeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="ManholeStatisticsResultMap" type="com.hbdl.web.sys.controller.page.ManholeSatisticsByKindPage">
+    <id column="ManholeKindTypeName" property="manholeKindTypeName" />
+    <result column="Count" property="count"  />
+    </resultMap>
+    
+    <resultMap id="ManholeStatisticsByflResultMap" type="com.hbdl.web.sys.controller.page.ManholeSatisticsByflPage">
+    <id column="area" property="area" />
+    <result column="Count" property="count"  />
+    <result column="type" property="type"  />
+    </resultMap>
+    <select id="selectManholeStatisticsByTerminalType" resultMap="ManholeStatisticsByflResultMap">
+		 WITH tmpAreaTunnel (AssetNum) AS (
+	SELECT DISTINCT
+		(AssetNum)
+	FROM
+		v_Geom_TunnelSection
+		WHERE 
+		SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY('POLYGON((114.544808505456 38.1337203014678, 114.534310915164 38.123343131623, 114.527264288707 38.1167977425401, 114.526302572828 38.1150634383121, 114.524367216255 38.0988940569982, 114.52420181806 38.0973249560635, 114.524086238598 38.0964984985788, 114.524094209596 38.0963385379861, 114.523669753986 38.0952156675, 114.523576094767 38.0947906659299, 114.518857264324 38.0865347946413, 114.514835896151 38.0796003343162, 114.513181914196 38.0765713012464, 114.511790975155 38.0743343480247, 114.511581736474 38.0741994384198, 114.509280110984 38.071810242216, 114.508742068661 38.0712188139026, 114.506125588775 38.0671759517211, 114.506133559772 38.0671837960628, 114.505360373027 38.066024393244, 114.503843890778 38.0636568952419, 114.503815992287 38.0635423622494, 114.501006215714 38.0591523187262, 114.501159657413 38.0569211091764, 114.501223425392 38.0546490340503, 114.501418714828 38.0499242100146, 114.501625960759 38.0435826433849, 114.501789366205 38.0383360373656, 114.501885018174 38.0345801594335, 114.502217807314 38.026603184751, 114.502349328771 38.022427562435, 114.502580487694 38.0158261402365, 114.501802282057 38.0150410484549, 114.498662823919 38.0119245118938, 114.498530204719 38.0117430818802, 114.498277263737 38.0112436245811, 114.497833344909 38.0106700036925, 114.496820928999 38.0096601091858, 114.496955116191 38.0073166455973, 114.50161224157 38.0043517316938, 114.501302054958 38.0038722989759, 114.501922428182 37.9902212524205, 114.50173750924 37.9898075446801, 114.501893096085 37.9830044144588, 114.501791195385 37.9829058033024, 114.501832951275 37.981730373932, 114.49676855832 37.9812178808324, 114.504156048911 37.9485762530579, 114.514814279791 37.8985161611669, 114.308077937369 37.9976698958411, 114.31716589493 38.1945603709569, 114.50694383225 38.2147242635591, 114.544364833975 38.1340351892608, 114.544808505456 38.1337203014678))', 4326))='TRUE'
+		
+),
+		tmpTunnel (typeid, typename, AssetNum) AS (
+			SELECT
+				1 AS typeid,
+				'桥西' AS typename,
+				AssetNum
+			FROM
+				tmpAreaTunnel
+			UNION ALL
+				SELECT
+					2 AS typeid,
+					'桥东' AS typename,
+					AssetNum
+				FROM
+					PowerTunnel  pt
+				WHERE
+					NOT EXISTS (
+						SELECT
+							tmp.AssetNum
+						FROM
+							tmpAreaTunnel  tmp
+						WHERE
+							tmp.AssetNum = pt.AssetNum
+					)
+		) SELECT
+			tmp.typename AS area,
+			M .ManholeKindTypeName AS type,
+			COUNT (M .AssetNum) AS count
+		FROM
+			tmpTunnel  tmp
+		INNER JOIN v_Manhole  M ON M .AssetNum = tmp.AssetNum
+		GROUP BY
+			tmp.typename,
+			M .ManholeKindTypeID,
+			M .ManholeKindTypeName
+		ORDER BY
+			tmp.typename,
+			M .ManholeKindTypeID
+  </select>
+     <select id="selectManholeStatisticsByfl" resultMap="ManholeStatisticsByflResultMap">
+		  WITH tmpAreaTunnel (AssetNum) AS (
+			SELECT DISTINCT
+				(AssetNum)
+			FROM
+				v_Geom_TunnelSection
+				WHERE 
+				SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY('POLYGON((114.544808505456 38.1337203014678, 114.534310915164 38.123343131623, 114.527264288707 38.1167977425401, 114.526302572828 38.1150634383121, 114.524367216255 38.0988940569982, 114.52420181806 38.0973249560635, 114.524086238598 38.0964984985788, 114.524094209596 38.0963385379861, 114.523669753986 38.0952156675, 114.523576094767 38.0947906659299, 114.518857264324 38.0865347946413, 114.514835896151 38.0796003343162, 114.513181914196 38.0765713012464, 114.511790975155 38.0743343480247, 114.511581736474 38.0741994384198, 114.509280110984 38.071810242216, 114.508742068661 38.0712188139026, 114.506125588775 38.0671759517211, 114.506133559772 38.0671837960628, 114.505360373027 38.066024393244, 114.503843890778 38.0636568952419, 114.503815992287 38.0635423622494, 114.501006215714 38.0591523187262, 114.501159657413 38.0569211091764, 114.501223425392 38.0546490340503, 114.501418714828 38.0499242100146, 114.501625960759 38.0435826433849, 114.501789366205 38.0383360373656, 114.501885018174 38.0345801594335, 114.502217807314 38.026603184751, 114.502349328771 38.022427562435, 114.502580487694 38.0158261402365, 114.501802282057 38.0150410484549, 114.498662823919 38.0119245118938, 114.498530204719 38.0117430818802, 114.498277263737 38.0112436245811, 114.497833344909 38.0106700036925, 114.496820928999 38.0096601091858, 114.496955116191 38.0073166455973, 114.50161224157 38.0043517316938, 114.501302054958 38.0038722989759, 114.501922428182 37.9902212524205, 114.50173750924 37.9898075446801, 114.501893096085 37.9830044144588, 114.501791195385 37.9829058033024, 114.501832951275 37.981730373932, 114.49676855832 37.9812178808324, 114.504156048911 37.9485762530579, 114.514814279791 37.8985161611669, 114.308077937369 37.9976698958411, 114.31716589493 38.1945603709569, 114.50694383225 38.2147242635591, 114.544364833975 38.1340351892608, 114.544808505456 38.1337203014678))',4326))='TRUE'
+		),
+		 tmpTunnel (typeid, typename, AssetNum) AS (
+			SELECT
+				1 AS typeid,
+				'桥西' AS typename,
+				AssetNum
+			FROM
+				tmpAreaTunnel
+			UNION ALL
+				SELECT
+					2 AS typeid,
+					'桥东' AS typename,
+					AssetNum
+				FROM
+					PowerTunnel pt
+				WHERE
+					NOT EXISTS (
+						SELECT
+							tmp.AssetNum
+						FROM
+							tmpAreaTunnel tmp
+						WHERE
+							tmp.AssetNum = pt.AssetNum
+					)
+		) SELECT
+			tmp.typename AS area,
+			M .ManholeCoverTypeName AS type,
+			COUNT (M .AssetNum) AS count
+		FROM
+			tmpTunnel tmp
+		INNER JOIN v_Manhole M ON M.AssetNum = tmp.AssetNum
+		WHERE
+			M .ManholeCoverTypeID IN (1, 2)
+		GROUP BY
+			tmp.typeid,
+			tmp.typename,
+			M .ManholeCoverTypeID,
+			M .ManholeCoverTypeName
+  </select>
+  <select id="selectManholeStatisticsPage" resultMap="ManholeStatisticsResultMap">
+		  SELECT
+			M.ManholeKindTypeName AS ManholeKindTypeName,
+			COUNT (M.AssetNum) AS Count
+		FROM
+			v_Manhole  M
+		GROUP BY
+			M.ManholeKindTypeID,
+			M.ManholeKindTypeName
+		ORDER BY
+			M.ManholeKindTypeID
+  </select>
+  <select id="selectManholePageForBranchBox" parameterType="com.hbdl.web.sys.controller.ManholePage" resultMap="BranchBoxResultMap">
+
+      SELECT m.AssetNum,m.AssetName,m.AssetCode,m.OperationCode,m.PositionDescription,m.Bulid_CompanyNum,c.CompanyName as Bulid_CompanyNumName,m.BaseFacilityNum,
+              b.BranchBoxNum,b.ModelNum,b.VoltageLevelID,b.IsLoadSwitch,b.IsLockDevice,b.IsOnMonitor,b.IsDrop,b.RunDate,b.Memo,
+              bb.ModelName,
+              p.VoltageLevelName,
+              bf.BaseFacilityName
+        FROM  Manhole m LEFT JOIN BaseFacility bf on m.BaseFacilityNum=bf.BaseFacilityNum LEFT JOIN BranchBox b on m.AssetNum=b.AssetNum
+              LEFT JOIN BranchBoxModel bb on b.ModelNum=bb.ModelNum LEFT JOIN PowerCableLevel p on b.VoltageLevelID=p.VoltageLevelID
+              LEFT JOIN Company c on m.bulid_CompanyNum=c.CompanyNum
+       <trim prefix="where" prefixOverrides="and">
+         <if test="assetName!=null and assetName!=''">
+             m.assetName like '%'||#{assetName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="assetCode!=null and assetCode!=''">
+           and m.assetCode like '%'||#{assetCode,jdbcType=VARCHAR}||'%'
+         </if>
+         <!-- 分接箱统计 -->
+         <if test="isLoadSwitch!=null and isLoadSwitch!=''">
+           and b.isLoadSwitch = #{isLoadSwitch}
+         </if>
+         
+         <if test="isLockDevice!=null and isLockDevice!=''">
+           and b.isLockDevice = #{isLockDevice}
+         </if>
+         <if test="isOnMonitor!=null and isOnMonitor!=''">
+           and b.isOnMonitor = #{isOnMonitor}
+         </if>
+         <if test="isDrop!=null and isDrop!=''">
+           and b.isDrop = #{isDrop}
+         </if>
+         <if test="runDateStr!=null and runDateStr!=''">
+           and to_char(b.runDate,'yyyy') = #{runDateStr}
+         </if>
+         <if test="manholeKindTypeID!=null">
+           and m.manholeKindTypeID = #{manholeKindTypeID}
+         </if>
+         <if test="modelNumIDs!=null">
+           <foreach collection="modelNumIDs" item="id" open="and b.ModelNum in(" separator="," close=")">
+              #{id}
+           </foreach>
+         </if>
+         <if test="baseFacilityNumIDs!=null">
+           <foreach collection="baseFacilityNumIDs" item="id" open="and m.BaseFacilityNum in(" separator="," close=")">
+             #{id}
+           </foreach>
+         </if>
+         <!-- 分接箱统计 by hy 10/26 -->
+         <if test="voltageLevelIDs!=null">
+           <foreach collection="voltageLevelIDs" item="id" open="and p.VoltageLevelID in(" separator="," close=")">
+             #{id}
+           </foreach>
+         </if>
+       </trim>
+       <if test="orderStr!=null and orderStr!=''">
+         ORDER BY ${orderStr}
+       </if>
+  </select>
+
+
+  <select id="selectGeomManhole" parameterType="com.hbdl.web.sys.map.GeomManhole" resultMap="GeomManholeResultMap">
+   SELECT GeomStr,AssetNum,AssetName,Tunnel_AssetNum,AssetCodeOrName,OperationCode,ManholeTypeID,ManholeKindTypeID,ManholeKindTypeName FROM v_Geom_Manhole
+    <trim prefix="where" prefixOverrides="and">
+      <if test="manholeKindTypeIDs!=null">
+        <foreach collection="manholeKindTypeIDs" item="id" open="ManholeKindTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="sqlExtent!=null and sqlExtent!=''">
+        AND SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY(#{sqlExtent,jdbcType=VARCHAR},4326)) = 'TRUE'
+      </if>
+    </trim>
+  </select>
+
+  <select id="selectManholeTunnelPage" resultType="com.hbdl.web.sys.controller.page.ManholeOfTunnelPage" parameterType="com.hbdl.web.sys.controller.page.ManholeOfTunnelPage">
+    SELECT ManholeAssetNum as AssetNum,ArchivesCode,PowerTunnelAssetCode as TunnelAssetCode,ManholeAssetCode as AssetCode,OperationCode,OrganizationName,ManholeCoverTypeID,ManholeCoverTypeName,ManholeKindTypeID,ManholeKindTypeName,PositionDescription,Length,Width,Diameter,TerraceLayerCount,Height,BottomHeight,ManholeStuffTypeName,Longitude,Latitude,CoverStuffTypeID,CoverStuffTypeName,CoverShapeTypeID,CoverShapeTypeName,UserName as EmployeeName,OrderNum,bulid_CompanyNum,monitor_CompanyNum,PowerTunnelAssetNum as tunnel_AssetNum,CompletedDate,Memo,ManHoleCoverSize
+    FROM v_ManholeOfTunnelForList
+    <trim prefix="where" prefixOverrides="and">
+        <if test="assetNum!=null">
+            AND ManholeAssetNum=#{assetNum}
+        </if>
+      <if test="tunnel_AssetNum!=null">
+        AND PowerTunnelAssetNum=#{tunnel_AssetNum}
+      </if>
+      <if test="assetCode!=null and assetCode!=''">
+        AND ManholeAssetCode=#{assetCode}
+      </if>
+      <if test="operationCode!=null and operationCode!=''">
+        AND OperationCode=#{operationCode}
+      </if>
+    </trim>
+    ORDER BY OrderNum
+  </select>
+<!--   <select id="selectManholeTunnelPage1" resultMap="ManholeOfTunnelPageResultMap1" >
+    SELECT AssetNum,ArchivesCode,TunnelAssetCode,AssetCode,OperationCode,TunnelAreaName,BaseFacilityName,OrganizationName,ManholeCoverTypeName,ManholeKindTypeName,PositionDescription,ManHoleCoverSize,TerraceLayerCount,Height,BottomHeight,ManholeStuffTypeName,Longitude,Latitude,CoverStuffTypeName,CoverShapeTypeName,EmployeeName
+    FROM v_Manhole
+  </select> -->
+  
+  <select id="selectManholeTunnelPage1" resultMap="ManholeOfTunnelPageResultMap1" >
+    SELECT * FROM v_Manhole
+  </select>
+  <select id="selectManholesatisticsByTypeName" resultMap="ManholeStatisticsByKind">
+	    SELECT
+		M .ManholeTypeID,
+		M .ManholeTypeName AS ManholeTypeName,
+		COUNT (M .AssetNum) AS Count
+	FROM
+		v_Manhole M
+	GROUP BY
+		M .ManholeTypeID,
+		M .ManholeTypeName
+	ORDER BY
+		M .ManholeTypeID
+  </select>
+  <!-- 子查询 -->
+   <select id="selectManholesatisticsByTypeNameSub" resultMap="ManholeStatisticsByKindSub">
+		   SELECT
+		M .ManholeTypeID,
+		M .ManholeTypeName,
+		M .ManholeKindTypeName AS ManholeKindTypeName,
+		COUNT (M .AssetNum) AS Count
+	FROM
+		v_Manhole M
+	GROUP BY
+		M .ManholeTypeID,
+		M .ManholeTypeName,
+		M .ManholeKindTypeID,
+		M .ManholeKindTypeName
+	ORDER BY
+		M .ManholeKindTypeID
+  </select>
+  <select id="selectManholeTunnelPageCount" resultType="Integer">
+   	SELECT count(0) FROM v_Manhole 
+  </select>
+
+  <select id="selectManholeLaborWellOfTpACode" resultType="hashmap" parameterType="hashmap">
+      SELECT ArchivesCode,AssetCode FROM PowerTunnel pt LEFT JOIN Ledger lg ON pt.ArchivesNum=lg.ArchivesNum
+      <trim prefix="where" prefixOverrides="and">
+          <if test="tunnel_AssetNum!=null">
+              pt.AssetNum=#{tunnel_AssetNum}
+          </if>
+      </trim>
+  </select>
+</mapper>

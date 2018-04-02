@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ProjectTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.ProjectType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ProjectTypeID" property="projectTypeID" jdbcType="DECIMAL" />
+    <result column="ProjectTypeName" property="projectTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

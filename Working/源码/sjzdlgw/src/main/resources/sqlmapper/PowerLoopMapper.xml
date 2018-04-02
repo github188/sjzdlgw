@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PowerLoopMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PowerLoop" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LoopNum" property="loopNum" jdbcType="DECIMAL" />
+    <result column="PathSectionNum" property="pathSectionNum" jdbcType="DECIMAL" />
+    <result column="AttachmentStatusTypeID" property="attachmentStatusTypeID" jdbcType="DECIMAL" />
+    <result column="LoopName" property="loopName" jdbcType="VARCHAR" />
+    <result column="RunCode" property="runCode" jdbcType="VARCHAR" />
+    <result column="RunDate" property="runDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="PowerLoopStatisticsPageMap" type="com.hbdl.web.sys.controller.page.PowerLoopStatisticsPage" >
+    <id column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="VoltageLevelName" property="voltageLevelName" />
+    <result column="LineCount" property="lineCount" />
+    <result column="LoopCount" property="loopCount" />
+    <result column="LoopLength" property="loopLength" />
+    <result column="TotalLength" property="totalLength" />
+  </resultMap>
+  
+  <select id="selectPowerLoopStatistics" parameterType="com.hbdl.web.sys.controller.page.PowerLoopStatisticsPage" resultMap="PowerLoopStatisticsPageMap">
+	  	WITH tmpPowerLoop (
+		PathSectionNum,
+		RunDate,
+		RunYear,
+		RunMonth,
+		VoltageLevelID,
+		PathTypeID
+	) AS (
+		SELECT
+			pl.PathSectionNum,
+			pl.RunDate,
+			TO_CHAR (RunDate, 'yyyy') AS RunYear,
+			TO_CHAR (RunDate, 'MM') AS RunMonth,
+			cp.VoltageLevelID,
+			cp.PathTypeID
+		FROM
+			PowerLoop pl
+		INNER JOIN PathSection ps ON ps.PathSectionNum = pl.PathSectionNum
+		INNER JOIN CablePath cp ON cp.CablePathNum = ps.CablePathNum
+	),
+	 tmpPathSection (PathSectionNum) AS (
+		SELECT DISTINCT
+			(PathSectionNum)
+		FROM
+			tmpPowerLoop 
+<trim prefix = "where" prefixOverrides = "and" > 
+	<if test="pathTypeID!=null and pathTypeID!=''"> 
+		PathTypeID = #{pathTypeID} 
+	</if > 
+	<if test="voltageLevelID!=null and voltageLevelID!=''">
+		and VoltageLevelID = #{voltageLevelID} 
+	</if> 
+	<choose>
+		<when test="runDateYearStr!=null and runDateYearStr!='' and runDateMonthStr!=null and runDateMonthStr!=''">
+          and to_char(RunDate,'yyyy') = #{runDateYearStr} and to_char(RunDate,'MM') = #{runDateMonthStr}
+        </when>
+        <when test="runDateYearStr!=null and runDateYearStr!='' ">
+          and to_char(RunDate,'yyyy') = #{runDateYearStr}
+        </when>
+        <when test="runDateStartStr!=null and runDateStartStr!='' and runDateEndStr!=null and runDateEndStr!=''">
+          and RunDate>= to_date(#{runDateStartStr},'yyyy/mm/dd HH24:MI:SS') and RunDate  &lt;= to_date(#{runDateEndStr},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <when test="runDateStartStr!=null and runDateStartStr!=''">
+          and RunDate  >= to_date(#{runDateStartStr},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <when test="runDateEndStr!=null and runDateEndStr!=''">
+          and RunDate &lt;= to_date(#{runDateEndStr},'yyyy/mm/dd HH24:MI:SS')
+        </when>
+        <otherwise>
+
+        </otherwise>
+      </choose>
+ </trim>
+	) SELECT
+		ps.VoltageLevelID,
+		pcl.VoltageLevelName,
+		SUM (ps.LoopCount) AS LoopCount,
+		SUM (ps.LineCount) AS LineCount,
+		SUM (ps.LoopLenght) AS LoopLength,
+		SUM (ps.LineCount * ps.LoopLenght) AS TotalLength
+	FROM
+		v_PathSection ps
+	INNER JOIN PowerCableLevel pcl ON pcl.VoltageLevelID = ps.VoltageLevelID
+	INNER JOIN tmpPathSection tmp ON tmp.PathSectionNum = ps.PathSectionNum
+	GROUP BY
+		ps.VoltageLevelID,
+		pcl.VoltageLevelName
+	ORDER BY
+		ps.VoltageLevelID DESC
+  </select>
+</mapper>

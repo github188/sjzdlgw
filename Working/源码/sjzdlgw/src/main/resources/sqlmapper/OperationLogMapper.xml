@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.OperationLogMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.OperationLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="LogNum" property="logNum" jdbcType="DECIMAL" />
+    <result column="TypeID" property="typeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Content" property="content" jdbcType="VARCHAR" />
+    <result column="LogDateTime" property="logDateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

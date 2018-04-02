@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TunnelSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TunnelSection" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="TunnleTowardTypeID" property="tunnleTowardTypeID" jdbcType="DECIMAL" />
+    <result column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="Length" property="length" jdbcType="FLOAT" />
+    <result column="OrderNum" property="orderNum" jdbcType="DECIMAL" />
+    <result column="FrontTopHeight" property="frontTopHeight" jdbcType="FLOAT" />
+    <result column="TailTopHeight" property="tailTopHeight" jdbcType="FLOAT" />
+  </resultMap>
+
+  <resultMap id="GeomTunnelSectionResultMap" type="com.hbdl.web.sys.map.GeomTunnelSection">
+    <id column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="GeomStr" property="geomStr" jdbcType="VARCHAR" />
+    <result column="AssetNum" property="assetNum" jdbcType="DECIMAL" />
+    <result column="AssetName" property="assetName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="TunnelStructureTypeID" property="tunnelStructureTypeID" jdbcType="DECIMAL" />
+    <result column="OrderNum" property="orderNum" jdbcType="DECIMAL" />
+    <result column="LevelTunnelName" property="levelTunnelName" jdbcType="VARCHAR" />
+    <result column="OperationCode" property="operationCode" jdbcType="VARCHAR" />
+    <result column="ShowColor" property="showColor" jdbcType="VARCHAR" />
+    <result column="LineWidth" property="lineWidth" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="TunnelSectionLayRet" type="com.hbdl.web.sys.api.retMapperClass.TunnelSectionLayRet">
+    <id column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="OrderNum" property="orderNum" jdbcType="DECIMAL" />
+    <result column="TunnleTowardTypeID" property="tunnleTowardTypeID" jdbcType="DECIMAL" />
+    <result column="TunnleTowardTypeName" property="tunnleTowardTypeName" jdbcType="VARCHAR" />
+    <result column="Length" property="length" jdbcType="FLOAT" />
+  </resultMap>
+  <select id="selectTunnelSectionHasManhole" resultType="com.hbdl.web.sys.controller.TunnelSectionManhole">
+    SELECT
+        m.sectionNum,m.tunnleTowardTypeID,m.assetNum,m.length ,m.orderNum ,m.frontTopHeight,m.tailTopHeight,
+        ms1.ASSETNUM beginManhole,mss.ASSETNUM endManhole,ms1.num beginManholeOfSectionNum,mss.num endManholeOfSectionNum
+    FROM TunnelSection m
+    LEFT JOIN ManholeOfSection ms1 on m.SECTIONNUM=ms1.SECTIONNUM and ms1.ORDERNUM=1
+    LEFT JOIN ManholeOfSection mss on m.SECTIONNUM=mss.SECTIONNUM and mss.ORDERNUM=2
+    WHERE
+        m.assetNum = #{0}
+    order by m.orderNum
+  </select>
+  <select id="selectTunnelSectionLayRet" resultMap="TunnelSectionLayRet">
+    SELECT
+    ts.sectionNum,
+	ts.orderNum,
+	ttt.tunnleTowardTypeName,
+	ts.TunnleTowardTypeID,
+	ts. LENGTH
+	FROM
+	TunnelSection ts
+    LEFT JOIN TunnleTowardType ttt ON ttt.TunnleTowardTypeID = ts.TunnleTowardTypeID
+    WHERE
+	ts.assetNum = #{0}
+    AND ts.orderNum = #{1}
+  </select>
+
+  <select id="selectGeomTunnelSection" parameterType="com.hbdl.web.sys.map.GeomTunnelSection" resultMap="GeomTunnelSectionResultMap">
+   SELECT SectionNum,GeomStr,AssetNum,AssetName,AssetCode,VoltageLevelID,TunnelStructureTypeID,OrderNum,LevelTunnelName,OperationCode,ShowColor,LineWidth FROM v_Geom_TunnelSection
+   <trim prefix="where" prefixOverrides="and">
+     <if test="voltageLevelIDs!=null">
+       <foreach collection="voltageLevelIDs" item="id" open="and VoltageLevelID in(" separator="," close=")">
+         #{id}
+       </foreach>
+     </if>
+     <if test="tunnelStructureTypeIDs!=null">
+       <foreach collection="tunnelStructureTypeIDs" item="id" open="and TunnelStructureTypeID in(" separator="," close=")">
+         #{id}
+       </foreach>
+     </if>
+     <if test="sqlExtent!=null and sqlExtent!=''">
+       AND SDO_FILTER(GEOM , MDSYS.SDO_GEOMETRY(#{sqlExtent,jdbcType=VARCHAR},4326)) = 'TRUE'
+     </if>
+   </trim>
+  </select>
+  <select id="selectSunLength" resultType="java.lang.Double">
+    select "SUM"( "LENGTH")  from TUNNELSECTION where SECTIONNUM =#{sid_TunnelSection}
+  </select>
+
+</mapper>

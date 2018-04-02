@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ The MIT License (MIT) ~ ~ Copyright (c) 2014 abel533@gmail.com ~ ~ 
+	Permission is hereby granted, free of charge, to any person obtaining a copy 
+	~ of this software and associated documentation files (the "Software"), to 
+	deal ~ in the Software without restriction, including without limitation 
+	the rights ~ to use, copy, modify, merge, publish, distribute, sublicense, 
+	and/or sell ~ copies of the Software, and to permit persons to whom the Software 
+	is ~ furnished to do so, subject to the following conditions: ~ ~ The above 
+	copyright notice and this permission notice shall be included in ~ all copies 
+	or substantial portions of the Software. ~ ~ THE SOFTWARE IS PROVIDED "AS 
+	IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR ~ IMPLIED, INCLUDING BUT NOT 
+	LIMITED TO THE WARRANTIES OF MERCHANTABILITY, ~ FITNESS FOR A PARTICULAR 
+	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE ~ AUTHORS OR COPYRIGHT 
+	HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER ~ LIABILITY, WHETHER IN 
+	AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, ~ OUT OF OR IN CONNECTION 
+	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN ~ THE SOFTWARE. -->
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <properties resource="config.properties" /> -->
+	<classPathEntry location="src/test/java/generator/ojdbc6.jar" />
+	<context id="Mysql" targetRuntime="MyBatis3Simple"
+		defaultModelType="flat">
+		<property name="beginningDelimiter" value="&quot;" />
+		<property name="endingDelimiter" value="&quot;" />
+		
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
+			<property name="caseSensitive" value="false" />
+		</plugin>
+		<plugin type="generator.plugin.JSONModelPlugin" />
+		<!-- 
+		<plugin type="generator.plugin.SqlWherelPlugin" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<commentGenerator type="com.hbdl.common.base.HbdlCommentGenerator">
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />			
+		</commentGenerator>
+
+		
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@49.4.174.38:1536:orcl" userId="&quot;was-ptms2.0&quot;" password="wasptms">
+			<!-- 如下配置针对自动生成注释。by suxh -->
+			<property name="remarksReporting" value="true"></property>
+		</jdbcConnection>
+
+		<!-- 类型转换 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成实体类地址 -->
+		<javaModelGenerator targetPackage="com.hbdl.web.sys.model"
+			targetProject="../hbdl/src/main/java">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.chansh.user.model， true:com.chansh.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+			<property name="rootClass" value="com.hbdl.common.base.BaseEntity"/>
+		</javaModelGenerator>
+
+		<!-- 生成mapxml文件 -->
+		<sqlMapGenerator targetPackage="sqlmapper"
+			targetProject="../hbdl/src/main/resources">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.chansh.user.model， true:com.chansh.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- 生成mapxml对应client，也就是接口dao -->
+		<javaClientGenerator targetPackage="com.hbdl.web.sys.mapper"
+			targetProject="../hbdl/src/main/java" type="XMLMAPPER">
+			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.chansh.user.model， true:com.chansh.user.model.[schemaName] -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+<!-- 		<table tableName="%" delimitIdentifiers="true" delimitAllColumns="true"> -->
+<!--             <property name="useActualColumnNames" value="true"/> -->
+<!--         </table> -->
+		<table tableName="TunnelStructureType" domainObjectName="TunnelStructureType" delimitIdentifiers="true" delimitAllColumns="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="TunnelStuffType" domainObjectName="TunnelStuffType" delimitIdentifiers="true" delimitAllColumns="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="TunnleTowardType" domainObjectName="TunnleTowardType" delimitIdentifiers="true" delimitAllColumns="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="UserRoles" domainObjectName="UserRoles" delimitIdentifiers="true" delimitAllColumns="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+
+	</context>
+</generatorConfiguration>

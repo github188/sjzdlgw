@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.AttachmentOfCableMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.AttachmentOfCable" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RecordNum" property="recordNum" jdbcType="DECIMAL" />
+    <result column="Start_AttachmentNum" property="start_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="End_AttachmentNum" property="end_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="Cab_AttachmentNum" property="cab_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="Place" property="place" jdbcType="VARCHAR" />
+    <result column="Distance" property="distance" jdbcType="FLOAT" />
+    <result column="InstallDate" property="installDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="AttachmentOfCablePageMap" type="com.hbdl.web.sys.controller.AttachmentOfCablePage">
+
+    <id column="RecordNum" property="recordNum" jdbcType="DECIMAL" />
+    <result column="Start_AttachmentNum" property="start_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="Start_AttachmentTypeName" property="start_AttachmentTypeName" jdbcType="VARCHAR" />
+    <result column="Start_AttachmentTypeID" property="start_AttachmentTypeID" jdbcType="DECIMAL" />
+    <result column="Start_AttachmentAssetCode" property="start_AttachmentAssetCode" jdbcType="VARCHAR" />
+    <result column="End_AttachmentNum" property="end_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="End_AttachmentTypeName" property="end_AttachmentTypeName" jdbcType="VARCHAR" />
+    <result column="End_AttachmentTypeID" property="end_AttachmentTypeID" jdbcType="DECIMAL" />
+    <result column="End_AttachmentAssetCode" property="end_AttachmentAssetCode" jdbcType="VARCHAR" />
+    <result column="Cab_AttachmentNum" property="cab_AttachmentNum" jdbcType="DECIMAL" />
+    <result column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="AttachmentTypeID" property="attachmentTypeID" jdbcType="DECIMAL" />
+    <result column="LedgerNum" property="ledgerNum" jdbcType="DECIMAL" />
+    <result column="Place" property="place" jdbcType="VARCHAR" />
+    <result column="Distance" property="distance" jdbcType="FLOAT" />
+    <result column="InstallDate" property="installDate" jdbcType="TIMESTAMP" />
+    <result column="AttachmentTypeName" property="attachmentTypeName" jdbcType="VARCHAR" />
+    <result column="AssetCode" property="assetCode" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <!--
+     SELECT ac.RecordNum, ac.Start_AttachmentNum, ac.End_AttachmentNum, ac.Cab_AttachmentNum, ac.CableNum, ac.Place, ac.Distance, ac.InstallDate, ttn.AttachmentTypeName, tca.AssetCode FROM AttachmentOfCable ac LEFT OUTER JOIN CableAttachment tca ON tca.AttachmentNum = ac.Cab_AttachmentNum
+       LEFT OUTER JOIN CableAttachmentType ttn ON ttn.attachmentTypeID = tca.attachmentTypeID
+-->
+  <select id="selectByAttachmentOfCablePage" resultMap="AttachmentOfCablePageMap" parameterType="com.hbdl.web.sys.controller.AttachmentOfCablePage">
+    WITH tmpCableAttachmentAssetCode(Cab_AttachmentNum, AssetCode) AS (SELECT cb.AttachmentNum, cb.AssetCode FROM CableAttachment cb INNER JOIN AttachmentOfCable acp ON cb.AttachmentNum = acp.Cab_AttachmentNum),
+      tmpCableAttachmentTypeName(AttachmentNum, AssetCode, LedgerNum, AttachmentTypeName, AttachmentTypeID) AS (SELECT cb.AttachmentNum, cb.AssetCode, cb.Num, cat.attachmentTypeName, cat.AttachmentTypeID FROM CableAttachmentType cat INNER JOIN CableAttachment cb ON cb.attachmentTypeID = cat.attachmentTypeID)
+
+    SELECT DISTINCT ac.RecordNum AS RecordNum, ac.Start_AttachmentNum AS Start_AttachmentNum, ttn.LedgerNum AS LedgerNum, ac.End_AttachmentNum AS End_AttachmentNum, ac.Cab_AttachmentNum AS Cab_AttachmentNum, ac.CableNum AS CableNum, ac.Place AS Place, ac.Distance AS Distance, ac.InstallDate AS InstallDate, ttn.AttachmentTypeName AS AttachmentTypeName, ttn.AttachmentTypeID AS AttachmentTypeID, tca.AssetCode AS AssetCode,
+      ttne.AssetCode AS end_AttachmentAssetCode, ttne.AttachmentTypeID AS end_AttachmentTypeID, ttne.AttachmentTypeName AS end_AttachmentTypeName,
+      ttns.AssetCode AS start_AttachmentAssetCode, ttns.AttachmentTypeID AS start_AttachmentTypeID, ttns.AttachmentTypeName AS start_AttachmentTypeName
+      FROM AttachmentOfCable ac
+      LEFT OUTER JOIN tmpCableAttachmentAssetCode tca ON tca.Cab_AttachmentNum = ac.Cab_AttachmentNum
+      LEFT OUTER JOIN tmpCableAttachmentTypeName ttn ON ttn.AttachmentNum = ac.Cab_AttachmentNum
+      LEFT OUTER JOIN tmpCableAttachmentTypeName ttne ON ttne.AttachmentNum = ac.end_AttachmentNum
+      LEFT OUTER JOIN tmpCableAttachmentTypeName ttns ON ttns.AttachmentNum = ac.start_AttachmentNum
+      <trim prefix="WHERE" prefixOverrides="AND">
+        <if test="recordNum!=null">
+          ac.RecordNum = #{recordNum,jdbcType=DECIMAL}
+        </if>
+        <if test="start_AttachmentNum!=null">
+          ac.Start_AttachmentNum = #{start_AttachmentNum,jdbcType=DECIMAL}
+        </if>
+        <if test="end_AttachmentNum!=null">
+          ac.End_AttachmentNum = #{end_AttachmentNum,jdbcType=DECIMAL}
+        </if>
+        <if test="cab_AttachmentNum!=null">
+          tca.Cab_AttachmentNum = #{cab_AttachmentNum,jdbcType=DECIMAL}
+        </if>
+        <if test="attachmentTypeID!=null">
+          tnn.AttachmentTypeID = #{attachmentTypeID,jdbcType=DECIMAL}
+        </if>
+        <if test="cableNum!=null">
+          ac.CableNum = #{cableNum,jdbcType=DECIMAL}
+        </if>
+        <if test="place!=null">
+          ac.Place = #{place,jdbcType=VARCHAR}
+        </if>
+        <if test="distance!=null">
+          ac.Distance = #{distance,jdbcType=FLOAT}
+        </if>
+        <if test="installDate!=null">
+          ac.InstallDate = #{installDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderStr!=null and orderStr!=''">
+          ORDER BY ${orderStr}
+        </if>
+      </trim>
+  </select>
+
+  <select id="selectByAttachmentOfCablePageByPathSectionNum" resultMap="AttachmentOfCablePageMap" parameterType="com.hbdl.web.sys.controller.AttachmentOfCablePage">
+    SELECT DISTINCT cat.AttachmentTypeName AS AttachmentTypeName, ca.AttachmentTypeID AS AttachmentTypeID, CA.AssetCode AS AssetCode, aoc.Cab_AttachmentNum AS Cab_AttachmentNum, aoc.CableNum AS CableNum, aoc.Place AS Place, aoc.Distance AS Distance, aoc.InstallDate AS InstallDate
+    FROM AttachmentOfCable aoc
+    LEFT OUTER JOIN CableAttachment ca ON CA.ATTACHMENTNUM=aoc.CAB_ATTACHMENTNUM
+    LEFT OUTER JOIN PathCable pc ON pc.CableNum=aoc.CableNum
+    LEFT OUTER JOIN PowerLoop pl ON pl.LoopNum=pc.LoopNum
+    LEFT OUTER JOIN PathSection ps ON ps.PathSectionNum=pl.PathSectionNum
+    LEFT OUTER JOIN CableAttachmentType cat ON cat.AttachmentTypeID=ca.AttachmentTypeID
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="pathSectionNumList!=null">
+        <foreach collection="pathSectionNumList" item="id" open="and ps.PathSectionNum in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </trim>
+  </select>
+</mapper>

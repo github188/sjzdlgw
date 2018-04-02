@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TunnelAduitRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TunnelAduitRecord" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AcceptRecordNum" property="acceptRecordNum" jdbcType="DECIMAL" />
+    <result column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeID" property="task_EmployeeID" jdbcType="VARCHAR" />
+    <result column="PlanName" property="planName" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="AcceptUserList" property="acceptUserList" jdbcType="VARCHAR" />
+    <result column="AcceptOpinion" property="acceptOpinion" jdbcType="VARCHAR" />
+    <result column="AcceptDate" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="AuditResult" property="auditResult" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="PageResultMap" type="com.hbdl.web.sys.controller.page.TunnelAduitRecordPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AcceptRecordNum" property="acceptRecordNum" jdbcType="DECIMAL" />
+    <result column="ArchivesNum" property="archivesNum" jdbcType="DECIMAL" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeID" property="task_EmployeeID" jdbcType="VARCHAR" />
+    <result column="PlanName" property="planName" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="AcceptUserList" property="acceptUserList" jdbcType="VARCHAR" />
+    <result column="AcceptOpinion" property="acceptOpinion" jdbcType="VARCHAR" />
+    <result column="AcceptDate" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="AuditResult" property="auditResult" jdbcType="VARCHAR" />
+    <result column="AuditDate" property="auditDate" jdbcType="TIMESTAMP" />
+    <result column="UserName" property="task_EmployeeName" jdbcType="VARCHAR" />
+    <result column="TaskStatusTypeName" property="taskStatusTypeName" jdbcType="VARCHAR" />
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" jdbcType="DECIMAL" />
+    <result column="AcceptStatusTypeName" property="acceptStatusTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <select id="selectPageByPage" parameterType="com.hbdl.web.sys.controller.page.TunnelAduitRecordPage" resultMap="PageResultMap">
+    SELECT AcceptRecordNum,ArchivesNum,TaskStatusTypeID,EmployeeID,Task_EmployeeID,PlanName,WorkBillsCode,
+    PlanDate,AcceptUserList,AcceptOpinion,AcceptDate,UserName,TaskStatusTypeName,AuditResult,AuditDate,AcceptStatusTypeID,AcceptStatusTypeName
+    FROM v_TunnelAduitRecord
+    <trim prefix="where" prefixOverrides="and">
+      <if test="acceptRecordNum!=null and acceptRecordNum!=''">
+        and AcceptRecordNum = #{acceptRecordNum}
+      </if>
+
+      <if test="archivesNum!=null and archivesNum!=''">
+        and ArchivesNum=#{archivesNum}
+      </if>
+
+      <if test="taskStatusTypeIDList!=null">
+        <foreach collection="taskStatusTypeIDList" item="id" open="and TaskStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+    </trim>
+
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+</mapper>

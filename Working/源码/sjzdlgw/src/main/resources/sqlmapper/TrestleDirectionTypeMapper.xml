@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TrestleDirectionTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TrestleDirectionType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TrestlePositionTypeID" property="trestlePositionTypeID" jdbcType="DECIMAL" />
+    <result column="TrestlePositionTypeName" property="trestlePositionTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap1" type="com.hbdl.web.sys.model.TrestleLayer" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TrestleLayerNum" property="trestleLayerNum" jdbcType="DECIMAL" />
+    <result column="TrestlePositionTypeID" property="trestlePositionTypeID" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="SectionNum" property="sectionNum" jdbcType="DECIMAL" />
+    <result column="TrestleStuffTypeID" property="trestleStuffTypeID" jdbcType="DECIMAL" />
+    <result column="Layer" property="layer" jdbcType="DECIMAL" />
+    <result column="TrestleLength" property="trestleLength" jdbcType="FLOAT" />
+    <result column="Height" property="height" jdbcType="FLOAT" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectTrestleLayer" resultMap="BaseResultMap">
+    SELECT * FROM TrestleDirectionType TD LEFT JOIN TrestleLayer Tl ON TL.TRESTLEPOSITIONTYPEID = TD.TRESTLEPOSITIONTYPEID
+  </select>
+</mapper>

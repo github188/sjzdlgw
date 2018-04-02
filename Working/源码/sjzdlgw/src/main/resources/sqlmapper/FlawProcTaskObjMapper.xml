@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FlawProcTaskObjMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FlawProcTaskObj" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FlawProcObj" property="flawProcObj" jdbcType="DECIMAL" />
+    <result column="FlawProcAcceptTypeID" property="flawProcAcceptTypeID" jdbcType="DECIMAL" />
+    <result column="FlawProcTaskNum" property="flawProcTaskNum" jdbcType="DECIMAL" />
+    <result column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="FlawPrcoDescription" property="flawPrcoDescription" jdbcType="VARCHAR" />
+    <result column="FlawProcDate" property="flawProcDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="PageResultMap" type="com.hbdl.web.sys.controller.page.FlawProcTaskObjPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FlawProcObj" property="flawProcObj" jdbcType="DECIMAL" />
+    <result column="FlawProcAcceptTypeID" property="flawProcAcceptTypeID" jdbcType="DECIMAL" />
+    <result column="FlawProcTaskNum" property="flawProcTaskNum" jdbcType="DECIMAL" />
+    <result column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="FlawPrcoDescription" property="flawPrcoDescription" jdbcType="VARCHAR" />
+    <result column="FlawProcDate" property="flawProcDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="FlawProcAcceptTypeName" property="flawProcAcceptTypeName" jdbcType="VARCHAR" />
+
+    <result column="TaskNum" property="taskNum" jdbcType="DECIMAL" />
+    <result column="FlawTypeID" property="flawTypeID" jdbcType="DECIMAL" />
+    <result column="FlawSourceTypeID" property="flawSourceTypeID" jdbcType="DECIMAL" />
+    <result column="FlawLevelTypeID" property="flawLevelTypeID" jdbcType="DECIMAL" />
+    <result column="FlawAduitStatusID" property="flawAduitStatusID" jdbcType="DECIMAL" />
+    <result column="ObjTypeEnum" property="objTypeEnum" jdbcType="DECIMAL" />
+    <result column="ObjTableNum" property="objTableNum" jdbcType="DECIMAL" />
+    <result column="ObjCode" property="objCode" jdbcType="VARCHAR" />
+    <result column="IsFlaw" property="isFlaw" jdbcType="DECIMAL" />
+    <result column="FlawDescription" property="flawDescription" jdbcType="VARCHAR" />
+    <result column="FlawTypeName" property="flawTypeName"/>
+    <result column="FlawSourceName" property="flawSourceName"/>
+    <result column="FlawLevelTypeName" property="flawLevelTypeName"/>
+    <result column="FlawAduitStatusName" property="flawAduitStatusName"/>
+    <result column="ObjTypeEnumName" property="objTypeEnumName"/>
+  </resultMap>
+
+  <select id="selectPageByFlawTaskNum" parameterType="java.math.BigDecimal" resultMap="PageResultMap">
+      SELECT
+      FlawProcObj
+      ,FlawProcAcceptTypeID
+	  ,FlawProcAcceptTypeName
+      ,FlawProcTaskNum
+      ,ObjFlawNum
+      ,FlawPrcoDescription
+      ,Memo
+      ,FlawProcDate
+      ,TaskNum
+      ,FlawTypeID
+      ,FlawTypeName
+      ,FlawSourceTypeID
+      ,FlawSourceName
+      ,FlawLevelTypeID
+      ,FlawLevelTypeName
+      ,FlawAduitStatusID
+      ,FlawAduitStatusName
+      ,ObjTypeEnum
+      ,ObjTypeEnumName
+      ,ObjTableNum
+      ,ObjCode
+      ,IsFlaw
+      ,FlawDescription
+      FROM v_FlawProcTaskObj
+      WHERE FlawProcTaskNum=#{flawProcTaskNum}
+  </select>
+
+
+    <select id="downloadFlawProcTaskObj" resultType="com.hbdl.web.sys.api.Page.FlawProcTaskObjPage">
+        select fpto.FlawProcObj,fpto.FlawProcTaskNum,fpto.FlawProcAcceptTypeID,fpto.ObjFlawNum,fst.FlawSourceName,mkt.ManholeKindTypeName as objTypeEnumName,iof.ObjTableNum,iof.ObjCode,
+                iof.FlawTypeID,iof.FlawLevelTypeID,iof.FlawDescription,iof.FlawDate
+        from FlawProcTaskObj fpto LEFT JOIN FlawProcTask fpt on fpto.FlawProcTaskNum=fpt.FlawProcTaskNum
+        LEFT JOIN InspectObjFlaw iof ON fpto.ObjFlawNum=iof.ObjFlawNum LEFT JOIN FlawSourceType fst on iof.FlawSourceTypeID=fst.FlawSourceTypeID
+        LEFT JOIN ManholeKindType mkt on iof.ObjTypeEnum=mkt.ManholeKindTypeID
+        WHERE fpto.FlawProcAcceptTypeID=3
+        <if test="list!=null">
+            <foreach collection="list" item="taskNum" open="and fpto.FlawProcTaskNum in(" separator="," close=")">
+                #{taskNum}
+            </foreach>
+        </if>
+    </select>
+    <update id="uploadFlawProcTaskObjForBatch">
+        <foreach collection="flawProcTaskObjList" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE FlawProcTaskObj set FlawProcAcceptTypeID=#{flawProcAcceptTypeID},FlawPrcoDescription=#{flawPrcoDescription},FlawProcDate=#{flawProcDate}
+            WHERE FlawProcObj=#{flawProcObj}
+        </foreach>
+    </update>
+</mapper>

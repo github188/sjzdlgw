@@ -1,0 +1,37 @@
+
+	.tongdao-table,.sheb-table {
+		table-layout: fixed;
+		width:99%;
+	}
+	.table-label {
+		width:70px;
+		padding-right:10px;
+		text-align: right;
+	}
+	.tongdao-table td {
+		padding-bottom:10px;
+		position: relative;
+	}
+	.tongdao-table td span {
+		position:absolute;
+		left:100%;
+		margin-left: -18px;
+    	margin-top: 4px;
+	}
+	.tongdao-table input {
+		width:100%;
+	}
+	.fang-table div{
+		padding:5px;
+		font-size:14px;
+		cursor: default;
+	}
+	.fang-table div:hover{
+		background:#E4F5FF;
+	}
+	.fang-table div.selected{
+		background-color: #7cc5e5;
+	}
+    .tongdao-table tr {
+        height:40px;
+    }

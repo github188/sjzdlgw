@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.ManholeShapeTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.ManholeShapeType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ManholeShapeTypeID" property="manholeShapeTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeShapeTypeName" property="manholeShapeTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

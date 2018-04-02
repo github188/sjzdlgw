@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.RowTubeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.RowTube" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="RowTubeNum" property="rowTubeNum" jdbcType="DECIMAL" />
+    <result column="RowTubeTypeID" property="rowTubeTypeID" jdbcType="DECIMAL" />
+    <result column="TrestleLayerNum" property="trestleLayerNum" jdbcType="DECIMAL" />
+    <result column="RowTubeOrder" property="rowTubeOrder" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectRowTubeLayRet" resultType="com.hbdl.web.sys.api.retMapperClass.RowTubeLayRet">
+    select v.rowTubeOrder,v.RowTubeNum,v.RowTubeTypeID,v.RowTubeTypeName,r.RowTubeDiameter
+    from v_RowTube v
+    LEFT JOIN RowTubeType r on v.RowTubeTypeID=r.RowTubeTypeID
+    where TrestleLayerNum=#{0}
+  </select>
+</mapper>

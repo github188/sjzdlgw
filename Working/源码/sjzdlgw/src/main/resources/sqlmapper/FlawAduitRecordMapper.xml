@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FlawAduitRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FlawAduitRecord" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AduitRecordNum" property="aduitRecordNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="FlawAduitWayID" property="flawAduitWayID" jdbcType="DECIMAL" />
+    <result column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="AduitOpinion" property="aduitOpinion" jdbcType="VARCHAR" />
+    <result column="AduitDate" property="aduitDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="PageResultMap" type="com.hbdl.web.sys.controller.page.FlawAduitRecordPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="AduitRecordNum" property="aduitRecordNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="FlawAduitWayID" property="flawAduitWayID" jdbcType="DECIMAL" />
+    <result column="ObjFlawNum" property="objFlawNum" jdbcType="DECIMAL" />
+    <result column="AduitOpinion" property="aduitOpinion" jdbcType="VARCHAR" />
+    <result column="AduitDate" property="aduitDate" jdbcType="TIMESTAMP" />
+    <result column="UserName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="FlawAduitWayName" property="flawAduitWayName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectPageByObjFlawNum" parameterType="java.math.BigDecimal" resultMap="PageResultMap">
+    SELECT AduitRecordNum,EmployeeID,ObjFlawNum,AduitOpinion,AduitDate,UserName,FlawAduitWayName
+    FROM v_FlawAduitRecord
+    WHERE ObjFlawNum=#{objFlawNum}
+  </select>
+</mapper>

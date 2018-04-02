@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FileAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FileAttachment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FileNum" property="fileNum" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="BaseFacilityNum" property="baseFacilityNum" jdbcType="DECIMAL" />
+    <result column="FileName" property="fileName" jdbcType="VARCHAR" />
+    <result column="UpdateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="FileMemo" property="fileMemo" jdbcType="VARCHAR" />
+    <result column="FilePath" property="filePath" jdbcType="CLOB" />
+  </resultMap>
+</mapper>

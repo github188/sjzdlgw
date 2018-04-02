@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.TrestleStuffTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.TrestleStuffType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TrestleStuffTypeID" property="trestleStuffTypeID" jdbcType="DECIMAL" />
+    <result column="TrestleStuffTypeName" property="trestleStuffTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

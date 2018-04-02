@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.PathCableMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.PathCable" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="PhaseTypeID" property="phaseTypeID" jdbcType="DECIMAL" />
+    <result column="ModelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="LoopNum" property="loopNum" jdbcType="DECIMAL" />
+    <result column="CableName" property="cableName" jdbcType="VARCHAR" />
+    <result column="RunCode" property="runCode" jdbcType="VARCHAR" />
+    <result column="RunDate" property="runDate" jdbcType="TIMESTAMP" />
+    <result column="IsExpEarthLine" property="isExpEarthLine" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="selectPathCableLayRetMap" type="com.hbdl.web.sys.api.retMapperClass.PathCableLayRet">
+    <id column="CableNum" property="cableNum" jdbcType="DECIMAL" />
+    <result column="modelTypeNum" property="modelTypeNum" jdbcType="DECIMAL" />
+    <result column="phaseTypeID" property="phaseTypeID" jdbcType="DECIMAL" />
+    <result column="loopName" property="loopName" jdbcType="VARCHAR" />
+    <result column="cableName" property="cableName" jdbcType="VARCHAR" />
+    <result column="runCode" property="runCode" jdbcType="VARCHAR" />
+    <result column="modelTypeName" property="modelTypeName" jdbcType="VARCHAR" />
+    <result column="phaseTypeName" property="phaseTypeName" jdbcType="VARCHAR" />
+    <result column="RunDate" property="runDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectVoltageLevelIDByCableNum" resultType="java.math.BigDecimal">
+    select voltageLevelID from v_PathCable where CableNum=#{0}
+  </select>
+  <select id="selectPathCableLayRet" resultMap="selectPathCableLayRetMap">
+    select VP.cableNum,VP.loopName,VP.cableName,VP.runCode,VP.modelTypeNum,VP.modelTypeName,VP.runDate,VP.phaseTypeID,VP.phaseTypeName
+    from v_PathCable vp where pathSectionNum=#{0} and VP.CABLENUM not in
+	(select   vc.CABLENUM  from v_CableOfSection vc where vc.sectionNum=#{1})
+  </select>
+</mapper>

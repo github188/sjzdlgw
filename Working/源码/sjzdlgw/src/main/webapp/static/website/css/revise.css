@@ -1,0 +1,19 @@
+/* 修改页面样式 */
+/* 管网 -> 新建巡视任务 */
+.newxs input,.newxs a{
+    width:216.6px;
+    height:21px;
+    box-sizing:border-box;
+}
+.newxs .input-icon{
+    width:202px;
+}
+.newxs .inputDateButton{
+    width:16px;
+    heigh:21px;
+}
+
+/* 管网 -> 巡视管理2017 */
+.task{
+    width:170px;
+}

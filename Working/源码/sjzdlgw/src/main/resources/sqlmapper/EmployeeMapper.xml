@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.Employee" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="OrganizationNum" property="organizationNum" jdbcType="DECIMAL" />
+    <result column="Account" property="account" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="SID" property="SID" jdbcType="VARCHAR" />
+    <result column="Grade" property="grade" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="IsDisabled" property="isDisabled" jdbcType="TIMESTAMP" />
+    <result column="DisableDate" property="disableDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="EmployeePage" type="com.hbdl.web.sys.controller.page.EmployeePage">
+    <id column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="OrganizationNum" property="organizationNum" jdbcType="DECIMAL" />
+    <result column="Account" property="account" jdbcType="VARCHAR" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Grade" property="grade" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="EmployeePageResponse" type="com.hbdl.web.sys.api.Page.EmployeePageResponse">
+    <id column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="RootOrganizationNum" property="rootOrganizationNum" jdbcType="DECIMAL" />
+    <result column="RootOrganizationName" property="rootOrganizationName" jdbcType="VARCHAR" />
+    <result column="OrganizationNum" property="organizationNum" jdbcType="DECIMAL" />
+    <result column="OrganizationName" property="organizationName" jdbcType="VARCHAR" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+    <result column="TeamTypeName" property="teamTypeName" jdbcType="VARCHAR" />
+    <result column="Account" property="account" jdbcType="VARCHAR" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Grade" property="grade" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="RoleNum" property="roleNum" jdbcType="DECIMAL" />
+    <result column="RoleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="Comments" property="comments" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="userLoginEmployee" type="com.hbdl.web.sys.model.Employee">
+    <id column="user_id" property="employeeID" jdbcType="VARCHAR" />
+    <result column="login_name" property="account" jdbcType="VARCHAR" />
+    <result column="name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectEmployeeByAccount" parameterType="java.lang.String" resultMap="EmployeePage">
+    SELECT EmployeeID, OrganizationNum, Account, UserName, Sex, Email, Grade, MobilePhone, Address, CreateDate
+    from EMPLOYEE where ACCOUNT=#{account}
+  </select>
+  <select id="selectEmployeeByPage" parameterType="com.hbdl.web.sys.controller.page.EmployeePage" resultMap="EmployeePage">
+    SELECT em.EmployeeID, em.OrganizationNum, em.Account, em.UserName, em.Sex,
+    em.Email, em.Grade, em.MobilePhone, em.Address, em.CreateDate,
+    org.TeamTypeID, org.OrganizationName, tt.TeamTypeName, orgg.OrganizationName AS RootOrganizationName,
+    orgg.OrganizationNum AS RootOrganizationNum
+    FROM Employee em
+    INNER JOIN Organization org ON em.OrganizationNum = org.OrganizationNum
+    LEFT OUTER JOIN TeamType tt ON org.TeamTypeID = tt.TeamTypeID
+    INNER JOIN Organization orgg ON org.ParentID = orgg.OrganizationNum
+    <trim prefix="where" prefixOverrides="and">
+      <if test="organizationNum!=null and organizationNum!=''">
+        and em.OrganizationNum =#{organizationNum}
+      </if>
+      <if test="account!=null and account!=''">
+        and em.Account =#{account}
+      </if>
+      <if test="employeeID!=null and employeeID!=''">
+        and em.EmployeeID =#{employeeID}
+      </if>
+    </trim>
+  </select>
+  <select id="selectEmployeeInTeam" parameterType="com.hbdl.web.sys.controller.page.EmployeePage" resultMap="EmployeePage">
+    SELECT EmployeeID, OrganizationNum, Account, UserName, Sex, Email, Grade, MobilePhone, Address, CreateDate
+    FROM EMPLOYEE em
+    <trim prefix="where" prefixOverrides="and">
+      <if test="account!=null and account!=''">
+        and em.Account =#{account}
+      </if>
+      <if test="employeeID!=null and employeeID!=''">
+        AND em.OrganizationNum=(SELECT OrganizationNum FROM Employee emp WHERE emp.EmployeeID=#{employeeID})
+        AND em.EmployeeID!=#{employeeID}
+      </if>
+    </trim>
+  </select>
+  <select id="selectEmployeeResponseByAccount" parameterType="java.lang.String" resultMap="EmployeePageResponse">
+    WITH tmpRoleEmployee(EmployeeID, RoleNum, RoleName, Comments) AS (SELECT ur.EmployeeID, ro.RoleNum, ro.RoleName, ro.Comments FROM Roles ro LEFT OUTER JOIN UserRoles ur ON ur.RoleNum=ro.RoleNum)
+    SELECT em.EmployeeID AS EmployeeID, em.OrganizationNum AS OrganizationNum, em.Account AS Account, em.UserName AS UserName, em.Sex AS Sex, em.Email AS Email, em.Grade AS Grade, em.MobilePhone AS MobilePhone, em.Address AS Address, em.CreateDate AS CreateDate, tre.RoleName AS RoleName, tre.RoleNum AS RoleNum, tre.Comments AS Comments
+    from EMPLOYEE em
+    LEFT OUTER JOIN tmpRoleEmployee tre ON tre.EmployeeID=em.EmployeeID
+    where em.ACCOUNT=#{account}
+  </select>
+
+<select id="loginMobilepatrolAPP" parameterType="com.hbdl.web.sys.api.Page.LoginUserAPP" resultType="com.hbdl.web.sys.api.Page.LoginUserAPP">
+  select em.EmployeeID,em.Grade,og.OrganizationName,em.Account
+  from Employee em LEFT JOIN Organization og on em.OrganizationNum=og.OrganizationNum
+  WHERE IsDisabled=0
+    <if test="account!=null and account!=''">
+      and em.Account=#{account}
+    </if>
+    <if test="password!=null and password!=''">
+      and em.Password=#{password}
+    </if>
+  ORDER BY em.Account ASC
+</select>
+
+  <select id="selectUserFromVuserinfo" parameterType="com.hbdl.web.sys.model.Employee" resultMap="userLoginEmployee">
+    SELECT user_id,login_name,password,name FROM V_USERINFO
+    <trim prefix="where" prefixOverrides="and">
+      <if test="account!=null and account!=''">
+        and login_name =#{account}
+      </if>
+      <if test="password!=null and password!=''">
+        and password =#{password}
+      </if>
+    </trim>
+  </select>
+
+  <select id="selectuserVuserinfoIsRoles" resultType="int">
+     select count(UserRolesID) from UserRoles where EmployeeID=#{employeeID}
+  </select>
+</mapper>

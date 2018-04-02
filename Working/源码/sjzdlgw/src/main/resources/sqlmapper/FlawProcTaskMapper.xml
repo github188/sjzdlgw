@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.FlawProcTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.FlawProcTask" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FlawProcTaskNum" property="flawProcTaskNum" jdbcType="DECIMAL" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeID" property="task_EmployeeID" jdbcType="VARCHAR" />
+    <result column="FlawProcTaskName" property="flawProcTaskName" jdbcType="VARCHAR" />
+    <result column="FlawProcTaskDescption" property="flawProcTaskDescption" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="WorkUserList" property="workUserList" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="StartDateTime" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="CompleteDateTime" property="completeDateTime" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="FlawProcTaskResultMap" type="com.hbdl.web.sys.controller.page.FlawProcTaskPage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="FlawProcTaskNum" property="flawProcTaskNum" jdbcType="DECIMAL" />
+    <result column="TaskStatusTypeID" property="taskStatusTypeID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="Task_EmployeeID" property="taskEmployeeID" jdbcType="VARCHAR" />
+    <result column="TaskEmployeeName" property="taskEmployeeName" jdbcType="VARCHAR" />
+    <result column="FlawProcTaskName" property="flawProcTaskName" jdbcType="VARCHAR" />
+    <result column="FlawProcTaskDescption" property="flawProcTaskDescption" jdbcType="VARCHAR" />
+    <result column="PlanDate" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="WorkUserList" property="workUserList" jdbcType="VARCHAR" />
+    <result column="WorkBillsCode" property="workBillsCode" jdbcType="VARCHAR" />
+    <result column="StartDateTime" property="startDateTime" jdbcType="TIMESTAMP" />
+    <result column="CompleteDateTime" property="completeDateTime" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="TaskStatusTypeName" property="taskStatusTypeName" jdbcType="VARCHAR" />
+    <result column="UserName" property="taskEmployeeName" jdbcType="VARCHAR" />
+    <result column="TeamTypeID" property="teamTypeID" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="DatePageMap" type="com.hbdl.web.sys.controller.page.DatePage">
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="Month" property="month" jdbcType="VARCHAR" />
+    <result column="Day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectFlawProcTaskPage" parameterType="com.hbdl.web.sys.controller.page.FlawProcTaskPage" resultMap="FlawProcTaskResultMap">
+    SELECT
+    FlawProcTaskNum,TaskStatusTypeID,EmployeeID,Task_EmployeeID,FlawProcTaskName,FlawProcTaskDescption
+    ,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo,TaskStatusTypeName,UserName,TeamTypeID
+    FROM v_FlawProcTask
+
+    <trim prefix="where" prefixOverrides="and">
+      <if test="taskStatusTypeIDList!=null">
+        <foreach collection="taskStatusTypeIDList" item="id" open="and TaskStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="teamTypeID!=null">
+        AND TeamTypeID=#{teamTypeID}
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+  <select id="selectFlawProcTaskPagePageById" parameterType="java.math.BigDecimal" resultMap="FlawProcTaskResultMap">
+  SELECT
+    FlawProcTaskNum,TaskStatusTypeID,EmployeeID,Task_EmployeeID,FlawProcTaskName,FlawProcTaskDescption
+    ,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo,TaskStatusTypeName,UserName,TeamTypeID
+    FROM v_FlawProcTask
+    WHERE  FlawProcTaskNum=#{flawProcTaskNum}
+  </select>
+
+  <select id="selectDatePageFromFlawProcTaskPage" resultMap="DatePageMap" parameterType="java.math.BigDecimal">
+    SELECT DISTINCT to_char(PlanDate,'yyyy') AS Year FROM v_FlawProcTask fpt
+    where fpt.TeamTypeID=#{teamTypeID}
+    ORDER BY Year DESC
+  </select>
+  <select id="selectFlawProcTaskPageByDate" parameterType="com.hbdl.web.sys.controller.page.FlawProcTaskPage" resultMap="FlawProcTaskResultMap">
+    SELECT
+    FlawProcTaskNum,TaskStatusTypeID,EmployeeID,Task_EmployeeID,FlawProcTaskName,FlawProcTaskDescption
+    ,PlanDate,WorkUserList,WorkBillsCode,StartDateTime,CompleteDateTime,Memo,TaskStatusTypeName,UserName,TeamTypeID
+    FROM v_FlawProcTask
+    <trim prefix="where" prefixOverrides="and">
+      <if test="yearList!=null">
+        <foreach collection="yearList" item="id" open="and to_char(PlanDate,'yyyy') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="monthList!=null">
+        <foreach collection="monthList" item="id" open="and to_char(PlanDate,'MM') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="dayList!=null">
+        <foreach collection="dayList" item="id" open="and to_char(PlanDate,'dd') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="taskStatusTypeIDList!=null">
+        <foreach collection="taskStatusTypeIDList" item="id" open="and TaskStatusTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+
+      <if test="teamTypeID!=null">
+        AND TeamTypeID=#{teamTypeID}
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+
+  <select id="selectFlawProcTaskPageByWorkUsersAndDate" parameterType="com.hbdl.web.sys.api.Page.OfflineRequest" resultMap="FlawProcTaskResultMap">
+    SELECT
+    fpt.FlawProcTaskNum,fpt.TaskStatusTypeID,fpt.EmployeeID,fpt.Task_EmployeeID,fpt.FlawProcTaskName,fpt.FlawProcTaskDescption,fpt.UserName AS taskEmployeeName,
+    fpt.PlanDate,fpt.WorkUserList,fpt.WorkBillsCode,fpt.StartDateTime,fpt.CompleteDateTime,fpt.Memo,fpt.TaskStatusTypeName,fpt.TeamTypeID
+    FROM v_FlawProcTask fpt
+    LEFT OUTER JOIN Employee emp ON emp.Account=#{account}
+    <trim prefix="where" prefixOverrides="and">
+      ( emp.UserName=fpt.WORKUSERLIST or fpt.WORKUSERLIST like emp.UserName||',%' or fpt.WORKUSERLIST like '%,'||emp.UserName or fpt.WORKUSERLIST like '%,'||emp.UserName||',%' or fpt.UserName=emp.UserName )
+
+      <if test="startDate!=null and startDate!='' and endDate!=null and endDate!=''">
+        AND (fpt.PlanDate BETWEEN to_date(#{startDate}, 'yyyy-MM-dd') and to_date(#{endDate}, 'yyyy-MM-dd'))
+      </if>
+    </trim>
+    and fpt.TaskStatusTypeID=2
+  </select>
+
+
+  <select id="downloadFlawProcTask" parameterType="hashmap" resultType="com.hbdl.web.sys.api.Page.FlawProcTaskPage">
+    select fpt.flawProcTaskNum,em.Account,fpt.FlawProcTaskName,fpt.PlanDate,fpt.WorkBillsCode,fpt.FlawProcTaskDescption,fpt.TeamTypeID
+    from FlawProcTask fpt LEFT JOIN Employee em on fpt.Task_EmployeeID=em.EmployeeID
+    where fpt.TaskStatusTypeID=2
+    <if test="Task_EmployeeID!=null and Task_EmployeeID!=''">
+      and  fpt.Task_EmployeeID=#{Task_EmployeeID}
+    </if>
+    <if test="TeamTypeIDs!=null">
+      and fpt.TeamTypeID in
+      <foreach item="TeamType" collection="TeamTypeIDs" open="(" separator="," close=")">
+        #{TeamType}
+      </foreach>
+    </if>
+    <if test="bdate!=null and edate!=null">
+      and fpt.PlanDate BETWEEN #{bdate} AND #{edate}
+    </if>
+    order BY fpt.TeamTypeID
+  </select>
+</mapper>

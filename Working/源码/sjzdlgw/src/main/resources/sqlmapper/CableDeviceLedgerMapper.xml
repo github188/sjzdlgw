@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.CableDeviceLedgerMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.CableDeviceLedger" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="VoltageLevelID" property="voltageLevelID" jdbcType="DECIMAL" />
+    <result column="EmployeeID" property="employeeID" jdbcType="VARCHAR" />
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" jdbcType="DECIMAL" />
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL" />
+    <result column="ProjectTypeID" property="projectTypeID" jdbcType="DECIMAL" />
+    <result column="LedgerName" property="ledgerName" jdbcType="VARCHAR" />
+    <result column="LedgerCode" property="ledgerCode" jdbcType="VARCHAR" />
+    <result column="ProjectCode" property="projectCode" jdbcType="VARCHAR" />
+    <result column="ArchivesTime" property="archivesTime" jdbcType="TIMESTAMP" />
+    <result column="IsRush" property="isRush" jdbcType="DECIMAL" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="AccpetDate" property="accpetDate" jdbcType="TIMESTAMP" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="ArchivesType" property="archivesType" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="CableDeviceLedgerPageMap" type="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage">
+    <id column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="VoltageLevelName" property="voltageLevelName" jdbcType="VARCHAR"></result>
+    <result column="ProjectTypeID" property="projectTypeID" jdbcType="DECIMAL"></result>
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL"></result>
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" jdbcType="DECIMAL"></result>
+    <result column="ProjectTypeName" property="projectTypeName" jdbcType="VARCHAR"></result>
+    <result column="LedgerName" property="ledgerName" jdbcType="VARCHAR" />
+    <result column="LedgerCode" property="ledgerCode" jdbcType="VARCHAR" />
+    <result column="ProjectCode" property="projectCode" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="AccpetDate" property="accpetDate" jdbcType="TIMESTAMP" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR"/>
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="ArchivesType" property="archivesType" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <resultMap id="DatePageMap" type="com.hbdl.web.sys.controller.page.DatePage">
+    <result column="Year" property="year" jdbcType="VARCHAR" />
+    <result column="Month" property="month" jdbcType="VARCHAR" />
+    <result column="Day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectCableDeviceLedgerPage" parameterType="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage" resultMap="CableDeviceLedgerPageMap">
+    SELECT Num,voltageLevelName,ProjectTypeName,AcceptStatusTypeID,LedgerName,LedgerCode,ProjectCode,BuildDate,AccpetDate,UserName,Memo,PathTypeID FROM v_CableDeviceLedger
+    <trim prefix="where" prefixOverrides="and">
+      <if test="ledgerCode!=null and ledgerCode!=''">
+        and LedgerCode = #{ledgerCode,jdbcType=VARCHAR}
+      </if>
+      <!-- 工程名称-->
+      <if test="ledgerName!=null and ledgerName!=''">
+        and ledgerName = #{ledgerName,jdbcType=VARCHAR}
+      </if>
+       <!--输电配电类型-->
+      <if test="pathTypeID!=null and pathTypeID!=''">
+        and pathTypeID = #{pathTypeID,jdbcType=DECIMAL}
+      </if>
+      <!-- 电压等级-->
+      <if test="voltageLevelIDs!=null">
+        <foreach collection="voltageLevelIDs" item="id" open="and voltageLevelID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <!-- 工程性质-->
+      <if test="projectTypeIDs!=null">
+        <foreach collection="projectTypeIDs" item="id" open="and projectTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+</select>
+
+
+  <resultMap id="CableDeviceLedgerPage4ManageMap" type="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage">
+    <id column="Num" property="num" jdbcType="DECIMAL" />
+    <result column="VoltageLevelName" property="voltageLevelName" jdbcType="VARCHAR"></result>
+    <result column="ProjectTypeID" property="projectTypeID" jdbcType="DECIMAL"></result>
+    <result column="ProjectTypeName" property="projectTypeName" jdbcType="VARCHAR"></result>
+    <result column="LedgerName" property="ledgerName" jdbcType="VARCHAR" />
+    <result column="LedgerCode" property="ledgerCode" jdbcType="VARCHAR" />
+    <result column="ProjectCode" property="projectCode" jdbcType="VARCHAR" />
+    <result column="BuildDate" property="buildDate" jdbcType="TIMESTAMP" />
+    <result column="AccpetDate" property="accpetDate" jdbcType="TIMESTAMP" />
+    <result column="UserName" property="userName" jdbcType="VARCHAR"/>
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    <result column="ArchivesTime" property="archivesTime" jdbcType="TIMESTAMP" />
+    <result column="AcceptStatusTypeID" property="acceptStatusTypeID" jdbcType="DECIMAL" />
+    <result column="AcceptStatusTypeName" property="acceptStatusTypeName" jdbcType="VARCHAR" />
+    <result column="PathTypeID" property="pathTypeID" jdbcType="DECIMAL" />
+    <result column="ArchivesType" property="archivesType" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectCableDeviceLedgerPage4Manage" parameterType="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage" resultMap="CableDeviceLedgerPage4ManageMap">
+    SELECT DISTINCT cdl.Num AS Num, cdl.ProjectTypeID AS ProjectTypeID, pt.ProjectTypeName AS ProjectTypeName, cdl.LedgerName AS LedgerName, pcl.VoltageLevelName AS VoltageLevelName,
+    cdl.LedgerCode AS LedgerCode, cdl.ProjectCode AS ProjectCode, cdl.BuildDate AS BuildDate, cdl.AccpetDate AS AccpetDate, em.UserName AS UserName,
+    cdl.Memo AS Memo,
+    cdl.ArchivesTime AS ArchivesTime, cdl.AcceptStatusTypeID AS AcceptStatusTypeID, ast.AcceptStatusTypeName AS AcceptStatusTypeName, cdl.PathTypeID AS PathTypeID
+    FROM CableDeviceLedger cdl
+    LEFT OUTER JOIN Employee em ON cdl.EmployeeID=em.EmployeeID
+    LEFT OUTER JOIN AcceptStatusType ast ON cdl.AcceptStatusTypeID=ast.AcceptStatusTypeID
+    LEFT OUTER JOIN ProjectType pt ON cdl.ProjectTypeID=pt.ProjectTypeID
+    LEFT OUTER JOIN PowerCableLevel pcl ON pcl.VoltageLevelID=cdl.VoltageLevelID
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="num!=null">
+        and cdl.Num = #{num,jdbcType=DECIMAL}
+      </if>
+      <if test="employeeID!=null">
+        and cdl.EmployeeID = #{employeeID,jdbcType=DECIMAL}
+      </if>
+      <if test="voltageLevelID!=null">
+        and VoltageLevelID = #{voltageLevelID,jdbcType=DECIMAL}
+      </if>
+      <if test="acceptStatusTypeID!=null">
+        and cdl.AcceptStatusTypeID = #{acceptStatusTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="pathTypeID!=null">
+        and cdl.PathTypeID = #{pathTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="projectTypeID!=null">
+        and cdl.ProjectTypeID = #{projectTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="ledgerName!=null and ledgerName!=''">
+        and cdl.LedgerName like '%'||#{ledgerName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="ledgerCode!=null and ledgerCode!=''">
+        and cdl.LedgerCode like '%'||#{ledgerCode,jdbcType=VARCHAR}||'%'
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+  <select id="selectFromDatePage" resultMap="DatePageMap" parameterType="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage">
+    SELECT DISTINCT to_char(AccpetDate,'yyyy') AS Year FROM v_CableDeviceLedger
+    <trim prefix="where" prefixOverrides="and">
+    <!--输电配电类型-->
+    <if test="acceptStatusTypeID!=null and acceptStatusTypeID!=''">
+      and acceptStatusTypeID = #{acceptStatusTypeID,jdbcType=DECIMAL}
+    </if>
+    <if test="pathTypeID!=null and pathTypeID!=''">
+      and pathTypeID = #{pathTypeID,jdbcType=DECIMAL}
+    </if>
+    </trim>
+    ORDER BY Year DESC
+  </select>
+  <select id="selectCableDeviceLedgerPageByDate" parameterType="com.hbdl.web.sys.controller.page.CableDeviceLedgerPage" resultMap="CableDeviceLedgerPageMap">
+    SELECT Num,voltageLevelName,ProjectTypeName,AcceptStatusTypeID,LedgerName,LedgerCode,ProjectCode,BuildDate,AccpetDate,UserName,Memo,PathTypeID FROM v_CableDeviceLedger
+    <trim prefix="where" prefixOverrides="and">
+      <if test="yearList!=null">
+        <foreach collection="yearList" item="id" open="and to_char(AccpetDate,'yyyy') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="monthList!=null">
+        <foreach collection="monthList" item="id" open="and to_char(AccpetDate,'MM') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <if test="dayList!=null">
+        <foreach collection="dayList" item="id" open="and to_char(AccpetDate,'dd') in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <!--输电配电类型-->
+      <if test="acceptStatusTypeID!=null and acceptStatusTypeID!=''">
+        and acceptStatusTypeID = #{acceptStatusTypeID,jdbcType=DECIMAL}
+      </if>
+      <if test="pathTypeID!=null and pathTypeID!=''">
+        and pathTypeID = #{pathTypeID,jdbcType=DECIMAL}
+      </if>
+      <!-- 电压等级-->
+      <if test="voltageLevelIDs!=null">
+        <foreach collection="voltageLevelIDs" item="id" open="and voltageLevelID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+      <!-- 工程性质-->
+      <if test="projectTypeIDs!=null">
+        <foreach collection="projectTypeIDs" item="id" open="and projectTypeID in(" separator="," close=")">
+          #{id}
+        </foreach>
+      </if>
+    </trim>
+    <if test="orderStr!=null and orderStr!=''">
+      ORDER BY ${orderStr}
+    </if>
+  </select>
+</mapper>

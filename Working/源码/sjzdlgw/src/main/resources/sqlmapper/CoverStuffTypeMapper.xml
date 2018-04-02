@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbdl.web.sys.mapper.CoverStuffTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hbdl.web.sys.model.CoverStuffType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="CoverStuffTypeID" property="coverStuffTypeID" jdbcType="DECIMAL" />
+    <result column="ManholeCoverTypeID" property="manholeCoverTypeID" jdbcType="DECIMAL" />
+    <result column="CoverStuffTypeName" property="coverStuffTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
